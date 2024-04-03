@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Hattfabriken.Models.Viewmodels
 {
-    public class CreateAccount : IdentityUser
+    public class CreateAccountViewModel : IdentityUser
     {
         [Required(ErrorMessage = "Vänligen välj ett användarnamn")]
         [Display(Name = "Användarnamn")]
