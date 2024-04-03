@@ -2,9 +2,9 @@
 
 namespace Hattfabriken.Controllers
 {
-    public class ForfragningController : Controller
+    public class HomeController : Controller
     {
-        public IActionResult ForFragning()
+        public IActionResult Index()
         {
             return View();
         }

@@ -2,11 +2,14 @@
 
 namespace Hattfabriken.Controllers
 {
-    public class HomeController1 : Controller
+
+    public class RequestController : Controller
     {
-        public IActionResult Index()
+
+        public IActionResult NewRequest()
         {
             return View();
         }
+
     }
 }
