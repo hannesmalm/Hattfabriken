@@ -8,16 +8,16 @@
         <form asp-action="Register" method="post" enctype="multipart/form-data" class="mx-auto col-md-6">
             <div class="form-group">
                 <label for="Anvandarnamn">Användarnamn:</label>
-                <input type="text" class="form-control" asp-for="Anvandarnamn" />
-                <span asp-validation-for="Anvandarnamn" class="text-danger"></span>
+                <input type="text" class="form-control" asp-for="Username" />
+                <span asp-validation-for="Username" class="text-danger"></span>
             </div>
 
         
 
             <div class="form-group">
                 <label for="Losenord">Lösenord:</label>
-                <input type="password" class="form-control" asp-for="Losenord" />
-                <span asp-validation-for="Losenord" class="text-danger"></span>
+                <input type="password" class="form-control" asp-for="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div
 
             <button type="submit" class="btn btn-primary">Registrera</button>
