@@ -53,7 +53,24 @@ namespace Hattfabriken.Controllers
 
         //        return RedirectToAction(nameof(StorageOfMaterials));
         //    }
-        //    // If ModelState is not valid, return to the same view with validation errors
+        //    
+        //    return View(material);
+        //}
+
+
+
+        //[HttpPost]
+        //public IActionResult EditMaterial(Material material)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // ändra _dbContext till rätt instance
+        //        _dbContext.Materials.Update(material);
+        //        _dbContext.SaveChanges();
+
+        //        return RedirectToAction(nameof(StorageOfMaterials));
+        //    }
+            
         //    return View(material);
         //}
 
