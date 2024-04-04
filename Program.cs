@@ -1,7 +1,15 @@
+using Hattfabriken.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<HattDbContext>(options =>
+            options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("HattDbContext")));
 
 var app = builder.Build();
 
