@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    <h1>Skapa en ny förfrågan!</h1>
+    <div class="CommentBox">
+        <p> Är det något speciellt som vi ska tänka på?</p>
+        <textarea rows="8" cols="50" placeholder="Skriv din kommentar här..."></textarea>
+    </div>
+
+    <div class="SpecialEffects">
+        <p>Är det några specialeffekter som du vill ha?</p>
+        <p>Fjäder: <input type="checkbox"></p>
+        <p>Spets: <input type="checkbox"></p>
+        <p>Pärlor: <input type="checkbox"></p>
+        <p>Blomma: <input type="checkbox"></p>
+    </div>
+
+    <div class="Material">
+        <p>Vilket material vill du ha på hatten?</p>
+        <p>Läder: <input type="checkbox"></p>
+        <p>Tyg: <input type="checkbox"></p>
+        <p>Skinn: <input type="checkbox"></p>
+        <p>Strå: <input type="checkbox"></p>
+    </div>
+
+    <div class="Measure">
+        <p>Mått, höjd och typ</p>
+        <input type="text" size="5" placeholder="Mått..." align="left">
+        <input type="text" size="5" placeholder="Höjd..." align="left">
+        <label>Välj en hatt:</label>
+        <select name="Hattar">
+            <option disabled selected>Välj typ...</option>
+            <option>Cowboy</option>
+            <option>Sheriff</option>
+            <option>Peaky Bliders</option>
+        </select>
+    </div>
+
+    <div class="ContactDetails">
+        <p>Kontakt och leveransuppgifter:</p>
+        <label>Välj en land:</label>
+        <select name="Land">
+            <option disabled selected>Välj land...</option>
+            <option>Sverige</option>
+            <option>USA</option>
+            <option>Storbritanien</option>
+            <option>Grekland</option>
+            <option>Norge</option>
+            <option>Finland</option>
+            <input type="text" size="20" placeholder="Adress..." align="left">
+            <input type="text" size="6" placeholder="Postnummer..." align="left">
+            <input type="text" size="20" placeholder="Email..." align="left">
+            <input type="text" size="10" placeholder="Telefonnummer..." align="left">
+        </select>
+    </div>
+
+    <div class="Save">
+        <a class="button" asp-controller="Request" asp-action="RequestThru">Skicka förfrågan</a>
+    </div>
+}
