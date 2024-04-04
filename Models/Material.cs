@@ -14,10 +14,5 @@ namespace Hattfabriken.Models
         public int MaterialQuantity { get; set; }
         public string MaterialSupplier { get; set; }
         public int Price { get; set; }
-
-
-
-        
-
     }
 }

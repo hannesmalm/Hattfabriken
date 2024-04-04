@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+@model IEnumerable<Material>
+
+@{
+    ViewData["Title"] = "Storage of Materials";
+}
+
+<h1>Storage of Materials</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var material in Model)
+        {
+            <tr>
+                <td>@material.Name</td>
+                <td>@material.Quantity</td>
+                <td>
+                    <a asp-action="EditMaterial" asp-route-id="@material.Id" class="btn btn-primary">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Add New Material</h2>
+<form asp-action="AddMaterial" method="post">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="Quantity" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Add Material</button>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
