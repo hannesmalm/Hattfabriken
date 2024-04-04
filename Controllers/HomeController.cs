@@ -18,6 +18,11 @@ namespace Hattfabriken.Controllers
             return View();
         }
 
+        public IActionResult GoToAdminPage()
+        {
+            // Använd RedirectToAction för att dirigera till AdminController och dess Index-åtgärd
+            return RedirectToAction();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
