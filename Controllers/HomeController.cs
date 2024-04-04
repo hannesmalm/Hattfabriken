@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Hattfabriken.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace Hattfabriken.Controllers
 {
