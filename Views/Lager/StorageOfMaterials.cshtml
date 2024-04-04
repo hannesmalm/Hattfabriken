@@ -25,10 +25,10 @@
         @foreach (var material in Model)
         {
             <tr>
-                <td>@material.Name</td>
-                <td>@material.Quantity</td>
+                <td>@material.MaterialName</td>
+                <td>@material.MaterialQuantity</td>
                 <td>
-                    <a asp-action="EditMaterial" asp-route-id="@material.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="EditMaterial" asp-route-id="@material.MaterialName" class="btn btn-primary">Edit</a>
                 </td>
             </tr>
         }
