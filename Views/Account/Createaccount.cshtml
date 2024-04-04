@@ -7,7 +7,7 @@
 
         <form asp-action="Register" method="post" enctype="multipart/form-data" class="mx-auto col-md-6">
             <div class="form-group">
-                <label for="Anvandarnamn">Usename:</label>
+                <label for="Username">Username:</label>
                 <input type="text" class="form-control" asp-for="Username" />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
@@ -15,7 +15,7 @@
         
 
             <div class="form-group">
-                <label for="Losenord">Password:</label>
+                <label for="Password">Password:</label>
                 <input type="password" class="form-control" asp-for="Password" />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div

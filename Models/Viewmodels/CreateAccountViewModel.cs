@@ -7,15 +7,15 @@ namespace Hattfabriken.Models.Viewmodels
 {
     public class CreateAccountViewModel : IdentityUser
     {
-        [Required(ErrorMessage = "Vänligen välj ett användarnamn")]
-        [Display(Name = "Användarnamn")]
-        [MinLength(3, ErrorMessage = "Användarnamnet måste vara minst 3 tecken långt.")]
+        [Required(ErrorMessage = "Please choose a username")]
+        [Display(Name = "Username")]
+        [MinLength(3, ErrorMessage = "Username must be at least 3 characters long")]
         [Key]
         public string Username { get; set; }
 
-        [Required(ErrorMessage = "Vänligen fyll i ett lösenord")]
-        [Display(Name = "Lösenord")]
-        [MinLength(6, ErrorMessage = "Lösenordet måste vara minst 6 tecken långt.")]
+        [Required(ErrorMessage = "Please enter a password")]
+        [Display(Name = "Password")]
+        [MinLength(6, ErrorMessage = "Password must be at least 6 characters long.")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }
