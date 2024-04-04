@@ -26,6 +26,15 @@ namespace Hattfabriken.Controllers
 
         public IActionResult StorageOfMaterials()
         {
+
+            //// sätt rätt db Instance
+            //var materials = _dbContext.Materials.ToList();  
+            //if (materials == null)
+            //{
+            //    // Hantera null cases
+            //    // returnerar en tom lista om model is null
+            //    materials = new List<Material>();
+            //}
             // Saknar models
             return View("~/Views/Lager/StorageOfMaterials.cshtml");
         }
