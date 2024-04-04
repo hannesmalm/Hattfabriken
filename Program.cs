@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<HattDbContext>(options =>
+builder.Services.AddDbContext<HatDbContext>(options =>
             options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("HattDbContext")));
 
 var app = builder.Build();

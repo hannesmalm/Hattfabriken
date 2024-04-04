@@ -4,19 +4,16 @@ using Hattfabriken.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace Hattfabriken.Migrations
 {
-    [DbContext(typeof(HattDbContext))]
-    [Migration("20240403124940_Hattfabriken1")]
-    partial class Hattfabriken1
+    [DbContext(typeof(HatDbContext))]
+    partial class HatDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,6 +24,120 @@ namespace Hattfabriken.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Hattfabriken.Models.Customer", b =>
+                {
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Adress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("Email");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.Forfragan", b =>
+                {
+                    b.Property<int>("ForfraganID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ForfraganID"));
+
+                    b.Property<int>("HatId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ForfraganID");
+
+                    b.ToTable("Forfragor");
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.Hatt", b =>
+                {
+                    b.Property<int>("HatId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HatId"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HatName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MaterialName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SpecialEffects")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("HatId");
+
+                    b.ToTable("Hattar");
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.Material", b =>
+                {
+                    b.Property<string>("MaterialName")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("MaterialQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MaterialSupplier")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.HasKey("MaterialName");
+
+                    b.ToTable("Materials");
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.Warehouse", b =>
+                {
+                    b.Property<int>("WarehouseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WarehouseId"));
+
+                    b.Property<string>("MaterialName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quanitity")
+                        .HasColumnType("int");
+
+                    b.HasKey("WarehouseId");
+
+                    b.ToTable("Warehouses");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
