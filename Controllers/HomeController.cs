@@ -23,6 +23,12 @@ namespace Hattfabriken.Controllers
             return View();
         }
 
+        public IActionResult StorageOfMaterials()
+        {
+            // Saknar models
+            return View("~/Views/Lager/StorageOfMaterials.cshtml");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
