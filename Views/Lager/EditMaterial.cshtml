@@ -1,0 +1,20 @@
+﻿@model Material
+
+<h1>Edit Material</h1>
+
+<form asp-controller="Material" asp-action="EditMaterial" method="post">
+    <input type="hidden" asp-for="MaterialName" />
+    <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="MaterialQuantity" class="form-control" value="@Model.MaterialQuantity" />
+    </div>
+    <div class="form-group">
+        <label for="supplier">Supplier:</label>
+        <input type="text" id="supplier" name="MaterialSupplier" class="form-control" value="@Model.MaterialSupplier" />
+    </div>
+    <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="Price" class="form-control" value="@Model.Price" />
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
