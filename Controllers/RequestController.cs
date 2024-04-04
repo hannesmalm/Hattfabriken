@@ -11,5 +11,11 @@ namespace Hattfabriken.Controllers
             return View();
         }
 
+        public IActionResult RequestThru()
+        {
+
+            return View();
+        }
+
     }
 }
