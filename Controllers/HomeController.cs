@@ -1,5 +1,6 @@
 using Hattfabriken.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace Hattfabriken.Controllers
@@ -28,6 +29,17 @@ namespace Hattfabriken.Controllers
             // Saknar models
             return View("~/Views/Lager/StorageOfMaterials.cshtml");
         }
+
+
+        //Material controller - vänta tills databasen är kopplad
+
+        //public IActionResult StorageOfMaterials()
+        //{
+        //    
+        //    var materials = _dbContext.Materials.ToList(); // ändra _dbContext till rätt instance
+
+        //    return View(materials);
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
