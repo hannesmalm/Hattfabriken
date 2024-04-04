@@ -62,7 +62,7 @@ namespace Hattfabriken.Controllers
 
         //        return RedirectToAction(nameof(StorageOfMaterials));
         //    }
-        //    
+
         //    return View(material);
         //}
 
@@ -79,7 +79,7 @@ namespace Hattfabriken.Controllers
 
         //        return RedirectToAction(nameof(StorageOfMaterials));
         //    }
-            
+
         //    return View(material);
         //}
 
