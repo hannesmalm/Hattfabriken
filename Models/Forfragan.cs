@@ -9,18 +9,25 @@ namespace Hattfabriken.Models
         [Key]
         public int ForfraganID {  get; set; }
         [ForeignKey("Hatt")]
-        public int HatId
-        { get; set; }
+        public int HatId { get; set; }
+        [Required]
         public string Material { get; set; }
+        [Required]
         public int Matt { get; set; }
+        [Required]
         public int Hojd { get; set; }
         public string Kommentar { get; set; }
         public string SpecialEffekter { get; set; }
+        [Required]
         public string Adress { get; set; }
+        [Required]
         public int Postnummer { get; set; }
+        [Required]
         public int Telefonnummer { get; set; }
+        [Required]
         public string Land { get; set; }
         [ForeignKey("Customer")]
+        [Required]
         public string Email { get; set; }
         
 
