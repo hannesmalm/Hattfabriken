@@ -2,8 +2,8 @@
 {
     public class Material
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int Quantity { get; set; }
+        public int MaterialId { get; set; }
+        public string MaterialName { get; set; }
+        public int MaterialQuantity { get; set; }
     }
 }
