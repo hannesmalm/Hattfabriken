@@ -1,20 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Hattfabriken.Models.Viewmodels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Hattfabriken.Models;
 
 namespace Hattfabriken.Controllers
 {
     public class AccountController : Controller
     {
 
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly HatDbContext _dbContext;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, HatDbContext dbContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-
+            _dbContext = dbContext;
         }
 
         [HttpGet]
@@ -105,7 +108,7 @@ namespace Hattfabriken.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
+                User newUser = new User
                 {
 
                     UserName = model.Username
@@ -113,7 +116,7 @@ namespace Hattfabriken.Controllers
                 };
 
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var result = await _userManager.CreateAsync(newUser, model.Password);
 
                 if (result.Succeeded)
                 {
