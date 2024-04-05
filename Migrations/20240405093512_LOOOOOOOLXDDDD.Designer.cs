@@ -4,6 +4,7 @@ using Hattfabriken.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    partial class HatDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240405093512_LOOOOOOOLXDDDD")]
+    partial class LOOOOOOOLXDDDD
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,22 +142,6 @@ namespace Hattfabriken.Migrations
                     b.HasKey("MaterialName");
 
                     b.ToTable("Materials");
-
-                    b.HasData(
-                        new
-                        {
-                            MaterialName = "Leather",
-                            MaterialQuantity = 1000,
-                            MaterialSupplier = "Supplier A",
-                            Price = 10
-                        },
-                        new
-                        {
-                            MaterialName = "Straw",
-                            MaterialQuantity = 1000,
-                            MaterialSupplier = "Supplier B",
-                            Price = 8
-                        });
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Warehouse", b =>

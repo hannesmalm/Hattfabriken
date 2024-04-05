@@ -2,19 +2,45 @@
 
 <h1>Edit Material</h1>
 
-<form asp-controller="Material" asp-action="EditMaterial" method="post">
+<form asp-controller="Material" asp-action="EditMaterial" method="post" id="editMaterialForm">
     <input type="hidden" asp-for="MaterialName" />
+
     <div class="form-group">
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" name="MaterialQuantity" class="form-control" value="@Model.MaterialQuantity" />
+        <span asp-validation-for="MaterialQuantity" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label for="supplier">Supplier:</label>
         <input type="text" id="supplier" name="MaterialSupplier" class="form-control" value="@Model.MaterialSupplier" />
+        <span asp-validation-for="MaterialSupplier" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label for="price">Price:</label>
         <input type="number" id="price" name="Price" class="form-control" value="@Model.Price" />
+        <span asp-validation-for="Price" class="text-danger"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+
+    <button type="button" class="btn btn-primary" id="saveChangesBtn">Save Changes</button>
 </form>
+
+@section Scripts {
+    <script>
+        document.getElementById('saveChangesBtn').addEventListener('click', function () {
+            // Check if any of the input fields are empty
+            var quantity = document.getElementById('quantity').value.trim();
+            var supplier = document.getElementById('supplier').value.trim();
+            var price = document.getElementById('price').value.trim();
+
+            if (quantity === '' || supplier === '' || price === '') {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            // If all fields are filled, submit the form
+            document.getElementById('editMaterialForm').submit();
+        });
+    </script>
+}
