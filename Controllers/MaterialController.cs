@@ -60,5 +60,20 @@ namespace Hattfabriken.Controllers
             }
             return View(material);
         }
+
+
+        [HttpPost]
+        public IActionResult OrderMaterial(string materialName)
+        {
+            var material = _dbContext.Materials.FirstOrDefault(m => m.MaterialName == materialName);
+            if (material != null)
+            {
+                // Assume ordering 100 units, update as needed
+                material.MaterialQuantity += 100;
+                _dbContext.SaveChanges();
+            }
+            return RedirectToAction(nameof(StorageOfMaterials));
+        }
+
     }
 }
