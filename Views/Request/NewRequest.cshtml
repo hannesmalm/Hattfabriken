@@ -1,39 +1,47 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Forfragan
+
 @{
+    ViewData["Title"] = "Skapa en ny förfrågan";
+}
+
+@using (Html.BeginForm("RequestThru", "Request", FormMethod.Post))
+{
+    
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
     <h1>Skapa en ny förfrågan!</h1>
     <div class="CommentBox">
         <p> Är det något speciellt som vi ska tänka på?</p>
-        <textarea rows="8" cols="50" placeholder="Skriv din kommentar här..."></textarea>
+        @Html.TextAreaFor(model => model.Kommentar, new { rows = "8", cols = "50", placeholder = "Skriv din kommentar här...", name = "Kommentar"})
+        @Html.ValidationMessageFor(model => model.Kommentar, "", new {@class = "text-danger"})
     </div>
 
     <div class="SpecialEffects">
         <p>Är det några specialeffekter som du vill ha?</p>
-        <p>Fjäder: <input type="checkbox"></p>
-        <p>Spets: <input type="checkbox"></p>
-        <p>Pärlor: <input type="checkbox"></p>
-        <p>Blomma: <input type="checkbox"></p>
+        <p>Fjäder: <input type="checkbox" name="Fjader"></p>
+        <p>Spets: <input type="checkbox" name="Spets"></p>
+        <p>Pärlor: <input type="checkbox" name="Parlor"></p>
+        <p>Blomma: <input type="checkbox" name="Blomma"></p>
     </div>
 
     <div class="Material">
         <p>Vilket material vill du ha på hatten?</p>
-        <p>Läder: <input type="checkbox"></p>
-        <p>Tyg: <input type="checkbox"></p>
-        <p>Skinn: <input type="checkbox"></p>
-        <p>Strå: <input type="checkbox"></p>
+        <p>Läder: <input type="checkbox" name="Lader"></p>
+        <p>Tyg: <input type="checkbox" name="Tyg"></p>
+        <p>Skinn: <input type="checkbox" name="Skinn"></p>
+        <p>Strå: <input type="checkbox" name="Stra"></p>
     </div>
 
     <div class="Measure">
         <p>Mått, höjd och typ</p>
-        <input type="text" size="5" placeholder="Mått..." align="left">
-        <input type="text" size="5" placeholder="Höjd..." align="left">
+        <input type="text" size="5" placeholder="Mått..." align="left" name="Matt">
+        <input type="text" size="5" placeholder="Höjd..." align="left" name="Hojd">
         <label>Välj en hatt:</label>
-        <select name="Hattar">
+        <select name="HatId">
             <option disabled selected>Välj typ...</option>
-            <option>Cowboy</option>
-            <option>Sheriff</option>
-            <option>Peaky Bliders</option>
+            <option value"1">Cowboy</option>
+            <option value"2">Sheriff</option>
+            <option value"3">Peaky Bliders</option>
         </select>
     </div>
 
@@ -42,20 +50,20 @@
         <label>Välj en land:</label>
         <select name="Land">
             <option disabled selected>Välj land...</option>
-            <option>Sverige</option>
-            <option>USA</option>
-            <option>Storbritanien</option>
-            <option>Grekland</option>
-            <option>Norge</option>
-            <option>Finland</option>
-            <input type="text" size="20" placeholder="Adress..." align="left">
-            <input type="text" size="6" placeholder="Postnummer..." align="left">
-            <input type="text" size="20" placeholder="Email..." align="left">
-            <input type="text" size="10" placeholder="Telefonnummer..." align="left">
+            <option value="Sverige">Sverige</option>
+            <option value="USA">USA</option>
+            <option value="Storbritanien">Storbritanien</option>
+            <option value="Grekland">Grekland</option>
+            <option value="Norge">Norge</option>
+            <option value="Finland">Finland</option>
+            <input type="text" size="20" placeholder="Adress..." align="left" name="Adress">
+            <input type="text" size="6" placeholder="Postnummer..." align="left" name="Postnummer">
+            <input type="text" size="20" placeholder="Email..." align="left" name="Email">
+            <input type="text" size="10" placeholder="Telefonnummer..." align="left" name="Telefonnummer">
         </select>
     </div>
 
     <div class="Save">
-        <a class="button" asp-controller="Request" asp-action="RequestThru">Skicka förfrågan</a>
+        <button type="submit" class="btn btn-primary">Skicka förfrågan</button>
     </div>
 }
