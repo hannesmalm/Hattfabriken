@@ -22,7 +22,8 @@ namespace Hattfabriken.Models
         public string Adress { get; set; }
         [Required]
         public int Postnummer { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Telefonnumret är obligatoriskt.")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "Telefonnumret får bara innehålla siffror.")]
         public int Telefonnummer { get; set; }
         [Required]
         public string Land { get; set; }
