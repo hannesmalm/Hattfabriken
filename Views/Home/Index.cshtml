@@ -1,11 +1,41 @@
-﻿@{
+@model Hattfabriken.Models.IndexViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <button>Click here to place an order</button>
+        </div>
+    </div>
+
+</body>
+<!-- CARDBODY FÖR HATTAR -->
+<div id="hatList">
+    <div id="hatList" class="rox">
+        <div class="col">
+            <div class="card mx-auto mb-4 shadow" style="width: 240px;">
+               <img class="img roundes-circle m-4" style="aspect-ratio: 1/1; object-fit: cover;"
+               src="" alt="Hat Picture"/>
+               <div class="card-body text-center">
+                   <h5 class="card-title">Hatt standardutbud</h5>
+                   <p class="card-text">blablabla</p>
+                   <div class="text-center">
+                       <button class="btn btn-success mb-2">Order</button>
+                   </div>
+               </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<div class="row justify-content-center">
+    <a asp-controller="Admin" asp-action="Index" class="btn btn-primary">Go to Admin Page</a>
+</div>
+
 <div class="Forfragan-knapp">
     <a asp-controller="Request" asp-action="NewRequest">Skapa en förfrågan</a>
 </div>
+
