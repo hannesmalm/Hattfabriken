@@ -8,9 +8,7 @@ namespace Hattfabriken.Models
         [Key]
         public int ForfraganID {  get; set; }
         [ForeignKey("Hatt")]
-        public int HatId
-        { get; set; }
-
+        public int HatId { get; set; }
         public string Material {  get; set; }
         public int Matt {  get; set; }
         public int Hojd { get; set; }
