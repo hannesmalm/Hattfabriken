@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Hattfabriken.Models
 {
-    public class HatDbContext : IdentityDbContext
+    public class HatDbContext : IdentityDbContext<User>
     {
         public HatDbContext(DbContextOptions<HatDbContext> options) : base(options) { }
 

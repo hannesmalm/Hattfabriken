@@ -74,7 +74,7 @@ namespace Hattfabriken.Controllers
                 if (user == null)
                 {
                     // Hantera fallet när användaren inte hittas
-                    return RedirectToAction("Login", "Account");
+                    return RedirectToAction("LogIn", "Account");
                 }
 
                 var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
