@@ -1,4 +1,4 @@
-﻿@model Hattfabriken.Models.IndexViewModel
+@model Hattfabriken.Models.IndexViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -34,3 +34,8 @@
 <div class="row justify-content-center">
     <a asp-controller="Admin" asp-action="Index" class="btn btn-primary">Go to Admin Page</a>
 </div>
+
+<div class="Forfragan-knapp">
+    <a asp-controller="Request" asp-action="NewRequest">Skapa en förfrågan</a>
+</div>
+
