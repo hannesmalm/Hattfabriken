@@ -7,30 +7,41 @@ namespace Hattfabriken.Models
     public class Forfragan
     {
         [Key]
-        public int ForfraganID {  get; set; }
+        public int ForfraganID { get; set; }
+
         [ForeignKey("Hatt")]
         public int HatId { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Material måste anges")]
         public string Material { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Matt måste anges")]
         public int Matt { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Höjd måste anges")]
         public int Hojd { get; set; }
+
+        // Kommentar är inte längre obligatorisk
         public string Kommentar { get; set; }
+
         public string SpecialEffekter { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Adress måste anges")]
         public string Adress { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Postnummer måste anges")]
         public int Postnummer { get; set; }
-        [Required(ErrorMessage = "Telefonnumret är obligatoriskt.")]
+
+        [Required(ErrorMessage = "Telefonnummer måste anges")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Telefonnumret får bara innehålla siffror.")]
         public int Telefonnummer { get; set; }
-        [Required]
+
+        [Required(ErrorMessage = "Land måste anges")]
         public string Land { get; set; }
+
         [ForeignKey("Customer")]
-        [Required]
+        [Required(ErrorMessage = "Email måste anges")]
         public string Email { get; set; }
-        
 
     }
 }
