@@ -12,74 +12,85 @@
     <div class="CommentBox">
         <p>Är det något speciellt som vi ska tänka på?</p>
         @Html.TextAreaFor(model => model.Kommentar, new { rows = "8", cols = "50", placeholder = "Skriv din kommentar här..." })
-        @Html.ValidationMessageFor(model => model.Kommentar, "", new { @class = "text-danger" })
     </div>
 
     <div class="SpecialEffects">
-        <!-- ValidationMessageFor för SpecialEffects -->
-        @Html.ValidationMessageFor(model => model.SpecialEffekter, "", new { @class = "text-danger" })
-        <p>Är det några specialeffekter som du vill ha?</p>
-        <p>Fjäder: <input type="checkbox" name="Fjader"></p>
-        <p>Spets: <input type="checkbox" name="Spets"></p>
-        <p>Pärlor: <input type="checkbox" name="Parlor"></p>
-        <p>Blomma: <input type="checkbox" name="Blomma"></p>
+        <label>
+            <input type="checkbox" name="Parlor" value="check1">
+            Pärlor
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="Spets" value="check1">
+            Spets
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="Fjader" value="check1">
+            Fjäder
+        </label>
+        <br />
+        <label>
+            <input type="checkbox" name="Blomma" value="check1">
+            Blomma
+        </label>
     </div>
 
     <div class="Material">
         <p>Vilket material vill du ha på hatten?</p>
-        <!-- ValidationMessageFor för Material -->
+        @Html.DropDownListFor(model => model.Material, new SelectList(new[]
+                {
+    "Läder",
+    "Tyg",
+    "Skinn",
+    "Strå"
+    }), "Välj ett material...", new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Material, "", new { @class = "text-danger" })
-        <p>Läder: <input type="checkbox" name="Lader"></p>
-        <p>Tyg: <input type="checkbox" name="Tyg"></p>
-        <p>Skinn: <input type="checkbox" name="Skinn"></p>
-        <p>Strå: <input type="checkbox" name="Stra"></p>
     </div>
 
     <div class="Measure">
         <p>Mått, höjd och typ</p>
-        <!-- ValidationMessageFor för Matt -->
+        @Html.TextBoxFor(model => model.Matt, new { placeholder = "Mått..." })
         @Html.ValidationMessageFor(model => model.Matt, "", new { @class = "text-danger" })
-        <!-- ValidationMessageFor för Hojd -->
+        <br />
+        @Html.TextBoxFor(model => model.Hojd, new { placeholder = "Höjd..." })
         @Html.ValidationMessageFor(model => model.Hojd, "", new { @class = "text-danger" })
-        <input type="text" size="5" placeholder="Mått..." align="left" name="Matt">
-        <input type="text" size="5" placeholder="Höjd..." align="left" name="Hojd">
+        <br />
         <label>Välj en hatt:</label>
-        <!-- ValidationMessageFor för HatId -->
+        @Html.DropDownListFor(model => model.HatId, new SelectList(new[]
+                {
+    new SelectListItem { Text = "Cowboy", Value = "1" },
+    new SelectListItem { Text = "Sheriff", Value = "2" },
+    new SelectListItem { Text = "Peaky Blinders", Value = "3" }
+    }, "Value", "Text"), "Välj en typ...", new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.HatId, "", new { @class = "text-danger" })
-        <select name="HatId">
-            <option disabled selected>Välj typ...</option>
-            <option value="1">Cowboy</option>
-            <option value="2">Sheriff</option>
-            <option value="3">Peaky Blinders</option>
-        </select>
     </div>
 
     <div class="ContactDetails">
         <p>Kontakt och leveransuppgifter:</p>
         <label>Välj en land:</label>
-        <!-- ValidationMessageFor för Land -->
+        @Html.DropDownListFor(model => model.Land, new SelectList(new[]
+                {
+    "Sverige",
+    "USA",
+    "Storbritanien",
+    "Grekland",
+    "Norge",
+    "Finland"
+    }), "Välj ett land...", new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Land, "", new { @class = "text-danger" })
-        <select name="Land">
-            <option disabled selected>Välj land...</option>
-            <option value="Sverige">Sverige</option>
-            <option value="USA">USA</option>
-            <option value="Storbritanien">Storbritanien</option>
-            <option value="Grekland">Grekland</option>
-            <option value="Norge">Norge</option>
-            <option value="Finland">Finland</option>
-        </select>
-        <!-- ValidationMessageFor för Adress -->
+        <br />
+        @Html.TextBoxFor(model => model.Adress, new { placeholder = "Adress..." })
         @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger" })
-        <!-- ValidationMessageFor för Postnummer -->
+        <br />
+        @Html.TextBoxFor(model => model.Postnummer, new { placeholder = "Postnummer..." })
         @Html.ValidationMessageFor(model => model.Postnummer, "", new { @class = "text-danger" })
-        <!-- ValidationMessageFor för Email -->
+        <br />
+        @Html.TextBoxFor(model => model.Email, new { placeholder = "Email..." })
         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
-        <!-- ValidationMessageFor för Telefonnummer -->
+        <br />
+        @Html.TextBoxFor(model => model.Telefonnummer, new { placeholder = "Telefonnummer..." })
         @Html.ValidationMessageFor(model => model.Telefonnummer, "", new { @class = "text-danger" })
-        <input type="text" size="20" placeholder="Adress..." align="left" name="Adress">
-        <input type="text" size="6" placeholder="Postnummer..." align="left" name="Postnummer">
-        <input type="text" size="20" placeholder="Email..." align="left" name="Email">
-        <input type="text" size="10" placeholder="Telefonnummer..." align="left" name="Telefonnummer">
     </div>
 
     <div class="Save">
