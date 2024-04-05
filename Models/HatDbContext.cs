@@ -16,5 +16,22 @@ namespace Hattfabriken.Models
         public DbSet<Forfragan> Forfragor { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
+        //SÄÄÄÄD method for initializing default materials LOOOOOOL
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Call the seeding method
+            SeedMaterials(modelBuilder);
+        }
+
+        private void SeedMaterials(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Material>().HasData(
+                new Material { MaterialName = "Leather", MaterialQuantity = 1000, MaterialSupplier = "Supplier A", Price = 10 },
+                new Material { MaterialName = "Straw", MaterialQuantity = 1000, MaterialSupplier = "Supplier B", Price = 8 }
+            );
+        }
+
     }
 }
