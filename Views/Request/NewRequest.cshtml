@@ -36,58 +36,55 @@
     </div>
 
     <div class="Measure">
-        <p>Width, Height and type</p>
+        
         <!-- ValidationMessageFor för Matt -->
-=======
-        <p>Är det något speciellt som vi ska tänka på?</p>
-        @Html.TextAreaFor(model => model.Kommentar, new { rows = "8", cols = "50", placeholder = "Skriv din kommentar här..." })
+        <p>Is there anything particular you want us to take into consideration?</p>
+        @Html.TextAreaFor(model => model.Kommentar, new { rows = "8", cols = "50", placeholder = "Write your comment here..." })
     </div>
 
     <div class="SpecialEffects">
         <label>
             <input type="checkbox" name="Parlor" value="check1">
-            Pärlor
+            Pearls
         </label>
         <br />
         <label>
             <input type="checkbox" name="Spets" value="check2">
-            Spets
+            Speks
         </label>
         <br />
         <label>
             <input type="checkbox" name="Fjader" value="check3">
-            Fjäder
+            Feather
         </label>
         <br />
         <label>
             <input type="checkbox" name="Blomma" value="check4">
-            Blomma
+            Flower
         </label>
     </div>
 
     <div class="Material">
-        <p>Vilket material vill du ha på hatten?</p>
+        <p>Which material do you want on your hat?</p>
         @Html.DropDownListFor(model => model.Material, new SelectList(new[]
                 {
-                    "Läder",
-                    "Tyg",
-                    "Skinn",
-                    "Strå"
-                }), "Välj ett material...", new { @class = "form-control" })
+                    "Leather",
+                    "Cloth",
+                    "Snake skin",
+                    "Straw"
+                }), "Choose...", new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Material, "", new { @class = "text-danger" })
     </div>
 
     <div class="Measure">
-        <p>Mått, höjd och typ</p>
-        @Html.TextBoxFor(model => model.Matt, new { placeholder = "Mått..." })
->>>>>>> b49cb24c8adc0a369821708d16891c0ed9208bdb
+        <p>Width, Height and type</p>
         @Html.ValidationMessageFor(model => model.Matt, "", new { @class = "text-danger" })
         <br />
-        @Html.TextBoxFor(model => model.Hojd, new { placeholder = "Höjd..." })
+        @Html.TextBoxFor(model => model.Hojd, new { placeholder = "Height..." })
         @Html.ValidationMessageFor(model => model.Hojd, "", new { @class = "text-danger" })
 
-        <input type="text" size="5" placeholder="Mått..." align="left" name="Matt">
-        <input type="text" size="5" placeholder="Höjd..." align="left" name="Hojd">
+        <input type="text" size="5" placeholder="Width..." align="left" name="Matt">
+        <input type="text" size="5" placeholder="type..." align="left" name="Hojd">
         <label>Choose a hat:</label>
         <!-- ValidationMessageFor för HatId -->
         @Html.ValidationMessageFor(model => model.HatId, "", new { @class = "text-danger" })
@@ -99,22 +96,8 @@
         </select>
     </div>
 
-    <div class="ContactDetails">
-        <p>Contact and delivery address:</p>
-        <label>Choose a country:</label>
-        <!-- ValidationMessageFor för Land -->
-        @Html.ValidationMessageFor(model => model.Land, "", new { @class = "text-danger" })
-        <select name="Land">
-            <option disabled selected>Choose a country...</option>
-            <option value="Sverige">Sweden</option>
-            <option value="USA">United States</option>
-            <option value="Storbritanien">UK</option>
-            <option value="Grekland">Grecce</option>
-            <option value="Norge">Nnorway</option>
-            <option value="Finland">Finland</option>
-        </select>
-        <!-- ValidationMessageFor för Adress -->
-=======
+    
+    
         <br />
         <label>Välj en hatt:</label>
         @Html.DropDownListFor(model => model.HatId, new SelectList(new[]
@@ -122,42 +105,40 @@
     new SelectListItem { Text = "Cowboy", Value = "1" },
     new SelectListItem { Text = "Sheriff", Value = "2" },
     new SelectListItem { Text = "Peaky Blinders", Value = "3" }
-    }, "Value", "Text"), "Välj en typ...", new { @class = "form-control" })
+    }, "Value", "Text"), "Choose a type...", new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.HatId, "", new { @class = "text-danger" })
-    </div>
 
     <div class="ContactDetails">
-        <p>Kontakt och leveransuppgifter:</p>
-        <label>Välj en land:</label>
+        <p>Contact & delivery address:</p>
+        <label>choose a country:</label>
         @Html.DropDownListFor(model => model.Land, new SelectList(new[]
                 {
-                    "Sverige",
-                    "USA",
-                    "Storbritanien",
-                    "Grekland",
-                    "Norge",
+                    "Sweden",
+                    "United states",
+                    "UK",
+                    "Grecce",
+                    "Norway",
                     "Finland"
-    }), "Välj ett land...", new { @class = "form-control" })
+    }), "Choose a country...", new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Land, "", new { @class = "text-danger" })
         <br />
-        @Html.TextBoxFor(model => model.Adress, new { placeholder = "Adress..." })
->>>>>>> b49cb24c8adc0a369821708d16891c0ed9208bdb
+        @Html.TextBoxFor(model => model.Adress, new { placeholder = "Address..." })
+
         @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger" })
         <br />
-        @Html.TextBoxFor(model => model.Postnummer, new { placeholder = "Postnummer..." })
+        @Html.TextBoxFor(model => model.Postnummer, new { placeholder = "Zip code..." })
         @Html.ValidationMessageFor(model => model.Postnummer, "", new { @class = "text-danger" })
         <br />
         @Html.TextBoxFor(model => model.Email, new { placeholder = "Email..." })
         @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
         <br />
-        @Html.TextBoxFor(model => model.Telefonnummer, new { placeholder = "Telefonnummer..." })
+        @Html.TextBoxFor(model => model.Telefonnummer, new { placeholder = "Phonenumber..." })
         @Html.ValidationMessageFor(model => model.Telefonnummer, "", new { @class = "text-danger" })
         <input type="text" size="20" placeholder="Address..." align="left" name="Adress">
         <input type="text" size="6" placeholder="zipcode..." align="left" name="Postnummer">
         <input type="text" size="20" placeholder="Email..." align="left" name="Email">
         <input type="text" size="10" placeholder="Phone number..." align="left" name="Telefonnummer">
-=======
->>>>>>> b49cb24c8adc0a369821708d16891c0ed9208bdb
+
     </div>
 
     <div class="Save">
