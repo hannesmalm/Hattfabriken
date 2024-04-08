@@ -27,8 +27,9 @@ namespace Hattfabriken.Controllers
         [HttpPost]
         public async Task<IActionResult> RequestThru(Forfragan forfragan)
         {
-            if (ModelState.IsValid) 
+            if (ModelState.IsValid)
             {
+
                 if (Request.Form["Fjader"].Count > 0)
                 {
                     forfragan.SpecialEffekter += "Fjäder, ";
@@ -126,8 +127,10 @@ namespace Hattfabriken.Controllers
                     ModelState.AddModelError("Telefonnummer", "Ogiltigt värde för Telefonnummer");
                 }
 
+            
                 _context.Add(forfragan);
                 await _context.SaveChangesAsync();
+            
 
                 return RedirectToAction("RequestSuccess");
             }
