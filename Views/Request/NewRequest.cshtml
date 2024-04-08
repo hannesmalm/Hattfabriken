@@ -26,14 +26,22 @@
     </div>
 
     <div class="Material">
-        <p>Which material do you want on your hat?</p>
+        <p>Vilket material vill du ha på hatten?</p>
         <!-- ValidationMessageFor för Material -->
         @Html.ValidationMessageFor(model => model.Material, "", new { @class = "text-danger" })
-        <p>Leather: <input type="checkbox" name="Lader"></p>
-        <p>Cloth: <input type="checkbox" name="Tyg"></p>
-        <p>Snake skin: <input type="checkbox" name="Skinn"></p>
-        <p>Straw: <input type="checkbox" name="Stra"></p>
+        <p>Läder: <input type="checkbox" name="Lader"></p>
+        <p>Tyg: <input type="checkbox" name="Tyg"></p>
+        <p>Skinn: <input type="checkbox" name="Skinn"></p>
+        <p>Strå: <input type="checkbox" name="Stra"></p>
     </div>
+        @Html.ValidationMessageFor(model => model.Material, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="Measure">
+        <p>Mått, höjd och typ</p>
+        @Html.TextBoxFor(model => model.Matt, new { placeholder = "Mått..." })
+        @Html.ValidationMessageFor(model => model.Matt, "", new { @class = "text-danger" })
+        <br />
 
     <div class="Measure">
         <p>Width, Height and type</p>
@@ -41,13 +49,14 @@
         @Html.ValidationMessageFor(model => model.Matt, "", new { @class = "text-danger" })
         <!-- ValidationMessageFor för Hojd -->
         @Html.ValidationMessageFor(model => model.Hojd, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.Hojd, "", new { @class = "text-danger" })
         <input type="text" size="5" placeholder="Mått..." align="left" name="Matt">
         <input type="text" size="5" placeholder="Höjd..." align="left" name="Hojd">
-        <label>Choose a hat:</label>
         <!-- ValidationMessageFor för HatId -->
         @Html.ValidationMessageFor(model => model.HatId, "", new { @class = "text-danger" })
+        @Html.ValidationMessageFor(model => model.HatId, "", new { @class = "text-danger" })
         <select name="HatId">
-            <option disabled selected>Choose type...</option>
+            <option disabled selected>Välj typ...</option>
             <option value="1">Cowboy</option>
             <option value="2">Sheriff</option>
             <option value="3">Peaky Blinders</option>
@@ -60,9 +69,9 @@
         <!-- ValidationMessageFor för Land -->
         @Html.ValidationMessageFor(model => model.Land, "", new { @class = "text-danger" })
         <select name="Land">
-            <option disabled selected>Choose a country...</option>
-            <option value="Sverige">Sweden</option>
-            <option value="USA">United States</option>
+            <option disabled selected>Välj land...</option>
+            <option value="Sverige">Sverige</option>
+            <option value="USA">USA</option>
             <option value="Storbritanien">UK</option>
             <option value="Grekland">Grecce</option>
             <option value="Norge">Nnorway</option>
@@ -77,9 +86,12 @@
         <!-- ValidationMessageFor för Telefonnummer -->
         @Html.ValidationMessageFor(model => model.Telefonnummer, "", new { @class = "text-danger" })
         <input type="text" size="20" placeholder="Address..." align="left" name="Adress">
-        <input type="text" size="6" placeholder="zipcode..." align="left" name="Postnummer">
+        @Html.TextBoxFor(model => model.Telefonnummer, new { placeholder = "Telefonnummer..." })
+        @Html.ValidationMessageFor(model => model.Telefonnummer, "", new { @class = "text-danger" })
+        <input type="text" size="20" placeholder="Adress..." align="left" name="Adress">
+        <input type="text" size="6" placeholder="Postnummer..." align="left" name="Postnummer">
         <input type="text" size="20" placeholder="Email..." align="left" name="Email">
-        <input type="text" size="10" placeholder="Phone number..." align="left" name="Telefonnummer">
+        <input type="text" size="10" placeholder="Telefonnummer..." align="left" name="Telefonnummer">
     </div>
 
     <div class="Save">
