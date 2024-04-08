@@ -9,15 +9,15 @@ namespace Hattfabriken.Controllers
     public class AccountController : Controller
     {
 
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly HatDbContext _dbContext;
+        private UserManager<User> userManager;
+        private SignInManager<User> signInManager;
+        private readonly HatDbContext dbContext;
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, HatDbContext dbContext)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _dbContext = dbContext;
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.dbContext = dbContext;
         }
 
         [HttpGet]
@@ -32,7 +32,7 @@ namespace Hattfabriken.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(
+                var result = await signInManager.PasswordSignInAsync(
                     loginViewModel.UserName,
                     loginViewModel.Password,
                     isPersistent: loginViewModel.RememberMe,
@@ -41,7 +41,7 @@ namespace Hattfabriken.Controllers
                 if (result.Succeeded)
                 {
                     // Flytta logiken för att hämta användaren och användarprofilen här
-                    var currentUser = await _userManager.FindByNameAsync(loginViewModel.UserName);
+                    var currentUser = await userManager.FindByNameAsync(loginViewModel.UserName);
                     if (currentUser != null)
                     {
                         //  redirect to admin page 
@@ -59,7 +59,7 @@ namespace Hattfabriken.Controllers
         [HttpPost]
         public async Task<IActionResult> LogOut()
         {
-            await _signInManager.SignOutAsync();
+            await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
 
@@ -73,14 +73,14 @@ namespace Hattfabriken.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.GetUserAsync(User);
+                var user = await userManager.GetUserAsync(User);
                 if (user == null)
                 {
                     // Hantera fallet när användaren inte hittas
                     return RedirectToAction("LogIn", "Account");
                 }
 
-                var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+                var changePasswordResult = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
                 if (!changePasswordResult.Succeeded)
                 {
                     foreach (var error in changePasswordResult.Errors)
@@ -90,20 +90,21 @@ namespace Hattfabriken.Controllers
                     return View();
                 }
 
-                await _signInManager.RefreshSignInAsync(user);
+                await signInManager.RefreshSignInAsync(user);
                 return RedirectToAction("AdminPage", "Home");
             }
             return View(model);
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult CreateAccount()
         {
-            return View();
+            CreateAccountViewModel createAccountViewModel = new CreateAccountViewModel();
+            return View(createAccountViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(CreateAccountViewModel model)
+        public async Task<IActionResult> CreateAccount(CreateAccountViewModel model)
         {
 
             if (ModelState.IsValid)
@@ -111,17 +112,17 @@ namespace Hattfabriken.Controllers
                 User newUser = new User
                 {
 
-                    UserName = model.Username
+                    UserName = model.UserName
 
                 };
 
 
-                var result = await _userManager.CreateAsync(newUser, model.Password);
+                var result = await userManager.CreateAsync(newUser, model.Password);
 
                 if (result.Succeeded)
                 {
 
-                    return RedirectToAction("AdminPage", "Home");
+                    return RedirectToAction("Index", "Admin");
                 }
 
                 foreach (var error in result.Errors)
@@ -141,7 +142,7 @@ namespace Hattfabriken.Controllers
         public async Task<IActionResult> DeleteAccount()
         {
 
-            var user = await _userManager.GetUserAsync(User);
+            var user = await userManager.GetUserAsync(User);
             if (user == null)
             {
 
@@ -149,10 +150,10 @@ namespace Hattfabriken.Controllers
              
              }
 
-            var result = await _userManager.DeleteAsync(user);
+            var result = await userManager.DeleteAsync(user);
             if (result.Succeeded) 
             {
-                await _signInManager.SignOutAsync();
+                await signInManager.SignOutAsync();
                 return RedirectToAction("AdminPage", "Home");
             }
 
