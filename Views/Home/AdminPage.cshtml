@@ -28,7 +28,7 @@
 											<div class="card-body text-center" style="height: 200px;">
 												<h1 class="card-title" style="font-size: 20px;">Stock</h1>
 												<div class="text-center">
-													<button class="btn btn-success mb-2">View hats in stock</button>
+													<button class="btn btn-success mb-2" disabled>View hats in stock</button>
 													<!--Redigera lagret kommer på nästa sida-->
 												</div>
 											</div>
@@ -45,7 +45,7 @@
 											<div class="card-body text-center" style="height: 200px;">
 												<h1 class="card-title" style="font-size: 20px;">Order requests</h1>
 												<div class="text-center">
-													<button class="btn btn-success mb-2">View requests</button>
+													<button class="btn btn-success mb-2" disabled>View requests</button>
 												</div>
 											</div>
 										</div>
@@ -61,7 +61,7 @@
 											<div class="card-body text-center" style="height: 200px;">
 												<h5 class="card-title" style="font-size: 20px;">Orders</h5>
 												<div class="text-center">
-													<button class="btn btn-success mb-2">View orders</button>
+													<button class="btn btn-success mb-2" disabled>View orders</button>
 												</div>
 											</div>
 										</div>
@@ -78,6 +78,7 @@
 												<h5 class="card-title" style="font-size: 20px;">Account</h5>
 												<div class="text-center">
 													<a asp-controller="Account" asp-action="ChangePassword" class="btn btn-success mb-2">Change password</a>
+													<a asp-controller="Account" asp-action="CreateAccount" class="btn btn-success mb-2">Create account</a>
 @* 													<a asp-controller="Account" asp-action="DeleteAccount" class="btn btn-danger mb-2">Delete account</a> *@
 												</div>
 											</div>
