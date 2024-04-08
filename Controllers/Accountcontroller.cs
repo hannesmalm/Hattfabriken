@@ -45,7 +45,7 @@ namespace Hattfabriken.Controllers
                     if (currentUser != null)
                     {
                         //  redirect to admin page 
-                        return RedirectToAction("AdminPage", "Home");
+                        return RedirectToAction("Index", "Admin");
                     }
                 }
                 else
