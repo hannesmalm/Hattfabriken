@@ -1,18 +1,16 @@
-﻿@model Forfragan
+﻿@model Hattfabriken.Models.ViewModels.RequestViewModel
 
 @{
     ViewData["Title"] = "Skapa en ny förfrågan";
 }
 
-@using (Html.BeginForm("RequestThru", "Request", FormMethod.Post))
-{
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+<form asp-action="NewRequest" asp-controller="Request" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
 
     <h1>Create a new request!</h1>
     <div class="CommentBox">
-        <p>Is there something particular we should have in consideration?</p>
-        @Html.TextAreaFor(model => model.Kommentar, new { rows = "8", cols = "50", placeholder = "Write your comment here..." })
-        @Html.ValidationMessageFor(model => model.Kommentar, "", new { @class = "text-danger" })
+        <p>Är det något speciellt som vi ska tänka på?</p>
+        <textarea asp-for="Forfragan.Kommentar" rows="8" cols="50" placeholder="Skriv din kommentar här..."></textarea>
     </div>
 
     <div class="SpecialEffects">
@@ -44,110 +42,85 @@
 
     <div class="SpecialEffects">
         <label>
-            <input type="checkbox" name="Parlor" value="check1">
-            Pearls
+            <input type="checkbox" name="SelectedSpecialEffekter" value="Fjäder">
+            Fjäder
         </label>
         <br />
         <label>
-            <input type="checkbox" name="Spets" value="check2">
-            Speks
+            <input type="checkbox" name="SelectedSpecialEffekter" value="Spets">
+            Spets
         </label>
         <br />
         <label>
-            <input type="checkbox" name="Fjader" value="check3">
-            Feather
+            <input type="checkbox" name="SelectedSpecialEffekter" value="Pärlor">
+            Pärlor
         </label>
         <br />
         <label>
-            <input type="checkbox" name="Blomma" value="check4">
-            Flower
+            <input type="checkbox" name="SelectedSpecialEffekter" value="Blomma">
+            Blomma
         </label>
     </div>
 
     <div class="Material">
-        <p>Which material do you want on your hat?</p>
-        @Html.DropDownListFor(model => model.Material, new SelectList(new[]
-                {
-                    "Leather",
-                    "Cloth",
-                    "Snake skin",
-                    "Straw"
-                }), "Choose...", new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Material, "", new { @class = "text-danger" })
+        <p>Vilket material vill du ha på hatten?</p>
+        <select asp-for="Material" class="form-control">
+            <option value="">Välj ett material...</option>
+            <option value="Läder">Läder</option>
+            <option value="Tyg">Tyg</option>
+            <option value="Skinn">Skinn</option>
+            <option value="Strå">Strå</option>
+        </select>
+        <span asp-validation-for="Material" class="text-danger"></span>
     </div>
 
     <div class="Measure">
-        <p>Width, Height and type</p>
-        @Html.ValidationMessageFor(model => model.Matt, "", new { @class = "text-danger" })
+        <p>Mått, höjd och typ</p>
+        <input asp-for="Matt" placeholder="Mått..." />
+        <span asp-validation-for="Matt" class="text-danger"></span>
         <br />
-        @Html.TextBoxFor(model => model.Hojd, new { placeholder = "Height..." })
-        @Html.ValidationMessageFor(model => model.Hojd, "", new { @class = "text-danger" })
-
-        <input type="text" size="5" placeholder="Width..." align="left" name="Matt">
-        <input type="text" size="5" placeholder="type..." align="left" name="Hojd">
-        <label>Choose a hat:</label>
-        <!-- ValidationMessageFor för HatId -->
-        @Html.ValidationMessageFor(model => model.HatId, "", new { @class = "text-danger" })
-        <select name="HatId">
-            <option disabled selected>Choose type...</option>
+        <input asp-for="Hojd" placeholder="Höjd..." />
+        <span asp-validation-for="Hojd" class="text-danger"></span>
+        <br />
+        <label>Välj en hatt:</label>
+        <select asp-for="HatId" class="form-control">
+            <option value="">Välj en typ...</option>
             <option value="1">Cowboy</option>
             <option value="2">Sheriff</option>
             <option value="3">Peaky Blinders</option>
         </select>
+        <span asp-validation-for="HatId" class="text-danger"></span>
     </div>
 
-    
-    
-        <br />
-        <label>Välj en hatt:</label>
-        @Html.DropDownListFor(model => model.HatId, new SelectList(new[]
-                {
-    new SelectListItem { Text = "Cowboy", Value = "1" },
-    new SelectListItem { Text = "Sheriff", Value = "2" },
-    new SelectListItem { Text = "Peaky Blinders", Value = "3" }
-    }, "Value", "Text"), "Choose a type...", new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.HatId, "", new { @class = "text-danger" })
-
     <div class="ContactDetails">
-        <p>Contact & delivery address:</p>
-        <label>choose a country:</label>
-        @Html.DropDownListFor(model => model.Land, new SelectList(new[]
-                {
-                    "Sweden",
-                    "United states",
-                    "UK",
-                    "Grecce",
-                    "Norway",
-                    "Finland"
-    }), "Choose a country...", new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Land, "", new { @class = "text-danger" })
+        <p>Kontakt och leveransuppgifter:</p>
+        <label>Välj en land:</label>
+        <select asp-for="Land" class="form-control">
+            <option value="">Välj ett land...</option>
+            <option value="Sverige">Sverige</option>
+            <option value="USA">USA</option>
+            <option value="Storbritanien">Storbritanien</option>
+            <option value="Grekland">Grekland</option>
+            <option value="Norge">Norge</option>
+            <option value="Finland">Finland</option>
+        </select>
+        <span asp-validation-for="Land" class="text-danger"></span>
         <br />
-        @Html.TextBoxFor(model => model.Adress, new { placeholder = "Address..." })
-
-        @Html.ValidationMessageFor(model => model.Adress, "", new { @class = "text-danger" })
+        <input asp-for="Adress" placeholder="Adress..." />
+        <span asp-validation-for="Adress" class="text-danger"></span>
         <br />
-        @Html.TextBoxFor(model => model.Postnummer, new { placeholder = "Zip code..." })
-        @Html.ValidationMessageFor(model => model.Postnummer, "", new { @class = "text-danger" })
+        <input asp-for="Postnummer" placeholder="Postnummer..." />
+        <span asp-validation-for="Postnummer" class="text-danger"></span>
         <br />
-        @Html.TextBoxFor(model => model.Email, new { placeholder = "Email..." })
-        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+        <input asp-for="Email" placeholder="Email..." />
+        <span asp-validation-for="Email" class="text-danger"></span>
         <br />
-        @Html.TextBoxFor(model => model.Telefonnummer, new { placeholder = "Phonenumber..." })
-        @Html.ValidationMessageFor(model => model.Telefonnummer, "", new { @class = "text-danger" })
-        <input type="text" size="20" placeholder="Address..." align="left" name="Adress">
-        <input type="text" size="6" placeholder="zipcode..." align="left" name="Postnummer">
-        <input type="text" size="20" placeholder="Email..." align="left" name="Email">
-        <input type="text" size="10" placeholder="Phone number..." align="left" name="Telefonnummer">
-
+        <input asp-for="Telefonnummer" placeholder="Telefonnummer..." />
+        <span asp-validation-for="Telefonnummer" class="text-danger"></span>
     </div>
 
     <div class="Save">
         <button type="submit" class="btn btn-primary">Send request</button>
     </div>
-}
+</form>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
