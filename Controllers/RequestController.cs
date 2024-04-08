@@ -20,14 +20,14 @@ namespace Hattfabriken.Controllers
         [HttpGet]
         public IActionResult RequestThru()
         {
-            //var forfragan = new Forfragan();
-            return View();
+            Forfragan forfragan = new Forfragan();
+            return View(forfragan);
         }
 
         [HttpPost]
         public async Task<IActionResult> RequestThru(Forfragan forfragan)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid) 
             {
                 if (Request.Form["Fjader"].Count > 0)
                 {

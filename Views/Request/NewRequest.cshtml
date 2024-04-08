@@ -21,17 +21,17 @@
         </label>
         <br />
         <label>
-            <input type="checkbox" name="Spets" value="check1">
+            <input type="checkbox" name="Spets" value="check2">
             Spets
         </label>
         <br />
         <label>
-            <input type="checkbox" name="Fjader" value="check1">
+            <input type="checkbox" name="Fjader" value="check3">
             Fjäder
         </label>
         <br />
         <label>
-            <input type="checkbox" name="Blomma" value="check1">
+            <input type="checkbox" name="Blomma" value="check4">
             Blomma
         </label>
     </div>
@@ -40,11 +40,11 @@
         <p>Vilket material vill du ha på hatten?</p>
         @Html.DropDownListFor(model => model.Material, new SelectList(new[]
                 {
-    "Läder",
-    "Tyg",
-    "Skinn",
-    "Strå"
-    }), "Välj ett material...", new { @class = "form-control" })
+                    "Läder",
+                    "Tyg",
+                    "Skinn",
+                    "Strå"
+                }), "Välj ett material...", new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Material, "", new { @class = "text-danger" })
     </div>
 
@@ -71,12 +71,12 @@
         <label>Välj en land:</label>
         @Html.DropDownListFor(model => model.Land, new SelectList(new[]
                 {
-    "Sverige",
-    "USA",
-    "Storbritanien",
-    "Grekland",
-    "Norge",
-    "Finland"
+                    "Sverige",
+                    "USA",
+                    "Storbritanien",
+                    "Grekland",
+                    "Norge",
+                    "Finland"
     }), "Välj ett land...", new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.Land, "", new { @class = "text-danger" })
         <br />
