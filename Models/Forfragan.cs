@@ -15,13 +15,12 @@ namespace Hattfabriken.Models
         [Required(ErrorMessage = "Material måste anges")]
         public string Material { get; set; }
 
-        [Required(ErrorMessage = "Matt måste anges")]
+        [Required(ErrorMessage = "Mått måste anges")]
         public int Matt { get; set; }
 
         [Required(ErrorMessage = "Höjd måste anges")]
         public int Hojd { get; set; }
 
-        // Kommentar är inte längre obligatorisk
         public string Kommentar { get; set; }
 
         public string SpecialEffekter { get; set; }
@@ -30,6 +29,7 @@ namespace Hattfabriken.Models
         public string Adress { get; set; }
 
         [Required(ErrorMessage = "Postnummer måste anges")]
+        [RegularExpression(@"^\d{5}$", ErrorMessage = "Postnumret måste vara 5 siffror.")]
         public int Postnummer { get; set; }
 
         [Required(ErrorMessage = "Telefonnummer måste anges")]
@@ -41,6 +41,7 @@ namespace Hattfabriken.Models
 
         [ForeignKey("Customer")]
         [Required(ErrorMessage = "Email måste anges")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Ange en giltig e-postadress.")]
         public string Email { get; set; }
 
     }
