@@ -4,10 +4,10 @@ namespace Hattfabriken.Models.Viewmodels
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Skriv ditt användarnamn.")]
+        [Required]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Skriv ditt lösenord.")]
+        [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 

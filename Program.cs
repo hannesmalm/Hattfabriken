@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<HatDbContext>(options =>
             options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("HattDbContext")));
-builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<HatDbContext>()
     .AddDefaultTokenProviders();
 
