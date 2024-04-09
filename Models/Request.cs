@@ -20,7 +20,7 @@ namespace Hattfabriken.Models
 
         public string Commentary { get; set; }
 
-        public List<string> SpecialEffects { get; set; }
+        public List<string>? SpecialEffects { get; set; }
         
         public string Adress { get; set; }
         

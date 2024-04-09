@@ -60,9 +60,6 @@ namespace Hattfabriken.Controllers
                     Console.WriteLine(image.Data);
                 }
 
-                _context.Add(request);
-                await _context.SaveChangesAsync();
-
                 if (requestViewModel.SelectedSpecialEffekter != null && requestViewModel.SelectedSpecialEffekter.Any())
                 {
                     request.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffekter);
