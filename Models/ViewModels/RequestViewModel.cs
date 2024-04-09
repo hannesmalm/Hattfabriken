@@ -41,5 +41,7 @@ namespace Hattfabriken.Models.ViewModels
 
         [Required(ErrorMessage = "Namn måste anges")]
         public string Name { get; set; }
+
+        public IFormFile? RequestImage { get; set; }
     }
 }

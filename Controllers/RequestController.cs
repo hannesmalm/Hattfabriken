@@ -9,9 +9,12 @@ namespace Hattfabriken.Controllers
     public class RequestController : Controller
     {
         private readonly HatDbContext _context;
-        public RequestController(HatDbContext context)
+        private readonly IImageService _imageService;
+
+        public RequestController(HatDbContext context, IImageService imageService)
         {
             _context = context;
+            _imageService = imageService;
         }
 
 
@@ -27,7 +30,7 @@ namespace Hattfabriken.Controllers
         {
             if (ModelState.IsValid)
             {
-                Request forfragan = new Request
+                Request request = new Request
                 {
                     Commentary = requestViewModel.Commentary,
                     Material = requestViewModel.Material,
@@ -39,19 +42,37 @@ namespace Hattfabriken.Controllers
                     PostalCode = requestViewModel.PostalCode,
                     Email = requestViewModel.Email,
                     PhoneNumber = requestViewModel.PhoneNumber,
-                    Name = requestViewModel.Name
+                    Name = requestViewModel.Name,
                 };
+
+                if (requestViewModel.RequestImage != null && requestViewModel.RequestImage.Length > 0)
+                {
+                    var image = new Image
+                    {
+                        Data = _imageService.ConvertToByteArray(requestViewModel.RequestImage)
+                    };
+
+                    _context.Images.Add(image);
+                    _context.SaveChanges();
+
+                    request.RequestImage = image.Data;
+
+                    Console.WriteLine(image.Data);
+                }
+
+                _context.Add(request);
+                await _context.SaveChangesAsync();
 
                 if (requestViewModel.SelectedSpecialEffekter != null && requestViewModel.SelectedSpecialEffekter.Any())
                 {
-                    forfragan.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffekter);
+                    request.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffekter);
                 }
                 else
                 {
-                    forfragan.SpecialEffects = new List<string>(); // Tom lista om ingen special effekt är vald
+                    request.SpecialEffects = new List<string>(); // Tom lista om ingen special effekt är vald
                 }
 
-                _context.Add(forfragan);
+                _context.Add(request);
                 await _context.SaveChangesAsync();
 
                 return RedirectToAction("RequestSuccess", "Request");
@@ -64,7 +85,6 @@ namespace Hattfabriken.Controllers
                     Console.WriteLine($"Fält: {key}, Fel: {error.ErrorMessage}");
                 }
             }
-
 
             return View(requestViewModel);
         }

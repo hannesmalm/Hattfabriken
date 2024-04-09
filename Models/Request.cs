@@ -35,5 +35,7 @@ namespace Hattfabriken.Models
 
         public string Name { get; set; }
 
+        [ForeignKey("Image")]
+        public byte[]? RequestImage { get; set; }
     }
 }

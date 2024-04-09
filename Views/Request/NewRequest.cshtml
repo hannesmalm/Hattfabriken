@@ -14,8 +14,6 @@
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
-
-
     <h1>Create a new request!</h1>
 
     <div class="CommentBox">
@@ -26,7 +24,10 @@
 
     </div>
 
-
+    <div class="form-group">
+        <label asp-for="RequestImage" class="mb-0 mr-2">Ladda upp bild</label>
+        <input type="file" class="form-control" asp-for="RequestImage" />
+    </div>
 
     <div class="SpecialEffects">
 
