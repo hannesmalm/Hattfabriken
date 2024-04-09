@@ -53,7 +53,7 @@ namespace Hattfabriken.Controllers
                     };
 
                     _context.Images.Add(image);
-                    _context.SaveChanges();
+                    await _context.SaveChangesAsync();
 
                     request.RequestImage = image.Data;
 
