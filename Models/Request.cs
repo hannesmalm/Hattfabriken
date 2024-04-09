@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Permissions;
 
@@ -10,15 +11,15 @@ namespace Hattfabriken.Models
         public int ForfraganID { get; set; }
 
         [ForeignKey("Hatt")]
-        public int HatId { get; set; }
+        public int? HatId { get; set; }
        
-        public string Material { get; set; }
+        public string? Material { get; set; }
        
-        public int Measurement { get; set; }
+        public int? Measurement { get; set; }
        
-        public int Height { get; set; }
+        public int? Height { get; set; }
 
-        public string Commentary { get; set; }
+        public string? Commentary { get; set; }
 
         public List<string>? SpecialEffects { get; set; }
         
