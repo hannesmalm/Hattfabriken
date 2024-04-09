@@ -77,7 +77,7 @@ namespace Hattfabriken.Controllers
                 if (user == null)
                 {
                     // Hantera fallet när användaren inte hittas
-                    return RedirectToAction("LogIn", "Account");
+                    return RedirectToAction("Index", "Admin");
                 }
 
                 var changePasswordResult = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
@@ -91,7 +91,7 @@ namespace Hattfabriken.Controllers
                 }
 
                 await signInManager.RefreshSignInAsync(user);
-                return RedirectToAction("AdminPage", "Home");
+                return RedirectToAction("Index", "Admin");
             }
             return View(model);
         }
@@ -146,7 +146,7 @@ namespace Hattfabriken.Controllers
             if (user == null)
             {
 
-                return RedirectToAction("AdminPage", "Home");
+                return RedirectToAction("Index", "Admin");
              
              }
 
@@ -154,10 +154,10 @@ namespace Hattfabriken.Controllers
             if (result.Succeeded) 
             {
                 await signInManager.SignOutAsync();
-                return RedirectToAction("AdminPage", "Home");
+                return RedirectToAction("Index", "Admin");
             }
 
-            return RedirectToAction("AdminPage", "Home");
+            return RedirectToAction("Index", "Admin");
         }
 
     }
