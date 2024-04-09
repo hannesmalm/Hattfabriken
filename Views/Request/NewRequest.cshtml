@@ -1,126 +1,201 @@
 ﻿@model Hattfabriken.Models.ViewModels.RequestViewModel
 
+
+
 @{
+
     ViewData["Title"] = "Skapa en ny förfrågan";
+
 }
 
+
+
 <form asp-action="NewRequest" asp-controller="Request" method="post">
+
     <div asp-validation-summary="All" class="text-danger"></div>
 
+
+
     <h1>Create a new request!</h1>
+
     <div class="CommentBox">
-        <p>Är det något speciellt som vi ska tänka på?</p>
-        <textarea asp-for="Forfragan.Kommentar" rows="8" cols="50" placeholder="Skriv din kommentar här..."></textarea>
-    </div>
 
-    <div class="SpecialEffects">
-        <!-- ValidationMessageFor för SpecialEffects -->
-        @Html.ValidationMessageFor(model => model.SpecialEffekter, "", new { @class = "text-danger" })
-        <p>Do you want any special effects??</p>
-        <p>Feather: <input type="checkbox" name="Fjader"></p>
-        <p>Speks: <input type="checkbox" name="Spets"></p>
-        <p>Pearls: <input type="checkbox" name="Parlor"></p>
-        <p>Flower: <input type="checkbox" name="Blomma"></p>
-    </div>
-
-    <div class="Material">
-        <p>Which material do you want on your hat?</p>
-        <!-- ValidationMessageFor för Material -->
-        @Html.ValidationMessageFor(model => model.Material, "", new { @class = "text-danger" })
-        <p>Leather: <input type="checkbox" name="Lader"></p>
-        <p>Cloth: <input type="checkbox" name="Tyg"></p>
-        <p>Snake skin: <input type="checkbox" name="Skinn"></p>
-        <p>Straw: <input type="checkbox" name="Stra"></p>
-    </div>
-
-    <div class="Measure">
-        
-        <!-- ValidationMessageFor för Matt -->
         <p>Is there anything particular you want us to take into consideration?</p>
-        @Html.TextAreaFor(model => model.Kommentar, new { rows = "8", cols = "50", placeholder = "Write your comment here..." })
+
+        @Html.TextAreaFor(model => model.Commentary, new { rows = "8", cols = "50", placeholder = "Write your comment here..." })
+
     </div>
+
+
 
     <div class="SpecialEffects">
+
         <label>
+
             <input type="checkbox" name="SelectedSpecialEffekter" value="Fjäder">
+
             Fjäder
+
         </label>
+
         <br />
+
         <label>
+
             <input type="checkbox" name="SelectedSpecialEffekter" value="Spets">
+
             Spets
+
         </label>
+
         <br />
+
         <label>
+
             <input type="checkbox" name="SelectedSpecialEffekter" value="Pärlor">
+
             Pärlor
+
         </label>
+
         <br />
+
         <label>
+
             <input type="checkbox" name="SelectedSpecialEffekter" value="Blomma">
+
             Blomma
+
         </label>
+
     </div>
+
+
 
     <div class="Material">
+
         <p>Vilket material vill du ha på hatten?</p>
+
         <select asp-for="Material" class="form-control">
+
             <option value="">Välj ett material...</option>
+
             <option value="Läder">Läder</option>
+
             <option value="Tyg">Tyg</option>
+
             <option value="Skinn">Skinn</option>
+
             <option value="Strå">Strå</option>
+
         </select>
+
         <span asp-validation-for="Material" class="text-danger"></span>
+
     </div>
 
+
+
     <div class="Measure">
+
         <p>Mått, höjd och typ</p>
-        <input asp-for="Matt" placeholder="Mått..." />
-        <span asp-validation-for="Matt" class="text-danger"></span>
+
+        <input asp-for="Measurement" placeholder="Mått..." />
+
+        <span asp-validation-for="Measurement" class="text-danger"></span>
+
         <br />
-        <input asp-for="Hojd" placeholder="Höjd..." />
-        <span asp-validation-for="Hojd" class="text-danger"></span>
+
+        <input asp-for="Height" placeholder="Höjd..." />
+
+        <span asp-validation-for="Height" class="text-danger"></span>
+
         <br />
+
         <label>Välj en hatt:</label>
+
         <select asp-for="HatId" class="form-control">
+
             <option value="">Välj en typ...</option>
+
             <option value="1">Cowboy</option>
+
             <option value="2">Sheriff</option>
+
             <option value="3">Peaky Blinders</option>
+
         </select>
+
         <span asp-validation-for="HatId" class="text-danger"></span>
+
     </div>
+
+
 
     <div class="ContactDetails">
+
         <p>Kontakt och leveransuppgifter:</p>
+
         <label>Välj en land:</label>
-        <select asp-for="Land" class="form-control">
+
+        <select asp-for="Country" class="form-control">
+
             <option value="">Välj ett land...</option>
+
             <option value="Sverige">Sverige</option>
+
             <option value="USA">USA</option>
+
             <option value="Storbritanien">Storbritanien</option>
+
             <option value="Grekland">Grekland</option>
+
             <option value="Norge">Norge</option>
+
             <option value="Finland">Finland</option>
+
         </select>
-        <span asp-validation-for="Land" class="text-danger"></span>
+
+        <input asp-for="Name" placeholder="Namn" />
+
+        <span asp-validation-for="Name" class="text-danger"></span>
+
         <br />
+
+        <span asp-validation-for="Country" class="text-danger"></span>
+
+        <br />
+
         <input asp-for="Adress" placeholder="Adress..." />
+
         <span asp-validation-for="Adress" class="text-danger"></span>
+
         <br />
-        <input asp-for="Postnummer" placeholder="Postnummer..." />
-        <span asp-validation-for="Postnummer" class="text-danger"></span>
+
+        <input asp-for="PostalCode" placeholder="Postnummer..." />
+
+        <span asp-validation-for="PostalCode" class="text-danger"></span>
+
         <br />
+
         <input asp-for="Email" placeholder="Email..." />
+
         <span asp-validation-for="Email" class="text-danger"></span>
+
         <br />
-        <input asp-for="Telefonnummer" placeholder="Telefonnummer..." />
-        <span asp-validation-for="Telefonnummer" class="text-danger"></span>
+
+        <input asp-for="PhoneNumber" placeholder="Telefonnummer..." />
+
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+
     </div>
+
+
 
     <div class="Save">
-        <button type="submit" class="btn btn-primary">Send request</button>
-    </div>
-</form>
 
+        <button type="submit" class="btn btn-primary">Send request</button>
+
+    </div>
+
+</form>

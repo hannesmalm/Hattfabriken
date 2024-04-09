@@ -27,33 +27,34 @@ namespace Hattfabriken.Controllers
         {
             if (ModelState.IsValid)
             {
-                Forfragan forfragan = new Forfragan
+                Request forfragan = new Request
                 {
-                    Kommentar = requestViewModel.Kommentar,
+                    Commentary = requestViewModel.Commentary,
                     Material = requestViewModel.Material,
-                    Matt = requestViewModel.Matt,
-                    Hojd = requestViewModel.Hojd,
+                    Measurement = requestViewModel.Measurement,
+                    Height = requestViewModel.Height,
                     HatId = requestViewModel.HatId,
-                    Land = requestViewModel.Land,
+                    Country = requestViewModel.Country,
                     Adress = requestViewModel.Adress,
-                    Postnummer = requestViewModel.Postnummer,
+                    PostalCode = requestViewModel.PostalCode,
                     Email = requestViewModel.Email,
-                    Telefonnummer = requestViewModel.Telefonnummer
+                    PhoneNumber = requestViewModel.PhoneNumber,
+                    Name = requestViewModel.Name
                 };
 
                 if (requestViewModel.SelectedSpecialEffekter != null && requestViewModel.SelectedSpecialEffekter.Any())
                 {
-                    forfragan.SelectedSpecialEffekter = new List<string>(requestViewModel.SelectedSpecialEffekter);
+                    forfragan.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffekter);
                 }
                 else
                 {
-                    forfragan.SelectedSpecialEffekter = new List<string>(); // Tom lista om ingen special effekt är vald
+                    forfragan.SpecialEffects = new List<string>(); // Tom lista om ingen special effekt är vald
                 }
 
                 _context.Add(forfragan);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Request", "RequestSuccess");
+                return RedirectToAction("RequestSuccess", "Request");
             }
 
             foreach (var key in ModelState.Keys)
