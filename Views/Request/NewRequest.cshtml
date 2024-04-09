@@ -8,231 +8,148 @@
 
 }
 
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>New request</h4>
+                </div>
+                <div class="card-body">
 
+                    <form asp-action="NewRequest" asp-controller="Request" method="post" enctype="multipart/form-data">
 
-<form asp-action="NewRequest" asp-controller="Request" method="post" enctype="multipart/form-data">
+                        <div asp-validation-summary="All" class="text-danger"></div>
 
-    <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="mb-3">
+                            <label class="form-label">Is there anything particular you want us to take into consideration?</label>
+                            <textarea asp-for="Commentary" class="form-control" id="commentary" placeholder="Write your comment here..." required style="resize: none; height: 200px;"></textarea>
+                        </div>
 
-    <h1>Create a new request!</h1>
+                        <div class="mb-3">
+                            <label class="form-label">Do you have an image of what you have in mind?</label>
+                            <input type="file" class="form-control" asp-for="RequestImage" />
+                        </div>
 
-    <div class="CommentBox">
+                        <div class="mb-3">
+                            <label class="form-label">Choose a hat type:</label>
+                            <select asp-for="HatId" class="form-select">
+                                <option value="">Choose a type...</option>
+                                <option value="1">Cowboy</option>
+                                <option value="2">Sheriff</option>
+                                <option value="3">Peaky Blinders</option>
+                            </select>
+                        </div>
 
-        <p>Is there anything particular you want us to take into consideration?</p>
+                        <div class="mb-3">
+                            <label class="form-label">Which material do you want?</label>
 
-        @Html.TextAreaFor(model => model.Commentary, new { rows = "8", cols = "50", placeholder = "Write your comment here..." })
+                            <select asp-for="Material" class="form-select">
+                                <option value="">Material...</option>
+                                <option value="Leather">Leather</option>
+                                <option value="Cloth">Cloth</option>
+                                <option value="Panama">Panama</option>
+                                <option value="Linen">Linen</option>
+                                <option value="Straw">Straw</option>
+                            </select>
+                        </div>
 
+                        <div class="mb-3">
+                            <p>Special effects?</p>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Feather" id="feather">
+                                <label class="form-check-label" for="feather">Feather</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="lace" id="lace">
+                                <label class="form-check-label" for="lace">Lace</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Pearls" id="pearls">
+                                <label class="form-check-label" for="pearls">Pearls</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Flower" id="flower">
+                                <label class="form-check-label" for="flower">Flower</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text">Measurement:</span>
+                                <input asp-for="Measurement" class="form-control" placeholder="Measurement" aria-label="Measurement">
+                                <span class="input-group-text">Height:</span>
+                                <input asp-for="Height" class="form-control" placeholder="Height" aria-label="Height">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">Contact and Delivery</label>
+
+                            <div class="mb-2">
+								<select asp-for="Country" class="form-select">
+									<option value="">Country</option>
+									<option value="Sweden">Sverige</option>
+									<option value="USA">USA</option>
+									<option value="UK">Storbrittanien</option>
+									<option value="Germany">Grekland</option>
+									<option value="Norway">Norge</option>
+									<option value="Finland">Finland</option>
+								</select>
+                            </div>
+                            
+                            <div class="mb-2">
+                                <input asp-for="Name" class="form-control" placeholder="Name" />
+                            </div>
+
+                            <div class="mb-2">
+                                <input asp-for="Adress" class="form-control" placeholder="Address" />
+                            </div>
+
+                            <div class="mb-2">
+                                <input asp-for="PostalCode" class="form-control" placeholder="Postal Code" />
+                            </div>
+
+                            <div class="mb-2">
+                                <input asp-for="Email" class="form-control" placeholder="Email" />
+                            </div>
+
+                            <div class="mb-2">
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="Phonenumber" />
+                            </div>
+                            
+                        </div>
+
+                        <div class="mb-3">
+                            <p>How do you want your product delivered?</p>
+
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                            <label class="form-check-label" for="flexRadioDefault1">Pick up at workshop</label>
+
+                            <br />
+
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                            <label class="form-check-label" for="flexRadioDefault1">Home delivery</label>
+                        </div>
+
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Urgent request</label>
+                        </div>
+
+                        <div class="mb-3">
+                            <button type="submit" class="btn btn-primary">Send request</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="form-group">
-        <label asp-for="RequestImage" class="mb-0 mr-2">Ladda upp bild</label>
-        <input type="file" class="form-control" asp-for="RequestImage" />
-    </div>
-
-    <div class="SpecialEffects">
-
-        <label>
-
-            <input type="checkbox" name="SelectedSpecialEffekter" value="Feather">
-
-            Feather
-
-        </label>
-
-        <br />
-
-        <label>
-
-            <input type="checkbox" name="SelectedSpecialEffekter" value="Spets">
-
-            Spets
-
-        </label>
-
-        <br />
-
-        <label>
-
-            <input type="checkbox" name="SelectedSpecialEffekter" value="Pearls">
-
-            Pearls
-
-        </label>
-
-        <br />
-
-        <label>
-
-            <input type="checkbox" name="SelectedSpecialEffekter" value="Flower">
-
-            Flower
-
-        </label>
-
-    </div>
-
-
-
-    <div class="Material">
-
-        <p>Witch material do you want?</p>
-
-        <select asp-for="Material" class="form-control">
-
-            <option value="">Choose a meterial...</option>
-
-            <option value="Leather">Leather</option>
-
-            <option value="Cloth">Cloth</option>
-
-            <option value="Panama">Panama</option>
-
-            <option value="Linen">Linen</option>
-
-            <option value="Straw">Straw</option>
-
-        </select>
-
-        <span asp-validation-for="Material" class="text-danger"></span>
-
-    </div>
-
-
-
-    <div class="Measure">
-
-        <p>Measurement, hight och type</p>
-
-        <input asp-for="Measurement" placeholder="Mesuerment..." />
-
-        <span asp-validation-for="Measurement" class="text-danger"></span>
-
-        <br />
-
-        <input asp-for="Height" placeholder="Hight..." />
-
-        <span asp-validation-for="Height" class="text-danger"></span>
-
-        <br />
-
-        <label>Choose a hat type:</label>
-
-        <select asp-for="HatId" class="form-control">
-
-            <option value="">Choose a type...</option>
-
-            <option value="1">Cowboy</option>
-
-            <option value="2">Sheriff</option>
-
-            <option value="3">Peaky Blinders</option>
-
-        </select>
-
-        <span asp-validation-for="HatId" class="text-danger"></span>
-
-    </div>
-
-
-
-    <div class="ContactDetails">
-
-        <p>Contact and Delivery Details:</p>
-
-        <label>Choose a country:</label>
-
-        <select asp-for="Country" class="form-control">
-
-            <option value="">Choose your contry...</option>
-
-            <option value="Sweden">Sverige</option>
-
-            <option value="USA">USA</option>
-
-            <option value="UK">Storbritanien</option>
-
-            <option value="Germany">Grekland</option>
-
-            <option value="Norway">Norge</option>
-
-            <option value="Finland">Finland</option>
-
-        </select>
-
-        <br />
-
-        <input asp-for="Name" placeholder="Name" />
-
-        <span asp-validation-for="Name" class="text-danger"></span>
-
-        <br />
-
-        <span asp-validation-for="Country" class="text-danger"></span>
-
-        <br />
-
-        <input asp-for="Adress" placeholder="Adress..." />
-
-        <span asp-validation-for="Adress" class="text-danger"></span>
-
-        <br />
-
-        <input asp-for="PostalCode" placeholder="Postal Code..." />
-
-        <span asp-validation-for="PostalCode" class="text-danger"></span>
-
-        <br />
-
-        <input asp-for="Email" placeholder="Email..." />
-
-        <span asp-validation-for="Email" class="text-danger"></span>
-
-        <br />
-
-        <input asp-for="PhoneNumber" placeholder="Phonenumber..." />
-
-        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-
-    </div>
-    <div class="Leverans">
-
-        <p>How do you wnat to pick up your product?</p>
-
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-
-        <label class="form-check-label" for="flexRadioDefault1">
-
-            Pick up
-
-        </label>
-
-        <br />
-
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
-
-        
-        <label class="form-check-label" for="flexRadioDefault1">
-
-            Home delivery
-
-        </label>
-
-    </div>
-
-    <br />
-
-    <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-        <label class="form-check-label" for="flexSwitchCheckDefault">Urgent Delivery</label>
-    </div>
-
-
-
-
-    <div class="Save">
-
-        <button type="submit" class="btn btn-primary">Send request</button>
-
-    </div>
-
-</form>
+</div>
