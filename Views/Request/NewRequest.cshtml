@@ -33,9 +33,9 @@
 
         <label>
 
-            <input type="checkbox" name="SelectedSpecialEffekter" value="Fjäder">
+            <input type="checkbox" name="SelectedSpecialEffekter" value="Feather">
 
-            Fjäder
+            Feather
 
         </label>
 
@@ -53,9 +53,9 @@
 
         <label>
 
-            <input type="checkbox" name="SelectedSpecialEffekter" value="Pärlor">
+            <input type="checkbox" name="SelectedSpecialEffekter" value="Pearls">
 
-            Pärlor
+            Pearls
 
         </label>
 
@@ -63,9 +63,9 @@
 
         <label>
 
-            <input type="checkbox" name="SelectedSpecialEffekter" value="Blomma">
+            <input type="checkbox" name="SelectedSpecialEffekter" value="Flower">
 
-            Blomma
+            Flower
 
         </label>
 
@@ -75,19 +75,21 @@
 
     <div class="Material">
 
-        <p>Vilket material vill du ha på hatten?</p>
+        <p>Witch material do you want?</p>
 
         <select asp-for="Material" class="form-control">
 
-            <option value="">Välj ett material...</option>
+            <option value="">Choose a meterial...</option>
 
-            <option value="Läder">Läder</option>
+            <option value="Leather">Leather</option>
 
-            <option value="Tyg">Tyg</option>
+            <option value="Cloth">Cloth</option>
 
-            <option value="Skinn">Skinn</option>
+            <option value="Panama">Panama</option>
 
-            <option value="Strå">Strå</option>
+            <option value="Linen">Linen</option>
+
+            <option value="Straw">Straw</option>
 
         </select>
 
@@ -99,25 +101,25 @@
 
     <div class="Measure">
 
-        <p>Mått, höjd och typ</p>
+        <p>Measurement, hight och type</p>
 
-        <input asp-for="Measurement" placeholder="Mått..." />
+        <input asp-for="Measurement" placeholder="Mesuerment..." />
 
         <span asp-validation-for="Measurement" class="text-danger"></span>
 
         <br />
 
-        <input asp-for="Height" placeholder="Höjd..." />
+        <input asp-for="Height" placeholder="Hight..." />
 
         <span asp-validation-for="Height" class="text-danger"></span>
 
         <br />
 
-        <label>Välj en hatt:</label>
+        <label>Choose a hat type:</label>
 
         <select asp-for="HatId" class="form-control">
 
-            <option value="">Välj en typ...</option>
+            <option value="">Choose a type...</option>
 
             <option value="1">Cowboy</option>
 
@@ -135,29 +137,31 @@
 
     <div class="ContactDetails">
 
-        <p>Kontakt och leveransuppgifter:</p>
+        <p>Contact and Delivery Details:</p>
 
-        <label>Välj en land:</label>
+        <label>Choose a country:</label>
 
         <select asp-for="Country" class="form-control">
 
-            <option value="">Välj ett land...</option>
+            <option value="">Choose your contry...</option>
 
-            <option value="Sverige">Sverige</option>
+            <option value="Sweden">Sverige</option>
 
             <option value="USA">USA</option>
 
-            <option value="Storbritanien">Storbritanien</option>
+            <option value="UK">Storbritanien</option>
 
-            <option value="Grekland">Grekland</option>
+            <option value="Germany">Grekland</option>
 
-            <option value="Norge">Norge</option>
+            <option value="Norway">Norge</option>
 
             <option value="Finland">Finland</option>
 
         </select>
 
-        <input asp-for="Name" placeholder="Namn" />
+        <br />
+
+        <input asp-for="Name" placeholder="Name" />
 
         <span asp-validation-for="Name" class="text-danger"></span>
 
@@ -173,7 +177,7 @@
 
         <br />
 
-        <input asp-for="PostalCode" placeholder="Postnummer..." />
+        <input asp-for="PostalCode" placeholder="Postal Code..." />
 
         <span asp-validation-for="PostalCode" class="text-danger"></span>
 
@@ -185,10 +189,33 @@
 
         <br />
 
-        <input asp-for="PhoneNumber" placeholder="Telefonnummer..." />
+        <input asp-for="PhoneNumber" placeholder="Phonenumber..." />
 
         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
 
+    </div>
+    <div class="Leverans">
+
+        <p>How do you wnat to pick up your product?</p>
+
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+
+        <label class="form-check-label" for="flexRadioDefault1">
+
+            Pick up
+
+        </label>
+
+        <br />
+
+        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+
+        
+        <label class="form-check-label" for="flexRadioDefault1">
+
+            Home delivery
+
+        </label>
     </div>
 
 
