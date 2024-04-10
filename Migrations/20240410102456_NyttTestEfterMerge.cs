@@ -5,7 +5,7 @@
 namespace Hattfabriken.Migrations
 {
     /// <inheritdoc />
-    public partial class hattny : Migration
+    public partial class NyttTestEfterMerge : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
