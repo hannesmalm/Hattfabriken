@@ -1,61 +1,153 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model Hattfabriken.Models.ViewModels.RequestViewModel
+
+
+
 @{
-    <h1>Skapa en ny förfrågan!</h1>
-    <div class="CommentBox">
-        <p> Är det något speciellt som vi ska tänka på?</p>
-        <textarea rows="8" cols="50" placeholder="Skriv din kommentar här..."></textarea>
-    </div>
 
-    <div class="SpecialEffects">
-        <p>Är det några specialeffekter som du vill ha?</p>
-        <p>Fjäder: <input type="checkbox"></p>
-        <p>Spets: <input type="checkbox"></p>
-        <p>Pärlor: <input type="checkbox"></p>
-        <p>Blomma: <input type="checkbox"></p>
-    </div>
+    ViewData["Title"] = "Skapa en ny förfrågan";
 
-    <div class="Material">
-        <p>Vilket material vill du ha på hatten?</p>
-        <p>Läder: <input type="checkbox"></p>
-        <p>Tyg: <input type="checkbox"></p>
-        <p>Skinn: <input type="checkbox"></p>
-        <p>Strå: <input type="checkbox"></p>
-    </div>
-
-    <div class="Measure">
-        <p>Mått, höjd och typ</p>
-        <input type="text" size="5" placeholder="Mått..." align="left">
-        <input type="text" size="5" placeholder="Höjd..." align="left">
-        <label>Välj en hatt:</label>
-        <select name="Hattar">
-            <option disabled selected>Välj typ...</option>
-            <option>Cowboy</option>
-            <option>Sheriff</option>
-            <option>Peaky Bliders</option>
-        </select>
-    </div>
-
-    <div class="ContactDetails">
-        <p>Kontakt och leveransuppgifter:</p>
-        <label>Välj en land:</label>
-        <select name="Land">
-            <option disabled selected>Välj land...</option>
-            <option>Sverige</option>
-            <option>USA</option>
-            <option>Storbritanien</option>
-            <option>Grekland</option>
-            <option>Norge</option>
-            <option>Finland</option>
-            <input type="text" size="20" placeholder="Adress..." align="left">
-            <input type="text" size="6" placeholder="Postnummer..." align="left">
-            <input type="text" size="20" placeholder="Email..." align="left">
-            <input type="text" size="10" placeholder="Telefonnummer..." align="left">
-        </select>
-    </div>
-
-    <div class="Save">
-        <a class="button" asp-controller="Request" asp-action="RequestThru">Skicka förfrågan</a>
-    </div>
 }
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-9 col-lg-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>New request</h4>
+                </div>
+                <div class="card-body">
+
+                    <form asp-action="NewRequest" asp-controller="Request" method="post" enctype="multipart/form-data">
+
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Is there anything particular you want us to take into consideration?</label>
+                            <textarea asp-for="Commentary" class="form-control" id="commentary" placeholder="Write your comment here..." required style="resize: none; height: 200px;"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Do you have an image of what you have in mind?</label>
+                            <input type="file" class="form-control" asp-for="RequestImage" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Choose a hat type:</label>
+                            <select asp-for="HatId" class="form-select">
+                                <option value="">Choose a type...</option>
+                                <option value="1">Cowboy</option>
+                                <option value="2">Sheriff</option>
+                                <option value="3">Peaky Blinders</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Which material do you want?</label>
+
+                            <select asp-for="Material" class="form-select">
+                                <option value="">Material...</option>
+                                <option value="Leather">Leather</option>
+                                <option value="Cloth">Cloth</option>
+                                <option value="Panama">Panama</option>
+                                <option value="Linen">Linen</option>
+                                <option value="Straw">Straw</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <p>Special effects?</p>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Feather" id="feather">
+                                <label class="form-check-label" for="feather">Feather</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="lace" id="lace">
+                                <label class="form-check-label" for="lace">Lace</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Pearls" id="pearls">
+                                <label class="form-check-label" for="pearls">Pearls</label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Flower" id="flower">
+                                <label class="form-check-label" for="flower">Flower</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <span class="input-group-text">Measurement:</span>
+                                <input asp-for="Measurement" class="form-control" aria-label="Measurement">
+                                <span class="input-group-text">Height:</span>
+                                <input asp-for="Height" class="form-control" aria-label="Height">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label class="form-label">Contact and Delivery</label>
+
+                            <div class="mb-2">
+								<select asp-for="Country" class="form-select">
+									<option value="">Country</option>
+									<option value="Sweden">Sverige</option>
+									<option value="USA">USA</option>
+									<option value="UK">Storbrittanien</option>
+									<option value="Germany">Grekland</option>
+									<option value="Norway">Norge</option>
+									<option value="Finland">Finland</option>
+								</select>
+                            </div>
+                            
+                            <div class="mb-2">
+                                <input asp-for="Name" class="form-control" placeholder="Name" />
+                            </div>
+
+                            <div class="mb-2">
+                                <input asp-for="Adress" class="form-control" placeholder="Address" />
+                            </div>
+
+                            <div class="mb-2">
+                                <input asp-for="PostalCode" class="form-control" placeholder="Postal Code" />
+                            </div>
+
+                            <div class="mb-2">
+                                <input asp-for="Email" class="form-control" placeholder="Email" />
+                            </div>
+
+                            <div class="mb-2">
+                                <input asp-for="PhoneNumber" class="form-control" placeholder="Phonenumber" />
+                            </div>
+                            
+                        </div>
+
+                        <div class="mb-3">
+                            <p>How do you want your hat delivered?</p>
+
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                            <label class="form-check-label" for="flexRadioDefault1">Pick up at workshop</label>
+
+                            <br />
+
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
+                            <label class="form-check-label" for="flexRadioDefault1">Home delivery</label>
+                        </div>
+
+                        <div class="form-check form-switch mb-3">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Urgent request</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Send request</button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
