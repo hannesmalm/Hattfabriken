@@ -1,0 +1,20 @@
+﻿@model List<Request>
+
+<p>Här är alla requests brush</p>
+
+<table class="table">
+    @foreach (var request in Model)
+    {
+        <tr>
+			<td>
+				<p>@request.ForfraganID</p>
+            </td>
+            <td>
+                <p>@request.Name</p>
+            </td>
+            <td>
+				<p>@request.PhoneNumber</p>
+            </td>
+        </tr>
+    }
+</table>
