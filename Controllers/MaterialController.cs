@@ -2,9 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Hattfabriken.Models;
-using static NuGet.Packaging.PackagingConstants;
-using System.Net.Mail;
-using System.Net;
 
 namespace Hattfabriken.Controllers
 {
@@ -27,14 +24,6 @@ namespace Hattfabriken.Controllers
         {
             var materials = _dbContext.Materials.ToList();
             return View("~/Views/Lager/StorageOfMaterials.cshtml", materials);
-        }
-
-        public IActionResult Orders()
-        {
-            var materials = _dbContext.Materials.ToList();
-            ViewData["Materials"] = materials;
-            var requests = _dbContext.QuantityRequests.ToList();
-            return View("~/Views/Lager/Orders.cshtml", requests);
         }
 
 
@@ -74,106 +63,17 @@ namespace Hattfabriken.Controllers
 
 
         [HttpPost]
-        public IActionResult OrderMaterial(string MaterialName, int Quantity)
+        public IActionResult OrderMaterial(string materialName)
         {
-            var material = _dbContext.Materials.FirstOrDefault(m => m.MaterialName == MaterialName);
+            var material = _dbContext.Materials.FirstOrDefault(m => m.MaterialName == materialName);
             if (material != null)
             {
-                material.MaterialQuantity += Quantity;
+                // Assume ordering 100 units, update as needed
+                material.MaterialQuantity += 100;
                 _dbContext.SaveChanges();
             }
-            return RedirectToAction(nameof(Orders)); // Ensure this redirects to the Orders action
+            return RedirectToAction(nameof(StorageOfMaterials));
         }
-
-
-        [HttpPost]
-        public IActionResult ConfirmDelivery()
-        {
-            // Get all quantity requests that are not yet confirmed
-            var requests = _dbContext.QuantityRequests.Where(r => !r.IsConfirmed).ToList();
-
-            foreach (var request in requests)
-            {
-                // Mark the request as confirmed
-                request.IsConfirmed = true;
-
-                // Update the material quantity in the database
-                var material = _dbContext.Materials.FirstOrDefault(m => m.MaterialName == request.MaterialName);
-                if (material != null)
-                {
-                    material.MaterialQuantity += request.RequestedQuantity;
-                }
-            }
-
-            // Save changes to the database
-            _dbContext.SaveChanges();
-
-            // Redirect back to the Orders action
-            return RedirectToAction(nameof(Orders));
-        }
-
-
-
-        [HttpPost]
-        public IActionResult RequestQuantity(string MaterialName, int Quantity)
-        {
-            // Find the material based on the material name
-            var material = _dbContext.Materials.FirstOrDefault(m => m.MaterialName == MaterialName);
-            if (material != null)
-            {
-                // Create a new quantity request associated with the material
-                var request = new QuantityRequest
-                {
-                    MaterialName = MaterialName,
-                    RequestedQuantity = Quantity,
-                    IsConfirmed = false,
-                    Material = material // Associate the quantity request with the material
-                };
-
-                // Add the request to the database
-                _dbContext.QuantityRequests.Add(request);
-                _dbContext.SaveChanges();
-            }
-
-            // Redirect back to the Orders action
-            return RedirectToAction(nameof(Orders));
-        }
-
-
-
-
-
-
-        [HttpPost]
-        public IActionResult ConfirmSelectedRequests(List<int> selectedRequests)
-        {
-            if (selectedRequests != null && selectedRequests.Any())
-            {
-                var requestsToConfirm = _dbContext.QuantityRequests
-                    .Include(r => r.Material) // Include Material to avoid lazy loading
-                    .Where(r => selectedRequests.Contains(r.Id) && !r.IsConfirmed)
-                    .ToList();
-
-                foreach (var request in requestsToConfirm)
-                {
-                    request.IsConfirmed = true;
-                    request.Material.MaterialQuantity += request.RequestedQuantity; // Update MaterialQuantity
-                }
-
-                _dbContext.SaveChanges();
-            }
-
-            return RedirectToAction(nameof(Orders));
-        }
-
-
-
-
-
-
-
-
-
 
     }
 }

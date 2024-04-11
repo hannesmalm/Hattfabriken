@@ -17,7 +17,5 @@ namespace Hattfabriken.Models
         public string MaterialSupplier { get; set; }
         [Required(ErrorMessage = "Price is required")]
         public int Price { get; set; }
-
-        public bool IsConfirmed { get; set; }
     }
 }

@@ -105,9 +105,6 @@ namespace Hattfabriken.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<bool>("IsConfirmed")
-                        .HasColumnType("bit");
-
                     b.Property<int>("MaterialQuantity")
                         .HasColumnType("int");
 
@@ -155,114 +152,29 @@ namespace Hattfabriken.Migrations
                     b.Property<string>("Material")
                         .HasColumnType("nvarchar(max)");
 
-
-                    b.HasData(
-                        new
-                        {
-                            MaterialName = "Leather",
-                            IsConfirmed = false,
-                            MaterialQuantity = 1000,
-                            MaterialSupplier = "Leather@gmail.com",
-                            Price = 45
-                        },
-                        new
-                        {
-                            MaterialName = "Straw",
-                            IsConfirmed = false,
-                            MaterialQuantity = 800,
-                            MaterialSupplier = "StrawSwag@icloud.com",
-                            Price = 14
-                        },
-                        new
-                        {
-                            MaterialName = "Cloth",
-                            IsConfirmed = false,
-                            MaterialQuantity = 2200,
-                            MaterialSupplier = "ClothCircus@hotmail.com",
-                            Price = 13
-                        },
-                        new
-                        {
-                            MaterialName = "Snakeskin",
-                            IsConfirmed = false,
-                            MaterialQuantity = 400,
-                            MaterialSupplier = "SnakeKiller@icloud.com",
-                            Price = 84
-                        },
-                        new
-                        {
-                            MaterialName = "Felt",
-                            IsConfirmed = false,
-                            MaterialQuantity = 600,
-                            MaterialSupplier = "FeltFear@icloud.com",
-                            Price = 14
-                        },
-                        new
-                        {
-                            MaterialName = "Panama",
-                            IsConfirmed = false,
-                            MaterialQuantity = 900,
-                            MaterialSupplier = "PanamaSwag@icloud.com",
-                            Price = 16
-                        },
-                        new
-                        {
-                            MaterialName = "Cotton",
-                            IsConfirmed = false,
-                            MaterialQuantity = 200,
-                            MaterialSupplier = "CottonCorner@icloud.com",
-                            Price = 16
-                        },
-                        new
-                        {
-                            MaterialName = "Linen",
-                            IsConfirmed = false,
-                            MaterialQuantity = 300,
-                            MaterialSupplier = "GrischLaidback@icloud.com",
-                            Price = 28
-                        },
-                        new
-                        {
-                            MaterialName = "Satin",
-                            IsConfirmed = false,
-                            MaterialQuantity = 1000,
-                            MaterialSupplier = "SatinSwag@icloud.com",
-                            Price = 12
-                        },
-                        new
-                        {
-                            MaterialName = "Polyester",
-                            IsConfirmed = false,
-                            MaterialQuantity = 2900,
-                            MaterialSupplier = "PolyesterChina@icloud.com",
-                            Price = 11
-                        });
-
-                });
-
-            modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int?>("Measurement")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MaterialName")
+                    b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RequestedQuantity")
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostalCode")
                         .HasColumnType("int");
+
+                    b.Property<byte[]>("RequestImage")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("SpecialEffects")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MaterialName");
-
-                    b.ToTable("QuantityRequests");
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.User", b =>
@@ -481,17 +393,6 @@ namespace Hattfabriken.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
-                {
-                    b.HasOne("Hattfabriken.Models.Material", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Material");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
