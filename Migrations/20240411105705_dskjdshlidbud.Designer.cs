@@ -4,6 +4,7 @@ using Hattfabriken.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    partial class HatDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240411105705_dskjdshlidbud")]
+    partial class dskjdshlidbud
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -239,6 +242,9 @@ namespace Hattfabriken.Migrations
 
                     b.Property<string>("MaterialName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MaterialName1")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("RequestedQuantity")
@@ -246,7 +252,7 @@ namespace Hattfabriken.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MaterialName");
+                    b.HasIndex("MaterialName1");
 
                     b.ToTable("QuantityRequests");
                 });
@@ -473,9 +479,7 @@ namespace Hattfabriken.Migrations
                 {
                     b.HasOne("Hattfabriken.Models.Material", "Material")
                         .WithMany()
-                        .HasForeignKey("MaterialName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("MaterialName1");
 
                     b.Navigation("Material");
                 });

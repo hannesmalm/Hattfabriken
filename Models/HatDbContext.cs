@@ -16,11 +16,24 @@ namespace Hattfabriken.Models
         public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<Forfragan> Forfragor { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<QuantityRequest> QuantityRequests { get; set; }
+
+
+
+     
+
+
 
         //SÄÄÄÄD method for initializing default materials LOOOOOOL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<QuantityRequest>()
+                .HasOne(q => q.Material)               // QuantityRequest has one Material
+                .WithMany()                            // Material can have many QuantityRequests
+                .HasForeignKey(q => q.MaterialName)   // Foreign key property
+                .HasPrincipalKey(m => m.MaterialName); // Principal key property
 
             // Call the seeding method
             SeedMaterials(modelBuilder);

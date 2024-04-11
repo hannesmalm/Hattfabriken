@@ -4,6 +4,7 @@ using Hattfabriken.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    partial class HatDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240411103746_lolsdsdfsdf")]
+    partial class lolsdsdfsdf
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -224,31 +227,6 @@ namespace Hattfabriken.Migrations
                             MaterialSupplier = "PolyesterChina@icloud.com",
                             Price = 11
                         });
-                });
-
-            modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MaterialName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("RequestedQuantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MaterialName");
-
-                    b.ToTable("QuantityRequests");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.User", b =>
@@ -467,17 +445,6 @@ namespace Hattfabriken.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
-                {
-                    b.HasOne("Hattfabriken.Models.Material", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Material");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
