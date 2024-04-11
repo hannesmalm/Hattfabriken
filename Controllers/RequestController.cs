@@ -93,6 +93,12 @@ namespace Hattfabriken.Controllers
             return View(requestList);
         }
 
+        public IActionResult Request(int requestId)
+        {
+            var request = _context.Requests.FirstOrDefault(r => r.Id == requestId);
+            return View("Request", request);
+        }
+
         public IActionResult RequestSuccess()
         {
             return View();
