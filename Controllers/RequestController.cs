@@ -102,6 +102,28 @@ namespace Hattfabriken.Controllers
             return View("Request", request);
         }
 
+        [HttpPost]
+        public IActionResult AcceptRequest(int requestId)
+        {
+            var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
+            request.Status = "Accepted";
+
+            // GÅ VIDARE TILL SKAPA OFFERT
+
+            return View("Request", request);
+        }
+
+        [HttpPost]
+        public IActionResult DeclineRequest(int requestId)
+        {
+            var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
+            request.Status = "Declined";
+
+            // SKICKA MAIL
+
+            return View("Request", request);
+        }
+
         public IActionResult RequestSuccess()
         {
             return View();
