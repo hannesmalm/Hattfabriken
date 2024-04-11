@@ -18,11 +18,20 @@ else
     <P>Country: @Model.Country</P>
     <P>Email: @Model.Email</P>
     <P>phone Number: @Model.PhoneNumber</P>
-
+    
     <br />
 
     <p>Client's Message': @Model.Commentary</p>
-    
+
+    <div class="col-md-2">
+        @if (Model.RequestImage != null)
+        {
+            var imageBase64 = Convert.ToBase64String(Model.RequestImage);
+            var imageSrc = $"data:image/png;base64,{imageBase64}";
+            <img class="card-img-top" src="@imageSrc" alt="Request Image">
+        }
+    </div>
+
     <br />
 
     <p>Hat-ID: @Model.HatId</p>
@@ -39,4 +48,8 @@ else
 
     <h4>Status:</h4>
     <p>@Model.Status</p>
+
+    <button class="btn btn-success">Accept Request</button>
+
+    <button class="btn btn-danger">Decline Request</button>
 }
