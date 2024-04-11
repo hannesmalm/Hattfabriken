@@ -47,6 +47,6 @@ button.accept-policy {
   line-height: 60px;
 }
 
-#requestTable tbody tr:hover {
+.Table tbody tr:hover {
     background-color: darkred; /* För att visa att raden är klickbar */
 }
