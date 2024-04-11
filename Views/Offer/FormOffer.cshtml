@@ -1,0 +1,51 @@
+﻿@model Hattfabriken.Models.Viewmodels.OfferViewModel
+
+
+<h1>Create Offer</h1>
+
+<form asp-controller="Offer" asp-action="Create" method="post">
+
+   <div class="form-group">
+        <label asp-for="KundNamn">Kund namn:</label>
+        <input asp-for="KundNamn" class="form-control"/>
+   </div>
+
+   <div class="form-group">
+        <label asp-for="KundMail">Kund mail:</label>
+        <input asp-for="KundMail" class="form-control" />
+   </div>
+
+    <div class="form-group">
+        <label asp-for="OffertId"> Offert id:</label>
+        <input asp-for="OffertId" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="MaterialKostand">Material kostand:</label>
+        <input asp-for="MaterialKostand" class="form-control" />
+        
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SpecialeffektKostand">Specialeffekt kostnad:</label>
+        <input asp-for="SpecialeffektKostand" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SpecialtygKostnad">Specialtyg kostand:</label>
+        <input asp-for="SpecialtygKostnad" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="FraktKostnad">Frakt kostnad:</label>
+        <input asp-for="FraktKostnad" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="EstimeratLeveransdatum">Estimerat leveransdatum:</label>
+        <input asp-for="EstimeratLeveransdatum" class="form-control" />
+    </div>
+
+    <buttom type="submit" class="btn btn-primary">Send In</buttom>
+
+</form>
