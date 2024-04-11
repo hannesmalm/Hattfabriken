@@ -1,3 +1,39 @@
-﻿@{
-    <h1> Hejsansvejsan du har öppnat en förfrågan! coolt mannen! fett å så 8) </h1>
+﻿@using System.Security.Claims
+@model Request
+
+@if (Model == null)
+{
+    <p>Förfrågan hittades inte.</p>
+}
+else
+{
+    <h4>FÖRFRÅGAN</h4>
+
+    <br />
+
+    <p>ID: @Model.Id</p>
+    <p>Name: @Model.Name</p>
+    <P>Address: @Model.Adress</P>
+    <P>Postal Code: @Model.PostalCode</P>
+    <P>Country: @Model.Country</P>
+    <P>Email: @Model.Email</P>
+    <P>phone Number: @Model.PhoneNumber</P>
+
+    <br />
+
+    <p>Client's Message': @Model.Commentary</p>
+    
+    <br />
+
+    <p>Hat-ID: @Model.HatId</p>
+    <P>Material: @Model.Material</P>
+    <p>Measurement: @Model.Measurement</p>
+    <P>Height: @Model.Height</P>
+	<P>Special Effects:</P>
+        <ul>
+            @foreach ( var specialEffect in Model.SpecialEffects)
+            {
+                <li>@specialEffect</li>
+            }
+        </ul>
 }

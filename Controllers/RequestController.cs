@@ -93,9 +93,12 @@ namespace Hattfabriken.Controllers
             return View(requestList);
         }
 
+        [HttpGet]
         public IActionResult Request(int requestId)
         {
-            var request = _context.Requests.FirstOrDefault(r => r.Id == requestId);
+            Console.WriteLine("Metod anropad med requestId: " + requestId);
+
+            Request request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
             return View("Request", request);
         }
 

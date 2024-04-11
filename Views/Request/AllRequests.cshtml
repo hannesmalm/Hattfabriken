@@ -21,7 +21,7 @@
     <tbody>
         @foreach (var request in Model)
         {
-            <tr data-href="@Url.Action("Request", "Request", new { id = request.Id })">
+            <tr data-href="@Url.Action("Request", "Request", new { requestId = request.Id })">
                 <td>
                     <p>@request.Id</p>
                 </td>
