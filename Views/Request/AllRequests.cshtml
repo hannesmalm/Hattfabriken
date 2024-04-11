@@ -1,0 +1,56 @@
+﻿@model List<Request>
+
+<p>Här är alla requests brush</p>
+
+
+<style>
+    #requestTable tbody tr:hover {
+        background-color: lightgray;
+        cursor: pointer;
+    }
+</style>
+
+<table class="table" id="requestTable">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Namn</th>
+            <th>Tel.Nr</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr data-href="@Url.Action("Request", "Request", new { requestId = request.Id })">
+                <td>
+                    <p>@request.Id</p>
+                </td>
+                <td>
+                    <p>@request.Name</p>
+                </td>
+                <td>
+                    <p>@request.PhoneNumber</p>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var table = document.getElementById("requestTable");
+        table.addEventListener("click", function (event) {
+            var target = event.target;
+            while (target && target !== table) {
+                if (target.tagName === "TR") {
+                    var href = target.getAttribute("data-href");
+                    if (href) {
+                        window.location.href = href;
+                    }
+                    return;
+                }
+                target = target.parentNode;
+            }
+        });
+    });
+</script>

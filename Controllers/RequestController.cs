@@ -1,6 +1,7 @@
 ﻿using Hattfabriken.Models;
 using Microsoft.AspNetCore.Mvc;
 using Hattfabriken.Models.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace Hattfabriken.Controllers
@@ -84,6 +85,21 @@ namespace Hattfabriken.Controllers
             }
 
             return View(requestViewModel);
+        }
+
+        public IActionResult AllRequests()
+        {
+            var requestList = _context.Requests.ToList(); // Hämta alla Förfrågningar från databasen
+            return View(requestList);
+        }
+
+        [HttpGet]
+        public IActionResult Request(int requestId)
+        {
+            Console.WriteLine("Metod anropad med requestId: " + requestId);
+
+            Request request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
+            return View("Request", request);
         }
 
         public IActionResult RequestSuccess()

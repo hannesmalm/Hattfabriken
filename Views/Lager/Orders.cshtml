@@ -1,0 +1,80 @@
+﻿@model IEnumerable<Hattfabriken.Models.QuantityRequest>
+
+<h1>Orders</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Confirmed Quantity Requests</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Requested Quantity</th>
+                    <th>Supplier Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var request in Model.Where(r => r.IsConfirmed))
+                {
+                    <tr>
+                        <td>@request.MaterialName</td>
+                        <td>@request.RequestedQuantity</td>
+                        <td>@request.Material.MaterialSupplier</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <h2>Unconfirmed Quantity Requests</h2>
+        <form asp-action="ConfirmSelectedRequests" method="post">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Select</th>
+                        <th>Name</th>
+                        <th>Requested Quantity</th>
+                        <th>Supplier Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var request in Model.Where(r => !r.IsConfirmed))
+                    {
+                        <tr>
+                            <td><input type="checkbox" name="selectedRequests" value="@request.Id" /></td>
+                            <td>@request.MaterialName</td>
+                            <td>@request.RequestedQuantity</td>
+                            <td>@request.Material.MaterialSupplier</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">Confirm Selected Requests</button>
+        </form>
+
+        <!-- Button to Confirm Delivery ALL -->
+        <form asp-action="ConfirmDelivery" method="post">
+            <button type="submit" class="btn btn-primary mt-3">Confirm Delivery ALL</button>
+        </form>
+    </div>
+</div>
+
+<!-- Form to Request Quantity -->
+<h2>Request More Material</h2>
+<form asp-action="RequestQuantity" method="post">
+    <div class="form-group">
+        <label for="material">Select Material:</label>
+        <select class="form-control" id="material" name="MaterialName">
+            @foreach (var material in ViewData["Materials"] as IEnumerable<Hattfabriken.Models.Material>)
+            {
+                <option value="@material.MaterialName">@material.MaterialName</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" class="form-control" id="quantity" name="Quantity">
+    </div>
+    <button type="submit" class="btn btn-primary">Request</button>
+</form>
+<button 
