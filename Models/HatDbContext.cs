@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Hattfabriken.Models
 {
     public class HatDbContext : IdentityDbContext<User>
@@ -13,5 +14,6 @@ namespace Hattfabriken.Models
         public DbSet<Request> Requests { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Image> Images { get; set; }
+
     }
 }
