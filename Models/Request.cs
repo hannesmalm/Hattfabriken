@@ -38,5 +38,7 @@ namespace Hattfabriken.Models
 
         [ForeignKey("Image")]
         public byte[]? RequestImage { get; set; }
+
+        public String Status = "Pending";
     }
 }
