@@ -49,7 +49,18 @@ else
     <h4>Status:</h4>
     <p>@Model.Status</p>
 
-    <button class="btn btn-success">Accept Request</button>
+    var requestId = Model.Id;
 
-    <button class="btn btn-danger">Decline Request</button>
+    <div style="display: flex; justify-content: space-between;">
+        <form method="post" asp-controller="Request" asp-action="AcceptRequest">
+            <input type="hidden" name="requestId" value="@requestId" />
+            <button type="submit" class="btn btn-success">Accept Request</button>
+        </form>
+
+        <form method="post" asp-controller="Request" asp-action="DeclineRequest">
+            <input type="hidden" name="requestId" value="@requestId" />
+            <button type="submit" class="btn btn-danger">Decline Request</button>
+        </form>
+    </div>
+
 }
