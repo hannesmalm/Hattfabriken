@@ -50,44 +50,6 @@ namespace Hattfabriken.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Hattfabriken.Models.Forfragan", b =>
-                {
-                    b.Property<int>("ForfraganID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ForfraganID"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("HatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Hojd")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Kommentar")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Material")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Matt")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SpecialEffekter")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ForfraganID");
-
-                    b.ToTable("Forfragor");
-                });
-
             modelBuilder.Entity("Hattfabriken.Models.Hatt", b =>
                 {
                     b.Property<int>("HatId")
@@ -117,7 +79,24 @@ namespace Hattfabriken.Migrations
 
                     b.HasKey("HatId");
 
-                    b.ToTable("Hattar");
+                    b.ToTable("Hats");
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Material", b =>
@@ -142,6 +121,40 @@ namespace Hattfabriken.Migrations
                     b.HasKey("MaterialName");
 
                     b.ToTable("Materials");
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.Request", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Adress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Commentary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("HatId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Material")
+                        .HasColumnType("nvarchar(max)");
+
 
                     b.HasData(
                         new
@@ -224,6 +237,7 @@ namespace Hattfabriken.Migrations
                             MaterialSupplier = "PolyesterChina@icloud.com",
                             Price = 11
                         });
+
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
