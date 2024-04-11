@@ -8,7 +8,7 @@ namespace Hattfabriken.Models
     public class Request
     {
         [Key]
-        public int ForfraganID { get; set; }
+        public int Id { get; set; }
 
         [ForeignKey("Hatt")]
         public int? HatId { get; set; }
