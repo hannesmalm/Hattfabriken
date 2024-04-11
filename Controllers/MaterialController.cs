@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Hattfabriken.Models;
 using static NuGet.Packaging.PackagingConstants;
+using System.Net.Mail;
+using System.Net;
 
 namespace Hattfabriken.Controllers
 {
@@ -136,6 +138,9 @@ namespace Hattfabriken.Controllers
             // Redirect back to the Orders action
             return RedirectToAction(nameof(Orders));
         }
+
+
+
 
 
 
