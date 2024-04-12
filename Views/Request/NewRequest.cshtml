@@ -128,18 +128,20 @@
                         <div class="mb-3">
                             <p>How do you want your hat delivered?</p>
 
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                            <label class="form-check-label" for="flexRadioDefault1">Pick up at workshop</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="pickupRadio" name="DeliveryOrPickup" value="Pick up at workshop" asp-for="DeliveryOrPickup" />
+                                <label class="form-check-label" for="pickupRadio">Pick up at workshop</label>
+                            </div>
 
-                            <br />
-
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                            <label class="form-check-label" for="flexRadioDefault1">Home delivery</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" id="deliveryRadio" name="DeliveryOrPickup" value="Home delivery" asp-for="DeliveryOrPickup" />
+                                <label class="form-check-label" for="deliveryRadio">Home delivery</label>
+                            </div>
                         </div>
 
                         <div class="form-check form-switch mb-3">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Urgent request</label>
+                            <input class="form-check-input" type="checkbox" id="urgentCheckbox" name="Urgent" value="true" asp-for="Urgent" />
+                            <label class="form-check-label" for="urgentCheckbox">Urgent request</label>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Send request</button>

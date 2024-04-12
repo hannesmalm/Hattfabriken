@@ -44,6 +44,9 @@ namespace Hattfabriken.Controllers
                     Email = requestViewModel.Email,
                     PhoneNumber = requestViewModel.PhoneNumber,
                     Name = requestViewModel.Name,
+                    Date = DateTime.Now,
+                    DeliveryOrPickup = requestViewModel.DeliveryOrPickup,
+                    Urgent = requestViewModel.Urgent
                 };
 
                 if (requestViewModel.RequestImage != null && requestViewModel.RequestImage.Length > 0)
