@@ -24,11 +24,7 @@
                 <td>@hat.Price</td>
                 <td>@hat.SpecialEffects</td>
                 <td>
-                     @* <a asp-action="EditMaterial" asp-route-id="@material.MaterialName" class="btn btn-primary">Edit</a>
-                    <form asp-action="OrderMaterial" method="post">
-                        <input type="hidden" name="materialName" value="@material.MaterialName" />
-                        <button type="submit" class="btn btn-success">Order More</button>
-                    </form>  *@
+                     <a asp-action="EditHat" asp-controller="Hat" class="btn btn-primary">Edit</a>
                 </td>
             </tr>
         }
