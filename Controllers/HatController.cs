@@ -54,5 +54,57 @@ namespace Hattfabriken.Controllers
             }
             return View("~/Views/Lager/StorageOfHats.cshtml");
         }
+        [HttpGet]
+        public IActionResult EditHat(int HatId) 
+        {
+            var hat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == HatId);
+            if (hat == null)
+            {
+                return RedirectToAction(nameof(EditHat));
+            }
+
+            var editHatViewModel = new EditHatViewModel
+            {
+                HatId = HatId,
+                MaterialName = hat.MaterialName,
+                Description = hat.Description,
+                Price = hat.Price,
+                SpecialEffects = hat.SpecialEffects,
+                OuterMeasurement = hat.OuterMeasurement,
+            };
+            return View("EditHat", editHatViewModel);
+         }
+        [HttpPost]
+
+        public IActionResult EditHat(EditHatViewModel editHatViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var existingHat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == editHatViewModel.HatId);
+
+                    if (existingHat != null)
+                    {
+                        existingHat.HatName = editHatViewModel.HatName;
+                        existingHat.MaterialName = editHatViewModel.MaterialName;
+                        existingHat.Description = editHatViewModel.Description;
+                        existingHat.Price = editHatViewModel.Price;
+                        existingHat.SpecialEffects = editHatViewModel.SpecialEffects;
+                        existingHat.OuterMeasurement = editHatViewModel.OuterMeasurement;
+                        
+                        _dbContext.SaveChanges();
+                        return RedirectToAction("StorageOfHats", new { hatId = existingHat.HatId });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Ett fel uppstod: {ex.Message}");
+                    return RedirectToAction("Error", "EditHat");
+                }
+
+            }
+            return View("EditHat", editHatViewModel);
+        }
     }
 }
