@@ -1,4 +1,4 @@
-﻿namespace Hattfabriken.Models
+﻿namespace Hattfabriken.Models.Interfaces
 {
     public interface IMailService
     {

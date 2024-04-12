@@ -1,5 +1,6 @@
 ﻿using System.Net.Mail;
 using Hattfabriken.Models;
+using Hattfabriken.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;

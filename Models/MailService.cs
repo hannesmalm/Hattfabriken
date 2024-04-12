@@ -4,6 +4,7 @@ using System;
 using MailKit.Security;
 using MailKit.Net.Smtp;
 using Hattfabriken.Models;
+using Hattfabriken.Models.Interfaces;
 
 public class MailService : IMailService
 {

@@ -1,4 +1,5 @@
 using Hattfabriken.Models;
+using Hattfabriken.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -7,7 +8,7 @@ using Microsoft.OpenApi.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
+QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
 // Add services to the container.
 
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<HatDbContext>(options =>
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<HatDbContext>()
     .AddDefaultTokenProviders();
+builder.Services.AddScoped<PdfService>();
+
 
 
 //API
