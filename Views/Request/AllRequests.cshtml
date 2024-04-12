@@ -13,15 +13,20 @@
 <table class="table" id="requestTable">
     <thead>
         <tr>
+            <th>Date</th>
             <th>Id</th>
-            <th>Namn</th>
-            <th>Tel.Nr</th>
+            <th>Name</th>
+            <th>Phone.Nr</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var request in Model)
         {
             <tr data-href="@Url.Action("Request", "Request", new { requestId = request.Id })">
+                <td>
+                    <p>@request.Date.ToString("yyyy-MM-dd")</p>
+                </td>
                 <td>
                     <p>@request.Id</p>
                 </td>
@@ -30,6 +35,27 @@
                 </td>
                 <td>
                     <p>@request.PhoneNumber</p>
+                </td>
+
+                @{
+                    string statusColorClass = string.Empty;
+
+                    switch (request.Status)
+                    {
+                        case "Accepted":
+                            statusColorClass = "text-success";
+                            break;
+                        case "Declined":
+                            statusColorClass = "text-danger";
+                            break;
+                        default:
+                            statusColorClass = ""; // Inga särskild färg för "Pending"
+                            break;
+                    }
+                }
+
+                <td>
+                    <p class="@statusColorClass">@request.Status</p>
                 </td>
             </tr>
         }

@@ -1,66 +1,87 @@
 ﻿@using System.Security.Claims
 @model Request
 
-@if (Model == null)
-{
-    <p>Förfrågan hittades inte.</p>
-}
-else
-{
-    <h4>FÖRFRÅGAN</h4>
+<div class="container">
+    <a asp-controller="Request" asp-action="AllRequests" class="btn btn-primary mb-3">Back to list</a>
 
-    <br />
+    @if (Model == null)
+    {
+        <p class="alert alert-warning">Förfrågan hittades inte.</p>
+    }
+    else
+    {
+        <h4 class="mb-4">FÖRFRÅGAN</h4>
 
-    <p>ID: @Model.Id</p>
-    <p>Name: @Model.Name</p>
-    <P>Address: @Model.Adress</P>
-    <P>Postal Code: @Model.PostalCode</P>
-    <P>Country: @Model.Country</P>
-    <P>Email: @Model.Email</P>
-    <P>phone Number: @Model.PhoneNumber</P>
-    
-    <br />
+        <div class="row">
+            <div class="col-md-6">
+                <p>ID: @Model.Id</p>
+                <p>Name: @Model.Name</p>
+                <p>Address: @Model.Adress</p>
+                <p>Postal Code: @Model.PostalCode</p>
+                <p>Country: @Model.Country</p>
+                <p>Email: @Model.Email</p>
+                <p>Phone Number: @Model.PhoneNumber</p>
+                <p>Client's Message: @Model.Commentary</p>
+            </div>
+            <div class="col-md-6">
+                @if (Model.RequestImage != null)
+                {
+                    var imageBase64 = Convert.ToBase64String(Model.RequestImage);
+                    var imageSrc = $"data:image/png;base64,{imageBase64}";
+                    <img class="img-fluid rounded" src="@imageSrc" alt="Request Image">
+                }
+            </div>
+        </div>
 
-    <p>Client's Message': @Model.Commentary</p>
+        <hr>
 
-    <div class="col-md-2">
-        @if (Model.RequestImage != null)
+        <div class="row">
+            <div class="col-md-6">
+                <p>Hat-ID: @Model.HatId</p>
+                <p>Material: @Model.Material</p>
+                <p>Measurement: @Model.Measurement</p>
+                <p>Height: @Model.Height</p>
+                <p>Special Effects:</p>
+                <ul>
+                    @foreach (var specialEffect in Model.SpecialEffects)
+                    {
+                        <li>@specialEffect</li>
+                    }
+                </ul>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Status:</h4>
+                <p>@Model.Status</p>
+                @if (Model.Status == "Pending")
+                {
+                    
+                    <form method="post" asp-controller="Request" asp-action="AcceptRequest" class="mb-3">
+                        <input type="hidden" name="requestId" value="@Model.Id" />
+                        <button type="submit" class="btn btn-success w-100">Accept Request</button>
+                    </form>
+                    <form method="post" asp-controller="Request" asp-action="DeclineRequest" class="mb-3">
+                        <input type="hidden" name="requestId" value="@Model.Id" />
+                        <button type="submit" class="btn btn-danger w-100" onclick="openOutlook()">Decline Request </button>
+                    </form>
+
+                }
+                
+
+            </div>
+
+        </div>
+    }
+</div>
+
+
+    <script>
+        function openOutlook()
         {
-            var imageBase64 = Convert.ToBase64String(Model.RequestImage);
-            var imageSrc = $"data:image/png;base64,{imageBase64}";
-            <img class="card-img-top" src="@imageSrc" alt="Request Image">
+            var subject = "Request @Model.Id Declined";
+            var emailAdress = "@Model.Email";
+            var body = "Dear Customer,\n\nWe regret to inform you that your request with Request-ID " + @Model.Id + " has been declined.\n\nBest regards,\nThe Hat Factory Team";
+            var mailtoLink = "mailto:" + encodeURIComponent(emailAdress) + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+            window.location.href = mailtoLink;
         }
-    </div>
-
-    <br />
-
-    <p>Hat-ID: @Model.HatId</p>
-    <P>Material: @Model.Material</P>
-    <p>Measurement: @Model.Measurement</p>
-    <P>Height: @Model.Height</P>
-	<P>Special Effects:</P>
-        <ul>
-            @foreach ( var specialEffect in Model.SpecialEffects)
-            {
-                <li>@specialEffect</li>
-            }
-        </ul>
-
-    <h4>Status:</h4>
-    <p>@Model.Status</p>
-
-    var requestId = Model.Id;
-
-    <div style="display: flex; justify-content: space-between;">
-        <form method="post" asp-controller="Request" asp-action="AcceptRequest">
-            <input type="hidden" name="requestId" value="@requestId" />
-            <button type="submit" class="btn btn-success">Accept Request</button>
-        </form>
-
-        <form method="post" asp-controller="Request" asp-action="DeclineRequest">
-            <input type="hidden" name="requestId" value="@requestId" />
-            <button type="submit" class="btn btn-danger">Decline Request</button>
-        </form>
-    </div>
-
-}
+    </script>

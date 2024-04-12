@@ -12,23 +12,23 @@ namespace Hattfabriken.Models
 
         [ForeignKey("Hatt")]
         public int? HatId { get; set; }
-       
+
         public string? Material { get; set; }
-       
+
         public int? Measurement { get; set; }
-       
+
         public int? Height { get; set; }
 
         public string? Commentary { get; set; }
 
         public List<string>? SpecialEffects { get; set; }
-        
+
         public string Adress { get; set; }
-        
+
         public int PostalCode { get; set; }
-        
+
         public string PhoneNumber { get; set; }
-     
+
         public string Country { get; set; }
 
         [ForeignKey("Customer")]
@@ -39,7 +39,7 @@ namespace Hattfabriken.Models
         [ForeignKey("Image")]
         public byte[]? RequestImage { get; set; }
 
-        public string Status = "Pending";
+        public string Status { get; set; } = "Pending";
 
         public DateTime Date { get; set; }
 

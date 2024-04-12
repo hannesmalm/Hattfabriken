@@ -110,6 +110,9 @@ namespace Hattfabriken.Controllers
         {
             var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
             request.Status = "Accepted";
+            
+            _context.Update(request);
+            _context.SaveChanges();
 
             // GÅ VIDARE TILL SKAPA OFFERT
 
@@ -122,7 +125,11 @@ namespace Hattfabriken.Controllers
             var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
             request.Status = "Declined";
 
-            // SKICKA MAIL
+
+            _context.Update(request);
+            _context.SaveChanges();
+
+            // SKICKA MAIL (javascript)
 
             return View("Request", request);
         }
