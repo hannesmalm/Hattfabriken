@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Hattfabriken.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
+using Hattfabriken.Models.Interfaces;
 
 
 namespace Hattfabriken.Controllers
