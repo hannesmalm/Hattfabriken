@@ -1,0 +1,64 @@
+﻿@model Hatt
+
+<h1>Edit Hat</h1>
+
+<form asp-controller="Hat" asp-action="EditHat" method="post" id="editHatForm">
+    <input type="hidden" asp-for="MaterialName" />
+
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="HatName" class="form-control" value="@Model.HatName" />
+        <span asp-validation-for="HatName" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="material">Material:</label>
+        <input type="text" id="material" name="MaterialName" class="form-control" value="@Model.MaterialName" />
+        <span asp-validation-for="MaterialName" class="text-danger"></span>
+    </div>
+
+	<div class="form-group">
+		<label for="price">Price:</label>
+		<input type="number" id="price" name="Price" class="form-control" value="@Model.Price" />
+		<span asp-validation-for="Price" class="text-danger"></span>
+	</div>
+
+    <div class="form-group">
+        <label for="measurement">Outer measurement:</label>
+        <input type="number" id="measurement" name="OuterMeasurement" class="form-control" value="@Model.OuterMeasurement" />
+        <span asp-validation-for="OuterMeasurement" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="Description" class="form-control" value="@Model.Description" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="specialEffects">Special effects:</label>
+        <input type="text" id="specialEffects" name="SpecialEffects" class="form-control" value="@Model.SpecialEffects" />
+        <span asp-validation-for="SpecialEffects" class="text-danger"></span>
+    </div>
+
+    <button type="button" class="btn btn-primary" id="saveChangesBtn">Save Changes</button>
+</form>
+
+@section Scripts {
+    <script>
+        document.getElementById('saveChangesBtn').addEventListener('click', function () {
+            // Check if any of the input fields are empty
+            var quantity = document.getElementById('quantity').value.trim();
+            var supplier = document.getElementById('supplier').value.trim();
+            var price = document.getElementById('price').value.trim();
+
+            if (quantity === '' || supplier === '' || price === '') {
+                alert('Please fill in all fields.');
+                return;
+            }
+
+            // If all fields are filled, submit the form
+            document.getElementById('editMaterialForm').submit();
+        });
+    </script>
+}

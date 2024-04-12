@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Hatt>
+
+<h1>Hats in stock</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Material</th>
+            <th>Outer measurement</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Special effects</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* @foreach (var hat in Model)
+        {
+            <tr>
+                <td>@hat.HatName</td>
+                <td>@hat.MaterialName</td>
+                <td>@hat.OuterMeasurement</td>
+                <td>@hat.Description</td>
+                <td>@hat.Price</td>
+                <td>@hat.SpecialEffects</td>
+                <td>
+                     <a asp-action="EditMaterial" asp-route-id="@material.MaterialName" class="btn btn-primary">Edit</a>
+                    <form asp-action="OrderMaterial" method="post">
+                        <input type="hidden" name="materialName" value="@material.MaterialName" />
+                        <button type="submit" class="btn btn-success">Order More</button>
+                    </form> 
+                </td>
+            </tr>
+        } *@
+    </tbody>
+</table>
+<h2>Add hat</h2>
+<form asp-action="AddHat" method="post">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="HatName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="material">Material:</label>
+		@* <select id="material" name="MaterialName" class="form-control">
+        @if(Model != null){
+        @foreach (var material in Model)
+        {
+        <option value="@material.MaterialName">@material.MaterialName</option>
+        }
+        }
+        </select>
+        <select id="material" name="MaterialName" class="form-control">
+            @foreach (var material in ViewBag.Materials)
+            {
+                <option value="@material">@material</option>
+            }
+        </select> *@
+        <input type="text" id="material" name="MaterialName" class="form-control" />
+
+    </div>
+    
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="Price" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="specialEffects">Special effects:</label>
+        <input type="text" id="specialEffects" name="SpecialEffects" class="form-control" />
+	</div>
+    <div class="form-group">
+		<label for="measurement">Outer measurement:</label>
+		<input type="number" id="measurement" name="OuterMeasurement" class="form-control" />
+	</div>
+    <button type="submit" class="btn btn-primary">Add Hat</button>
+</form>

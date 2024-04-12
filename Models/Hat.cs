@@ -10,11 +10,11 @@ namespace Hattfabriken.Models
         [Key]
         public int HatId { get; set; }
         public string HatName { get; set; }
-        [ForeignKey("Material")]
+        //[ForeignKey("Material")]
         public string MaterialName {  get; set; }
         public string Description { get; set; }
         public int Price { get; set; }
         public string SpecialEffects { get; set; }
-        
+        public int OuterMeasurement {  get; set; }
     }
 }
