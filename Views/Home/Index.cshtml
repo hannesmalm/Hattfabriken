@@ -40,11 +40,22 @@
     <a asp-controller="Admin" asp-action="Index" class="btn btn-primary">Go to Admin Page</a>
 </div>
 
-
 <div>
     <a asp-controller="Account" asp-action="CreateAccount">Skapa konto</a>
 </div>
 
 <div class="row justify-content-center">
-    <a asp-controller="Email" asp-action="SendAnEmail">Send an email</a>
+    <a asp-controller="Mail" asp-action="SendEmail">Send an email</a>
 </div>
+<a id="openOutlook" href="" onclick="openOutlook()">Open Outlook</a>
+
+<script>
+    function openOutlook() {
+        var emailBody = "Dear Customer,\n\nWe regret to inform you that your request has been denied. Unfortunately, we are unable to create the hat you have requested at this time.\n\nBest regards,\nThe Hat Factory Team";
+        var encodedEmailBody = encodeURIComponent(emailBody);
+        var mailtoLink = "mailto:?subject=Request%20Denied&body=" + encodedEmailBody;
+        document.getElementById("openOutlook").setAttribute("href", mailtoLink);
+    }
+</script> 
+
+

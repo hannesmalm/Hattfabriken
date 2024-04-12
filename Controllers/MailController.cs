@@ -32,6 +32,7 @@ namespace Hattfabriken.Controllers
                 return BadRequest("Failed to send email");
             }
         }
+        
 
 
     }
