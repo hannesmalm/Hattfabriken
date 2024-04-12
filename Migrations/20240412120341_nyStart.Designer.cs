@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    [Migration("20240412072542_requestTidUrgentDeliveryPickup")]
-    partial class requestTidUrgentDeliveryPickup
+    [Migration("20240412120341_nyStart")]
+    partial class nyStart
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -123,6 +123,48 @@ namespace Hattfabriken.Migrations
                     b.ToTable("Materials");
                 });
 
+            modelBuilder.Entity("Hattfabriken.Models.Offer", b =>
+                {
+                    b.Property<int>("OffertId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OffertId"));
+
+                    b.Property<DateTime>("EstimeratLeveransdatum")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("FraktKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<string>("KundMail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KundNamn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KundTel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("MaterialKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("SkapadDatum")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("SpecialeffektKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SpecialtygKostnad")
+                        .HasColumnType("float");
+
+                    b.HasKey("OffertId");
+
+                    b.ToTable("Offers");
+                });
+
             modelBuilder.Entity("Hattfabriken.Models.Request", b =>
                 {
                     b.Property<int>("Id")
@@ -180,6 +222,10 @@ namespace Hattfabriken.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("SpecialEffects")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Urgent")

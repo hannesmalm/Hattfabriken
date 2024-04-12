@@ -1,44 +1,54 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hattfabriken.Models;
+using Microsoft.AspNetCore.Mvc;
 using Hattfabriken.Models.Viewmodels;
+using Hattfabriken.Models.Interfaces;
 
 namespace Hattfabriken.Controllers
 {
     public class OfferController : Controller
     {
-        public IActionResult Create() 
-        { 
-            return View();
-        
+        private readonly HatDbContext _context;
+        private readonly IImageService _imageService;
+
+        public OfferController(HatDbContext context, IImageService imageService)
+        {
+            _context = context;
+            _imageService = imageService;
         }
 
         [HttpPost]
-        public IActionResult Create(OfferViewModel model)
+        public async Task<IActionResult> Create(OfferViewModel model)
         {
+            Console.WriteLine("Metod körs");
+
             if (ModelState.IsValid) 
             {
+                Console.WriteLine("ModelState är valid");
 
-                var nyOffert = new OfferViewModel
+                Offer nyOffert = new Offer
                 {
                     KundNamn = model.KundNamn,
                     KundMail = model.KundMail,
-                    OffertId = model.OffertId,
+                    KundTel = model.KundTel,
                     MaterialKostnad = model.MaterialKostnad,
                     SpecialeffektKostnad = model.SpecialeffektKostnad,
                     SpecialtygKostnad = model.SpecialtygKostnad,
                     FraktKostnad = model.FraktKostnad,
+                    SkapadDatum = DateTime.Today,
                     EstimeratLeveransdatum = model.EstimeratLeveransdatum
-
                 };
 
+                _context.Offers.Add(nyOffert);
+                await _context.SaveChangesAsync();
 
-                return RedirectToAction("FormOffer");
+                Console.WriteLine("SUCCESS");
 
+                return View("OfferSuccess");
             }
 
+            Console.WriteLine("ModelState är inte valid");
+
             return View(model);
-
-
-        
         }
 
         public IActionResult FormOffer() 
