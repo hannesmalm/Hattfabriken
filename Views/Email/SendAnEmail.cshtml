@@ -1,32 +1,29 @@
 ﻿@model Hattfabriken.Models.MailData
-@{
-    ViewData["Title"] = "Send An Email";
-}
 
 <h1>Send An Email</h1>
 
 <form id="emailForm">
     <div class="form-group">
         <label asp-for="EmailToID">Receiver Email:</label>
-        <input asp-for="EmailToID" id="EmailToID" class="form-control" />
+        <input asp-for="EmailToID" id="EmailToID" class="form-control" value="@Model.EmailToID" />
         <span asp-validation-for="EmailToID" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="EmailToName">Receiver Name:</label>
-        <input asp-for="EmailToName" id="EmailToName" class="form-control" />
+        <input asp-for="EmailToName" id="EmailToName" class="form-control" value="@Model.EmailToName" />
         <span asp-validation-for="EmailToName" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="EmailSubject">Subject:</label>
-        <input asp-for="EmailSubject" id="EmailSubject" class="form-control" />
+        <input asp-for="EmailSubject" id="EmailSubject" class="form-control" value="@Model.EmailSubject" />
         <span asp-validation-for="EmailSubject" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label asp-for="EmailBody">Email Content:</label>
-        <textarea asp-for="EmailBody" id="EmailBody" class="form-control" rows="8"></textarea>
+        <textarea asp-for="EmailBody" id="EmailBody" class="form-control" rows="8">@Model.EmailBody</textarea>
         <span asp-validation-for="EmailBody" class="text-danger"></span>
     </div>
 
@@ -53,15 +50,15 @@
                 .then(response => {
                     if (response.ok) {
                         alert("Email sent successfully");
-                        // Redirect or show success message
+                        window.location.href = '/Request/AllRequests';
                     } else {
                         alert("Failed to send email");
-                        // Handle error, show error message, etc.
+
                     }
                 })
                 .catch(error => {
                     console.error("Error:", error);
                 });
         }
-    </script> 
+    </script>
 }
