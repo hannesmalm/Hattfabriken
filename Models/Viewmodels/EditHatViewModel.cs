@@ -1,4 +1,6 @@
-﻿namespace Hattfabriken.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Hattfabriken.Models
 {
     public class EditHatViewModel
     {
