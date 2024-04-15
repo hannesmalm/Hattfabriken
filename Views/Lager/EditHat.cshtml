@@ -1,37 +1,38 @@
 ﻿@model Hattfabriken.Models.EditHatViewModel
 
 <form asp-action="EditHat" asp-controller="Hat" method="post">
-<div class="form-group">
-    <label asp-for="HatName">Name:</label>
-    <input asp-for="HatName" class="form-control" />
-    <span asp-validation-for="HatName" class="text-danger"></span>
-</div>
-<div class="form-group">
+    <input asp-for="HatId" type="hidden" />
+    <div class="form-group">
+        <label asp-for="HatName">Name:</label>
+        <input asp-for="HatName" class="form-control" />
+        <span asp-validation-for="HatName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
         <label asp-for="MaterialName">Material:</label>
         <input asp-for="MaterialName" class="form-control" />
         <span asp-validation-for="MaterialName" class="text-danger"></span>
     </div>
 
-<div class="form-group">
+    <div class="form-group">
         <label asp-for="Description">Description:</label>
         <input asp-for="Description" class="form-control" />
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
-<div class="form-group">
+    <div class="form-group">
     <label asp-for="Price">Price:</label>
         <input asp-for="Price" class="form-control" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
 
-<div class="form-group">
+    <div class="form-group">
         <label asp-for="SpecialEffects">Special effects:</label>
         <input asp-for="SpecialEffects" class="form-control" />
         <span asp-validation-for="SpecialEffects" class="text-danger"></span>
     </div>
-<div class="form-group">
+    <div class="form-group">
         <label asp-for="OuterMeasurement">Outer measurement:</label>
         <input asp-for="OuterMeasurement" class="form-control" />
         <span asp-validation-for="OuterMeasurement" class="text-danger"></span>
     </div>
-<button type="submit" class="btn btn-primary">Add Hat</button>
+    <button type="submit" class="btn btn-primary">Edit Hat</button>
 </form>

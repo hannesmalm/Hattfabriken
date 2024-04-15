@@ -54,28 +54,35 @@ namespace Hattfabriken.Controllers
             }
             return View("~/Views/Lager/StorageOfHats.cshtml");
         }
+
         [HttpGet]
         public IActionResult EditHat(int HatId) 
         {
             var hat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == HatId);
+            Console.WriteLine("Hatt hittad");
+
             if (hat == null)
             {
-                return RedirectToAction(nameof(EditHat));
+                Console.WriteLine("Hatt inte hittad");
+                return RedirectToAction("StorageOfHats", new { errorMessage = "Hat not found." });
             }
 
             var editHatViewModel = new EditHatViewModel
             {
-                HatId = HatId,
+                HatId = hat.HatId,
+                HatName = hat.HatName,
                 MaterialName = hat.MaterialName,
                 Description = hat.Description,
                 Price = hat.Price,
                 SpecialEffects = hat.SpecialEffects,
-                OuterMeasurement = hat.OuterMeasurement,
+                OuterMeasurement = hat.OuterMeasurement
             };
-            return View("EditHat", editHatViewModel);
-         }
-        [HttpPost]
+            Console.WriteLine("editHatViewModel: " + editHatViewModel.HatId);
+            return View("~/Views/Lager/EditHat.cshtml", editHatViewModel); // Ange den fullständiga sökvägen till vyn här
 
+        }
+
+        [HttpPost]
         public IActionResult EditHat(EditHatViewModel editHatViewModel)
         {
             if (ModelState.IsValid)
@@ -83,6 +90,10 @@ namespace Hattfabriken.Controllers
                 try
                 {
                     var existingHat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == editHatViewModel.HatId);
+                    Console.WriteLine("editHatViewModel: " + editHatViewModel.HatId);
+
+                    Console.WriteLine("existingHat: " + existingHat);
+
 
                     if (existingHat != null)
                     {
@@ -92,19 +103,27 @@ namespace Hattfabriken.Controllers
                         existingHat.Price = editHatViewModel.Price;
                         existingHat.SpecialEffects = editHatViewModel.SpecialEffects;
                         existingHat.OuterMeasurement = editHatViewModel.OuterMeasurement;
-                        
+
+                        //_dbContext.Entry(existingHat).State = EntityState.Modified;
+                        Console.WriteLine("Värden tilldelade");
+
+                        _dbContext.Hattar.Update(existingHat);
+                        Console.WriteLine("Uppdaterad");
+
                         _dbContext.SaveChanges();
-                        return RedirectToAction("StorageOfHats", new { hatId = existingHat.HatId });
+                        Console.WriteLine("Sparad");
+
+                        return RedirectToAction(nameof(StorageOfHats));
                     }
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Ett fel uppstod: {ex.Message}");
-                    return RedirectToAction("Error", "EditHat");
+                    return RedirectToAction("Error", "Home");
                 }
 
             }
-            return View("EditHat", editHatViewModel);
+            return View("~/Views/Lager/EditHat.cshtml", editHatViewModel);
         }
     }
 }

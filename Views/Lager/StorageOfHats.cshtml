@@ -24,10 +24,12 @@
                 <td>@hat.Price</td>
                 <td>@hat.SpecialEffects</td>
                 <td>
-                     <a asp-action="EditHat" asp-route-id="@hat.HatId" class="btn btn-primary">Edit</a>
-                    <a asp-controller="Material" asp-action="StorageOfMaterials" class="btn btn-success mb-2">Material Warehouse</a>
-
-
+                  @*   <form asp-controller="Hat" asp-action="EditHat" method="get">
+                        <input type="hidden" name="hatId" value="@projec.ProjectId" />
+                        <button type="submit" class="btn btn-primary">Läs Mer</button>
+                    </form> *@
+                     <a asp-action="EditHat" asp-route-HatId="@hat.HatId" class="btn btn-primary">Edit</a>
+                    <a asp-action="DeleteHat" asp-route-id="@hat.HatId" class="btn btn-primary">Delete</a>
                 </td>
             </tr>
         }
