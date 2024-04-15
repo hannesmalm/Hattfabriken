@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Hattfabriken.Models.Viewmodels;
 
 namespace Hattfabriken.Controllers
 {
@@ -8,5 +9,7 @@ namespace Hattfabriken.Controllers
         {
             return View("~/Views/Home/AdminPage.cshtml");
         }
+
+
     }
 }

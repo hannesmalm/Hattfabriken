@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    [Migration("20240411103746_lolsdsdfsdf")]
-    partial class lolsdsdfsdf
+    [Migration("20240412082114_hallo")]
+    partial class hallo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
                 .HasAnnotation("Proxies:LazyLoading", true)
@@ -53,44 +53,6 @@ namespace Hattfabriken.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Hattfabriken.Models.Forfragan", b =>
-                {
-                    b.Property<int>("ForfraganID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ForfraganID"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("HatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Hojd")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Kommentar")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Material")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Matt")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SpecialEffekter")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ForfraganID");
-
-                    b.ToTable("Forfragor");
-                });
-
             modelBuilder.Entity("Hattfabriken.Models.Hatt", b =>
                 {
                     b.Property<int>("HatId")
@@ -120,7 +82,24 @@ namespace Hattfabriken.Migrations
 
                     b.HasKey("HatId");
 
-                    b.ToTable("Hattar");
+                    b.ToTable("Hats");
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Material", b =>
@@ -128,9 +107,6 @@ namespace Hattfabriken.Migrations
                     b.Property<string>("MaterialName")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("IsConfirmed")
-                        .HasColumnType("bit");
 
                     b.Property<int>("MaterialQuantity")
                         .HasColumnType("int");
@@ -145,88 +121,73 @@ namespace Hattfabriken.Migrations
                     b.HasKey("MaterialName");
 
                     b.ToTable("Materials");
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            MaterialName = "Leather",
-                            IsConfirmed = false,
-                            MaterialQuantity = 1000,
-                            MaterialSupplier = "Leather@gmail.com",
-                            Price = 45
-                        },
-                        new
-                        {
-                            MaterialName = "Straw",
-                            IsConfirmed = false,
-                            MaterialQuantity = 800,
-                            MaterialSupplier = "StrawSwag@icloud.com",
-                            Price = 14
-                        },
-                        new
-                        {
-                            MaterialName = "Cloth",
-                            IsConfirmed = false,
-                            MaterialQuantity = 2200,
-                            MaterialSupplier = "ClothCircus@hotmail.com",
-                            Price = 13
-                        },
-                        new
-                        {
-                            MaterialName = "Snakeskin",
-                            IsConfirmed = false,
-                            MaterialQuantity = 400,
-                            MaterialSupplier = "SnakeKiller@icloud.com",
-                            Price = 84
-                        },
-                        new
-                        {
-                            MaterialName = "Felt",
-                            IsConfirmed = false,
-                            MaterialQuantity = 600,
-                            MaterialSupplier = "FeltFear@icloud.com",
-                            Price = 14
-                        },
-                        new
-                        {
-                            MaterialName = "Panama",
-                            IsConfirmed = false,
-                            MaterialQuantity = 900,
-                            MaterialSupplier = "PanamaSwag@icloud.com",
-                            Price = 16
-                        },
-                        new
-                        {
-                            MaterialName = "Cotton",
-                            IsConfirmed = false,
-                            MaterialQuantity = 200,
-                            MaterialSupplier = "CottonCorner@icloud.com",
-                            Price = 16
-                        },
-                        new
-                        {
-                            MaterialName = "Linen",
-                            IsConfirmed = false,
-                            MaterialQuantity = 300,
-                            MaterialSupplier = "GrischLaidback@icloud.com",
-                            Price = 28
-                        },
-                        new
-                        {
-                            MaterialName = "Satin",
-                            IsConfirmed = false,
-                            MaterialQuantity = 1000,
-                            MaterialSupplier = "SatinSwag@icloud.com",
-                            Price = 12
-                        },
-                        new
-                        {
-                            MaterialName = "Polyester",
-                            IsConfirmed = false,
-                            MaterialQuantity = 2900,
-                            MaterialSupplier = "PolyesterChina@icloud.com",
-                            Price = 11
-                        });
+            modelBuilder.Entity("Hattfabriken.Models.Request", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Adress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Commentary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeliveryOrPickup")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("HatId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Material")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Measurement")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostalCode")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("RequestImage")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("SpecialEffects")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Urgent")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.User", b =>
