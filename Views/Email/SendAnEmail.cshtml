@@ -50,7 +50,7 @@
                 .then(response => {
                     if (response.ok) {
                         alert("Email sent successfully");
-                        // Redirect or show success message
+                        window.location.href = '/Request/AllRequests';
                     } else {
                         alert("Failed to send email");
                         // Handle error, show error message, etc.

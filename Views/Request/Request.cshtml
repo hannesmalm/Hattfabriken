@@ -77,37 +77,60 @@
     <script>
         function acceptRequest() {
             var form = document.getElementById('acceptForm');
-            var customerEmail = form.querySelector('[name="customerEmail"]').value;
-            var customerName = form.querySelector('[name="customerName"]').value;
             var requestId = form.querySelector('[name="requestId"]').value;
 
-            redirectToSendEmail(customerEmail, customerName, requestId, "Request Accepted");
+            $.ajax({
+                url: '@Url.Action("AcceptRequest", "Request")',
+                type: 'POST',
+                data: { requestId: requestId },
+                success: function (response) {
+                    // Handle success, maybe show a message
+                    console.log(response);
+                    redirectToSendEmail(form, true); // Pass true for accepted
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    console.error(xhr.responseText);
+                }
+            });
         }
 
         function declineRequest() {
             var form = document.getElementById('declineForm');
+            var requestId = form.querySelector('[name="requestId"]').value;
+
+            $.ajax({
+                url: '@Url.Action("DeclineRequest", "Request")',
+                type: 'POST',
+                data: { requestId: requestId },
+                success: function (response) {
+                    // Handle success, maybe show a message
+                    console.log(response);
+                    redirectToSendEmail(form, false); // Pass false for declined
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+
+        function redirectToSendEmail(form, isAccepted) {
             var customerEmail = form.querySelector('[name="customerEmail"]').value;
             var customerName = form.querySelector('[name="customerName"]').value;
             var requestId = form.querySelector('[name="requestId"]').value;
-
-            redirectToSendEmail(customerEmail, customerName, requestId, "Request Declined");
-        }
-
-        function redirectToSendEmail(customerEmail, customerName, requestId, subject) {
-            var emailData = {
-                EmailToID: customerEmail,
-                EmailToName: customerName,
-                EmailSubject: subject,
-                EmailBody: "Dear " + customerName + ",\n\nYour request with Request-ID " + requestId + (subject === "Request Accepted" ? " has been accepted." : " has been declined.") + "\n\nBest regards,\nThe Hat Factory Team"
-            };
+            var status = isAccepted ? "Accepted" : "Declined";
+            var subject = "Request " + status;
 
             var url = '/Email/SendAnEmail?' +
-                'EmailToID=' + encodeURIComponent(emailData.EmailToID) +
-                '&EmailToName=' + encodeURIComponent(emailData.EmailToName) +
-                '&EmailSubject=' + encodeURIComponent(emailData.EmailSubject) +
-                '&EmailBody=' + encodeURIComponent(emailData.EmailBody);
+                'EmailToID=' + encodeURIComponent(customerEmail) +
+                '&EmailToName=' + encodeURIComponent(customerName) +
+                '&EmailSubject=' + encodeURIComponent(subject) +
+                '&EmailBody=' + encodeURIComponent("Dear " + customerName + ",\n\nYour request with Request-ID " + requestId + " has been " + status + ".\n\nBest regards,\nThe Hat Factory Team");
 
             window.location.href = url;
         }
+
     </script>
-}
+    }
+

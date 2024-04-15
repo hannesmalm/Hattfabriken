@@ -123,26 +123,7 @@ namespace Hattfabriken.Controllers
             _context.Update(request);
             _context.SaveChanges();
 
-            // Assuming you have the necessary data, construct the email
-            var mailData = new MailData
-            {
-                EmailToID = request.Email, // Use customer email
-                EmailToName = request.Name, // Use customer name
-                EmailSubject = "Request Accepted",
-                EmailBody = "Dear Customer, Your request has been accepted." // Customize the message
-            };
-
-            if (_mailService.SendMail(mailData))
-            {
-                // Redirect to EmailController's SendAnEmail action
-                return RedirectToAction("SendAnEmail", "Email", mailData);
-            }
-            else
-            {
-                // Handle email sending failure
-                TempData["ErrorMessage"] = "Failed to send email.";
-                return RedirectToAction("Request", new { requestId = requestId });
-            }
+            return RedirectToAction("AllRequests");
         }
 
         [HttpPost]
@@ -158,26 +139,8 @@ namespace Hattfabriken.Controllers
             _context.Update(request);
             _context.SaveChanges();
 
-            // Assuming you have the necessary data, construct the email
-            var mailData = new MailData
-            {
-                EmailToID = request.Email, // Use customer email
-                EmailToName = request.Name, // Use customer name
-                EmailSubject = "Request Declined",
-                EmailBody = "Dear Customer, Your request has been declined." // Customize the message
-            };
-
-            if (_mailService.SendMail(mailData))
-            {
-                // Redirect to EmailController's SendAnEmail action
-                return RedirectToAction("SendAnEmail", "Email", mailData);
-            }
-            else
-            {
-                // Handle email sending failure
-                TempData["ErrorMessage"] = "Failed to send email.";
-                return RedirectToAction("Request", new { requestId = requestId });
-            }
+            
+            return RedirectToAction("AllRequests");
         }
 
         public IActionResult RequestSuccess()
