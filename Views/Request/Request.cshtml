@@ -55,33 +55,59 @@
                 <p>@Model.Status</p>
                 @if (Model.Status == "Pending")
                 {
-                    
-                    <form method="post" asp-controller="Request" asp-action="AcceptRequest" class="mb-3">
+                    <form id="acceptForm">
                         <input type="hidden" name="requestId" value="@Model.Id" />
-                        <button type="submit" class="btn btn-success w-100">Accept Request</button>
+                        <input type="hidden" name="customerEmail" value="@Model.Email" />
+                        <input type="hidden" name="customerName" value="@Model.Name" />
+                        <button type="button" onclick="acceptRequest()" class="btn btn-success w-100">Accept Request</button>
                     </form>
-                    <form method="post" asp-controller="Request" asp-action="DeclineRequest" class="mb-3">
+                    <form id="declineForm">
                         <input type="hidden" name="requestId" value="@Model.Id" />
-                        <button type="submit" class="btn btn-danger w-100" onclick="openOutlook()">Decline Request </button>
+                        <input type="hidden" name="customerEmail" value="@Model.Email" />
+                        <input type="hidden" name="customerName" value="@Model.Name" />
+                        <button type="button" onclick="declineRequest()" class="btn btn-danger w-100">Decline Request</button>
                     </form>
-
                 }
-                
-
             </div>
-
         </div>
     }
 </div>
 
-
+@section Scripts {
     <script>
-        function openOutlook()
-        {
-            var subject = "Request @Model.Id Declined";
-            var emailAdress = "@Model.Email";
-            var body = "Dear Customer,\n\nWe regret to inform you that your request with Request-ID " + @Model.Id + " has been declined.\n\nBest regards,\nThe Hat Factory Team";
-            var mailtoLink = "mailto:" + encodeURIComponent(emailAdress) + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-            window.location.href = mailtoLink;
+        function acceptRequest() {
+            var form = document.getElementById('acceptForm');
+            var customerEmail = form.querySelector('[name="customerEmail"]').value;
+            var customerName = form.querySelector('[name="customerName"]').value;
+            var requestId = form.querySelector('[name="requestId"]').value;
+
+            redirectToSendEmail(customerEmail, customerName, requestId, "Request Accepted");
+        }
+
+        function declineRequest() {
+            var form = document.getElementById('declineForm');
+            var customerEmail = form.querySelector('[name="customerEmail"]').value;
+            var customerName = form.querySelector('[name="customerName"]').value;
+            var requestId = form.querySelector('[name="requestId"]').value;
+
+            redirectToSendEmail(customerEmail, customerName, requestId, "Request Declined");
+        }
+
+        function redirectToSendEmail(customerEmail, customerName, requestId, subject) {
+            var emailData = {
+                EmailToID: customerEmail,
+                EmailToName: customerName,
+                EmailSubject: subject,
+                EmailBody: "Dear " + customerName + ",\n\nYour request with Request-ID " + requestId + (subject === "Request Accepted" ? " has been accepted." : " has been declined.") + "\n\nBest regards,\nThe Hat Factory Team"
+            };
+
+            var url = '/Email/SendAnEmail?' +
+                'EmailToID=' + encodeURIComponent(emailData.EmailToID) +
+                '&EmailToName=' + encodeURIComponent(emailData.EmailToName) +
+                '&EmailSubject=' + encodeURIComponent(emailData.EmailSubject) +
+                '&EmailBody=' + encodeURIComponent(emailData.EmailBody);
+
+            window.location.href = url;
         }
     </script>
+}

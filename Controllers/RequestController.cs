@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Hattfabriken.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Hattfabriken.Models.Interfaces;
+using MailKit;
 
 
 namespace Hattfabriken.Controllers
@@ -12,11 +13,14 @@ namespace Hattfabriken.Controllers
     {
         private readonly HatDbContext _context;
         private readonly IImageService _imageService;
+        private readonly Models.Interfaces.IMailService _mailService;
+       
 
         public RequestController(HatDbContext context, IImageService imageService)
         {
             _context = context;
             _imageService = imageService;
+            _mailService = this._mailService;
         }
 
 
@@ -110,29 +114,70 @@ namespace Hattfabriken.Controllers
         public IActionResult AcceptRequest(int requestId)
         {
             var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
+            if (request == null)
+            {
+                return NotFound(); // Handle if request is not found
+            }
+
             request.Status = "Accepted";
-            
             _context.Update(request);
             _context.SaveChanges();
 
-            // GÅ VIDARE TILL SKAPA OFFERT
+            // Assuming you have the necessary data, construct the email
+            var mailData = new MailData
+            {
+                EmailToID = request.Email, // Use customer email
+                EmailToName = request.Name, // Use customer name
+                EmailSubject = "Request Accepted",
+                EmailBody = "Dear Customer, Your request has been accepted." // Customize the message
+            };
 
-            return View("Request", request);
+            if (_mailService.SendMail(mailData))
+            {
+                // Redirect to EmailController's SendAnEmail action
+                return RedirectToAction("SendAnEmail", "Email", mailData);
+            }
+            else
+            {
+                // Handle email sending failure
+                TempData["ErrorMessage"] = "Failed to send email.";
+                return RedirectToAction("Request", new { requestId = requestId });
+            }
         }
 
         [HttpPost]
         public IActionResult DeclineRequest(int requestId)
         {
             var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
+            if (request == null)
+            {
+                return NotFound(); // Handle if request is not found
+            }
+
             request.Status = "Declined";
-
-
             _context.Update(request);
             _context.SaveChanges();
 
-            // SKICKA MAIL (javascript)
+            // Assuming you have the necessary data, construct the email
+            var mailData = new MailData
+            {
+                EmailToID = request.Email, // Use customer email
+                EmailToName = request.Name, // Use customer name
+                EmailSubject = "Request Declined",
+                EmailBody = "Dear Customer, Your request has been declined." // Customize the message
+            };
 
-            return View("Request", request);
+            if (_mailService.SendMail(mailData))
+            {
+                // Redirect to EmailController's SendAnEmail action
+                return RedirectToAction("SendAnEmail", "Email", mailData);
+            }
+            else
+            {
+                // Handle email sending failure
+                TempData["ErrorMessage"] = "Failed to send email.";
+                return RedirectToAction("Request", new { requestId = requestId });
+            }
         }
 
         public IActionResult RequestSuccess()
