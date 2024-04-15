@@ -84,12 +84,12 @@
                 type: 'POST',
                 data: { requestId: requestId },
                 success: function (response) {
-                    // Handle success, maybe show a message
+                    
                     console.log(response);
-                    redirectToSendEmail(form, true); // Pass true for accepted
+                    redirectToSendEmail(form, true); 
                 },
                 error: function (xhr, status, error) {
-                    // Handle error
+                    
                     console.error(xhr.responseText);
                 }
             });
@@ -104,12 +104,12 @@
                 type: 'POST',
                 data: { requestId: requestId },
                 success: function (response) {
-                    // Handle success, maybe show a message
+                    
                     console.log(response);
-                    redirectToSendEmail(form, false); // Pass false for declined
+                    redirectToSendEmail(form, false); 
                 },
                 error: function (xhr, status, error) {
-                    // Handle error
+
                     console.error(xhr.responseText);
                 }
             });

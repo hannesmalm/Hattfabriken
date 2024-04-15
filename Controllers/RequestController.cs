@@ -116,7 +116,7 @@ namespace Hattfabriken.Controllers
             var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
             if (request == null)
             {
-                return NotFound(); // Handle if request is not found
+                return NotFound();
             }
 
             request.Status = "Accepted";
@@ -132,7 +132,7 @@ namespace Hattfabriken.Controllers
             var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
             if (request == null)
             {
-                return NotFound(); // Handle if request is not found
+                return NotFound(); 
             }
 
             request.Status = "Declined";
