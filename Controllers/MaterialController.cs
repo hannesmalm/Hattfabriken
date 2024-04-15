@@ -114,6 +114,32 @@ namespace Hattfabriken.Controllers
 
 
 
+        //[HttpPost]
+        //public IActionResult RequestQuantity(string MaterialName, int Quantity)
+        //{
+        //    // Find the material based on the material name
+        //    var material = _dbContext.Materials.FirstOrDefault(m => m.MaterialName == MaterialName);
+        //    if (material != null)
+        //    {
+        //        // Create a new quantity request associated with the material
+        //        var request = new QuantityRequest
+        //        {
+        //            MaterialName = MaterialName,
+        //            RequestedQuantity = Quantity,
+        //            IsConfirmed = false,
+        //            Material = material // Associate the quantity request with the material
+        //        };
+
+        //        // Add the request to the database
+        //        _dbContext.QuantityRequests.Add(request);
+        //        _dbContext.SaveChanges();
+        //    }
+
+        //    // Redirect back to the Orders action
+        //    return RedirectToAction(nameof(Orders));
+        //}
+
+
         [HttpPost]
         public IActionResult RequestQuantity(string MaterialName, int Quantity)
         {
@@ -133,11 +159,23 @@ namespace Hattfabriken.Controllers
                 // Add the request to the database
                 _dbContext.QuantityRequests.Add(request);
                 _dbContext.SaveChanges();
+
+                // Generate the email body
+                var emailBody = $"Dear {material.MaterialSupplier},\n\n" +
+                                $"I would like to request {Quantity} units of {MaterialName}.\n\n" +
+                                "Best regards,\n[Your Name]";
+
+                // Generate the mailto link
+                var mailtoLink = $"mailto:{material.MaterialSupplier}?subject=Material Request&body={Uri.EscapeDataString(emailBody)}";
+
+                // Redirect the user to the mailto link
+                return Redirect(mailtoLink);
             }
 
             // Redirect back to the Orders action
             return RedirectToAction(nameof(Orders));
         }
+
 
 
 
