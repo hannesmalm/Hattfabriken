@@ -50,6 +50,7 @@ namespace Hattfabriken.Controllers
 
                 Console.WriteLine("SUCCESS");
 
+                ViewBag.Offer = nyOffert;
                 return View("OfferSuccess");
             }
 
