@@ -160,8 +160,20 @@ namespace Hattfabriken.Controllers
                 _dbContext.QuantityRequests.Add(request);
                 _dbContext.SaveChanges();
 
+                // Update the view model with the latest unconfirmed quantity requests
+                var unconfirmedRequests = _dbContext.QuantityRequests
+                    .Include(r => r.Material)
+                    .Where(r => !r.IsConfirmed)
+                    .ToList();
+
+                // Pass the updated view model to the Orders view
+                ViewData["UnconfirmedRequests"] = unconfirmedRequests;
+
+                // Extract the supplier name from the email address (text before '@' symbol)
+                var supplierName = material.MaterialSupplier.Split('@')[0];
+
                 // Generate the email body
-                var emailBody = $"Dear {material.MaterialSupplier},\n\n" +
+                var emailBody = $"Dear {supplierName},\n\n" +
                                 $"I would like to request {Quantity} units of {MaterialName}.\n\n" +
                                 "Best regards,\n[Your Name]";
 
@@ -175,6 +187,7 @@ namespace Hattfabriken.Controllers
             // Redirect back to the Orders action
             return RedirectToAction(nameof(Orders));
         }
+
 
 
 
