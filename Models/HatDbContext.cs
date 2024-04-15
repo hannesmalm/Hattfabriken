@@ -26,7 +26,7 @@ namespace Hattfabriken.Models
 
 
 
-        //SÄÄÄÄD method for initializing default materials LOOOOOOL
+        //SÄÄÄÄD method for initializing default materials LOOOOOOL :3
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

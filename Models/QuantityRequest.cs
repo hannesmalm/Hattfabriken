@@ -11,7 +11,7 @@ namespace Hattfabriken.Models
         public bool IsConfirmed { get; set; }
 
         // Navigation property
-        public virtual Material Material { get; set; } // Ensure 'virtual' keyword is added here
+        public virtual Material Material { get; set; } // :3
     }
 
 
