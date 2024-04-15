@@ -3,49 +3,88 @@
 
 <h1>Create Offer</h1>
 
-<form asp-controller="Offer" asp-action="Create" method="post">
+<form asp-controller="Offer" asp-action="Create" method="post" enctype="multipart/form-data>
 
    <div class="form-group">
-        <label asp-for="KundNamn">Kund namn:</label>
+        <label asp-for="KundNamn">Costumer name:</label>
         <input asp-for="KundNamn" class="form-control"/>
    </div>
 
    <div class="form-group">
-        <label asp-for="KundMail">Kund mail:</label>
+        <label asp-for="KundMail">Costumer mail:</label>
         <input asp-for="KundMail" class="form-control" />
    </div>
 
     <div class="form-group">
-        <label asp-for="OffertId"> Offert id:</label>
-        <input asp-for="OffertId" class="form-control" />
+        <label asp-for="KundTel">Costumer phone number:</label>
+        <input asp-for="KundTel" class="form-control" />
     </div>
 
     <div class="form-group">
-        <label asp-for="MaterialKostnad">Material kostand:</label>
+        <label asp-for="MaterialKostnad">Material cost:</label>
         <input asp-for="MaterialKostnad" class="form-control" />
         
     </div>
 
     <div class="form-group">
-        <label asp-for="SpecialeffektKostnad">Specialeffekt kostnad:</label>
+        <label asp-for="SpecialeffektKostnad">Special effect fabric cost:</label>
         <input asp-for="SpecialeffektKostnad" class="form-control" />
     </div>
 
     <div class="form-group">
-        <label asp-for="SpecialtygKostnad">Specialtyg kostand:</label>
+        <label asp-for="SpecialtygKostnad">Special fabric cost:</label>
         <input asp-for="SpecialtygKostnad" class="form-control" />
     </div>
 
     <div class="form-group">
-        <label asp-for="FraktKostnad">Frakt kostnad:</label>
+        <label asp-for="FraktKostnad">Shipping cost:</label>
         <input asp-for="FraktKostnad" class="form-control" />
     </div>
 
     <div class="form-group">
-        <label asp-for="EstimeratLeveransdatum">Estimerat leveransdatum:</label>
+        <label asp-for="EstimeratLeveransdatum">Estimated delivery date:</label>
         <input asp-for="EstimeratLeveransdatum" class="form-control" />
     </div>
 
-    <buttom type="submit" class="btn btn-primary">Send In</buttom>
+    <button type="submit" class="btn btn-primary" onclick="openOutlook()" >Send In</button>
 
 </form>
+
+
+<!--
+<script>
+
+    // Hur hämtar vi från formuläret?
+    function openOutlook() {
+        var subject = "Offer for request ...";
+        var emailAdress = document.getElementById("KundMail").value;
+        var body = "Dear Customer,\n\n  Here is an offer bla bla bla.  \n\nBest regards,\nThe Hat Factory Team";
+        var mailtoLink = "mailto:" + encodeURIComponent(emailAdress) + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        window.location.href = mailtoLink;
+    }
+</script>
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+                                    // Hur hämtar vi från formuläret?
+    function openOutlook() {
+        var subject = "Offer for request ...";
+        var emailAdress = "kundMail";
+        var body = "Dear Customer,\n\n  Here is an offer bla bla bla.  \n\nBest regards,\nThe Hat Factory Team";
+        var mailtoLink = "mailto:" + encodeURIComponent(emailAdress) + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        window.location.href = mailtoLink;
+    }
+</script>
+

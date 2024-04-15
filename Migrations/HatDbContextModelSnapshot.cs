@@ -120,6 +120,48 @@ namespace Hattfabriken.Migrations
                     b.ToTable("Materials");
                 });
 
+            modelBuilder.Entity("Hattfabriken.Models.Offer", b =>
+                {
+                    b.Property<int>("OffertId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OffertId"));
+
+                    b.Property<DateTime>("EstimeratLeveransdatum")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("FraktKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<string>("KundMail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KundNamn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KundTel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("MaterialKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("SkapadDatum")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("SpecialeffektKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SpecialtygKostnad")
+                        .HasColumnType("float");
+
+                    b.HasKey("OffertId");
+
+                    b.ToTable("Offers");
+                });
+
             modelBuilder.Entity("Hattfabriken.Models.Request", b =>
                 {
                     b.Property<int>("Id")

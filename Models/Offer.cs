@@ -1,12 +1,15 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Permissions;
 
-
-
-namespace Hattfabriken.Models.Viewmodels
+namespace Hattfabriken.Models
 {
-    public class OfferViewModel
+    public class Offer
     {
+        [Key]
+        public int OffertId { get; set; }
+
         public string KundNamn { get; set; }
 
         public string KundMail { get; set; }
@@ -21,10 +24,12 @@ namespace Hattfabriken.Models.Viewmodels
 
         public double? FraktKostnad { get; set; }
 
+        public DateTime SkapadDatum { get; set; }
+
         [Required(ErrorMessage = "Choose a date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-       public DateTime EstimeratLeveransdatum { get; set; }
+        public DateTime EstimeratLeveransdatum { get; set; }
 
     }
 }

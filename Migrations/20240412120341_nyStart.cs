@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Hattfabriken.Migrations
 {
     /// <inheritdoc />
-    public partial class RRequestID : Migration
+    public partial class nyStart : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -110,6 +110,27 @@ namespace Hattfabriken.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Offers",
+                columns: table => new
+                {
+                    OffertId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    KundNamn = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    KundMail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    KundTel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MaterialKostnad = table.Column<double>(type: "float", nullable: false),
+                    SpecialeffektKostnad = table.Column<double>(type: "float", nullable: true),
+                    SpecialtygKostnad = table.Column<double>(type: "float", nullable: false),
+                    FraktKostnad = table.Column<double>(type: "float", nullable: true),
+                    SkapadDatum = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EstimeratLeveransdatum = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Offers", x => x.OffertId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Requests",
                 columns: table => new
                 {
@@ -127,7 +148,11 @@ namespace Hattfabriken.Migrations
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RequestImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                    RequestImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DeliveryOrPickup = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Urgent = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -323,6 +348,9 @@ namespace Hattfabriken.Migrations
 
             migrationBuilder.DropTable(
                 name: "Materials");
+
+            migrationBuilder.DropTable(
+                name: "Offers");
 
             migrationBuilder.DropTable(
                 name: "Requests");
