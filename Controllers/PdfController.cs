@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Hattfabriken.Models;
+using Hattfabriken.Models.DTOs;
 
 namespace Hattfabriken.Controllers
 {
@@ -12,10 +13,16 @@ namespace Hattfabriken.Controllers
             _pdfService = pdfService;
         }
 
-        public IActionResult DownloadPdf()
+        public IActionResult CreateShippingLablePdf()
         {
-            byte[] pdf = _pdfService.GeneratePdf();
-            return File(pdf, "application/pdf", "TestDokument.pdf");
+            byte[] pdf = _pdfService.GenerateShippingLable();
+            var contentDispositionHeader = new System.Net.Mime.ContentDisposition
+            {
+                FileName = "TestDokument.pdf",
+                Inline = true  // False = prompt the user for downloading; True = try to open in web browser.
+            };
+            Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
+            return File(pdf, "application/pdf");
         }
     }
 }
