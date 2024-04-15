@@ -1,6 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Hattfabriken.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Hattfabriken.Models.ViewModels
 {
@@ -13,6 +13,8 @@ namespace Hattfabriken.Models.ViewModels
         public int? Measurement { get; set; }
 
         public int? Height { get; set; }
+
+        public int? OuterDimensions { get; set; }
 
         public string? Commentary { get; set; }
 
@@ -37,5 +39,10 @@ namespace Hattfabriken.Models.ViewModels
         public string Name { get; set; }
 
         public IFormFile? RequestImage { get; set; }
+
+        // Additional properties to hold the calculated prices
+        public int HatTypePrice { get; set; }
+        public int MaterialPrice { get; set; }
+        public int SpecialEffectsPrice { get; set; }
     }
 }

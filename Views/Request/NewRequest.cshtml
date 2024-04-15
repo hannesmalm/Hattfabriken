@@ -1,11 +1,7 @@
 ﻿@model Hattfabriken.Models.ViewModels.RequestViewModel
 
-
-
 @{
-
     ViewData["Title"] = "Skapa en ny förfrågan";
-
 }
 
 <div class="container mt-5">
@@ -16,7 +12,6 @@
                     <h4>New request</h4>
                 </div>
                 <div class="card-body">
-
                     <form asp-action="NewRequest" asp-controller="Request" method="post" enctype="multipart/form-data">
 
                         <div asp-validation-summary="All" class="text-danger"></div>
@@ -33,48 +28,49 @@
 
                         <div class="mb-3">
                             <label class="form-label">Choose a hat type:</label>
-                            <select asp-for="HatId" class="form-select">
+                            <select asp-for="HatId" class="form-select" id="HatId">
+                                <!-- Added ID for HatId -->
                                 <option value="">Choose a type...</option>
-                                <option value="1">Cowboy</option>
-                                <option value="2">Sheriff</option>
-                                <option value="3">Peaky Blinders</option>
+                                <option value="1">Cowboy (+50 SEK)</option>
+                                <option value="2">Sheriff (+40 SEK)</option>
+                                <option value="3">Peaky Blinders (+60 SEK)</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Which material do you want?</label>
-
-                            <select asp-for="Material" class="form-select">
-                                <option value="">Material...</option>
-                                <option value="Leather">Leather</option>
-                                <option value="Cloth">Cloth</option>
-                                <option value="Panama">Panama</option>
-                                <option value="Linen">Linen</option>
-                                <option value="Straw">Straw</option>
+                            <select asp-for="Material" class="form-select" id="Material">
+                                <!-- Added ID for Material -->
+                                <option value="">Choose material...</option>
+                                @foreach (var material in ViewBag.Materials)
+                                {
+                                    <option value="@material.MaterialName">@material.MaterialName - @material.Price</option>
+                                }
                             </select>
                         </div>
+
 
                         <div class="mb-3">
                             <p>Special effects?</p>
 
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Feather" id="feather">
-                                <label class="form-check-label" for="feather">Feather</label>
+                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffects" value="Feather" id="feather">
+                                <label class="form-check-label" for="feather">Feather (+10 SEK)</label>
                             </div>
 
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="lace" id="lace">
-                                <label class="form-check-label" for="lace">Lace</label>
+                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffects" value="Lace" id="lace">
+                                <label class="form-check-label" for="lace">Lace (+8 SEK)</label>
                             </div>
 
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Pearls" id="pearls">
-                                <label class="form-check-label" for="pearls">Pearls</label>
+                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffects" value="Pearls" id="pearls">
+                                <label class="form-check-label" for="pearls">Pearls (+12 SEK)</label>
                             </div>
 
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Flower" id="flower">
-                                <label class="form-check-label" for="flower">Flower</label>
+                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffects" value="Flower" id="flower">
+                                <label class="form-check-label" for="flower">Flower (+15 SEK)</label>
                             </div>
                         </div>
 
@@ -82,8 +78,14 @@
                             <div class="input-group">
                                 <span class="input-group-text">Measurement:</span>
                                 <input asp-for="Measurement" class="form-control" aria-label="Measurement">
+                            </div>
+                            <div class="input-group">
                                 <span class="input-group-text">Height:</span>
                                 <input asp-for="Height" class="form-control" aria-label="Height">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text">Outer Dimensions:</span>
+                                <input asp-for="OuterDimensions" class="form-control" aria-label="Outer Dimensions">
                             </div>
                         </div>
 
@@ -92,17 +94,17 @@
                             <label class="form-label">Contact and Delivery</label>
 
                             <div class="mb-2">
-								<select asp-for="Country" class="form-select">
-									<option value="">Country</option>
-									<option value="Sweden">Sverige</option>
-									<option value="USA">USA</option>
-									<option value="UK">Storbrittanien</option>
-									<option value="Germany">Grekland</option>
-									<option value="Norway">Norge</option>
-									<option value="Finland">Finland</option>
-								</select>
+                                <select asp-for="Country" class="form-select">
+                                    <option value="">Country</option>
+                                    <option value="Sweden">Sverige</option>
+                                    <option value="USA">USA</option>
+                                    <option value="UK">Storbrittanien</option>
+                                    <option value="Germany">Grekland</option>
+                                    <option value="Norway">Norge</option>
+                                    <option value="Finland">Finland</option>
+                                </select>
                             </div>
-                            
+
                             <div class="mb-2">
                                 <input asp-for="Name" class="form-control" placeholder="Name" />
                             </div>
@@ -122,25 +124,37 @@
                             <div class="mb-2">
                                 <input asp-for="PhoneNumber" class="form-control" placeholder="Phonenumber" />
                             </div>
-                            
+
                         </div>
 
                         <div class="mb-3">
                             <p>How do you want your hat delivered?</p>
 
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                            <label class="form-check-label" for="flexRadioDefault1">Pick up at workshop</label>
+                            <input class="form-check-input" type="radio" name="DeliveryMethod" id="pickUpWorkshop" value="PickUpWorkshop">
+                            <label class="form-check-label" for="pickUpWorkshop">Pick up at workshop</label>
 
                             <br />
 
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" />
-                            <label class="form-check-label" for="flexRadioDefault1">Home delivery</label>
+                            <input class="form-check-input" type="radio" name="DeliveryMethod" id="homeDelivery" value="HomeDelivery">
+                            <label class="form-check-label" for="homeDelivery">Home delivery</label>
                         </div>
 
                         <div class="form-check form-switch mb-3">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Urgent request</label>
+                            <input class="form-check-input" type="checkbox" id="urgentRequest" name="UrgentRequest">
+                            <label class="form-check-label" for="urgentRequest">Urgent request</label>
                         </div>
+
+                        <div class="mb-3">
+                            <button type="button" class="btn btn-primary" onclick="estimatePrice()">Estimate price</button>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Estimated Price:</label>
+                            <div id="estimatedPrice">0 SEK</div>
+                        </div>
+
+                        <input type="hidden" id="HatTypePrice" name="HatTypePrice" />
+                        <input type="hidden" id="MaterialPrice" name="MaterialPrice" />
 
                         <button type="submit" class="btn btn-primary">Send request</button>
 
@@ -151,3 +165,15 @@
         </div>
     </div>
 </div>
+
+<script>
+    function estimatePrice() {
+        var hatTypePrice = parseFloat(document.querySelector("#HatId option:checked").innerText.match(/\((\d+)/)[1]) || 0;
+        var materialPrice = parseFloat(document.querySelector("#Material option:checked").innerText.match(/-(\d+)/)[1]) || 0;
+        var specialEffectsPrice = Array.from(document.querySelectorAll("[name='SelectedSpecialEffects']:checked"))
+            .reduce((acc, effect) => acc + parseFloat(effect.value.match(/\((\d+)/)[1]), 0);
+
+        var totalPrice = hatTypePrice + materialPrice + specialEffectsPrice;
+        alert("Estimated Price: " + totalPrice.toFixed(2) + " SEK");
+    }
+</script>

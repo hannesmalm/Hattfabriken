@@ -19,6 +19,8 @@ namespace Hattfabriken.Models
        
         public int? Height { get; set; }
 
+        public int? OuterDimensions { get; set; }
+
         public string? Commentary { get; set; }
 
         public List<string>? SpecialEffects { get; set; }
@@ -35,6 +37,8 @@ namespace Hattfabriken.Models
         public string Email { get; set; }
 
         public string Name { get; set; }
+
+        public int Price { get; set; }
 
         [ForeignKey("Image")]
         public byte[]? RequestImage { get; set; }

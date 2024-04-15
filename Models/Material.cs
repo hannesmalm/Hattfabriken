@@ -9,7 +9,7 @@ namespace Hattfabriken.Models
         [Key]
 
         public string MaterialName { get; set; }
-        
+
 
         [Required(ErrorMessage = "Quantity is required")]
         public int MaterialQuantity { get; set; }

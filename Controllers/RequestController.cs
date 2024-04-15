@@ -1,28 +1,29 @@
 ﻿using Hattfabriken.Models;
-using Microsoft.AspNetCore.Mvc;
 using Hattfabriken.Models.ViewModels;
-
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Hattfabriken.Controllers
 {
-
     public class RequestController : Controller
     {
         private readonly HatDbContext _context;
-        private readonly IImageService _imageService;
 
-        public RequestController(HatDbContext context, IImageService imageService)
+        public RequestController(HatDbContext context)
         {
             _context = context;
-            _imageService = imageService;
         }
-
 
         [HttpGet]
         public IActionResult NewRequest()
         {
-            RequestViewModel requestviewModel = new RequestViewModel();
-            return View(requestviewModel);
+            var materials = _context.Materials.ToList();
+            ViewBag.Materials = materials; // Send materials to the view as ViewBag
+            RequestViewModel requestViewModel = new RequestViewModel();
+            return View(requestViewModel);
         }
 
         [HttpPost]
@@ -30,56 +31,24 @@ namespace Hattfabriken.Controllers
         {
             if (ModelState.IsValid)
             {
-                Request request = new Request
-                {
-                    Commentary = requestViewModel.Commentary,
-                    Material = requestViewModel.Material,
-                    Measurement = requestViewModel.Measurement,
-                    Height = requestViewModel.Height,
-                    HatId = requestViewModel.HatId,
-                    Country = requestViewModel.Country,
-                    Adress = requestViewModel.Adress,
-                    PostalCode = requestViewModel.PostalCode,
-                    Email = requestViewModel.Email,
-                    PhoneNumber = requestViewModel.PhoneNumber,
-                    Name = requestViewModel.Name,
-                };
+                var materialName = requestViewModel.Material.Split('-')[0].Trim();
+                var material = await _context.Materials.FirstOrDefaultAsync(m => m.MaterialName == materialName);
 
-                if (requestViewModel.RequestImage != null && requestViewModel.RequestImage.Length > 0)
+                if (material != null)
                 {
-                    var image = new Image
+                    Request request = new Request
                     {
-                        Data = _imageService.ConvertToByteArray(requestViewModel.RequestImage)
+                        // Map properties from requestViewModel to Request entity
                     };
 
-                    _context.Images.Add(image);
+                    // Calculate total price
+                    request.Price = material.Price + requestViewModel.HatTypePrice + requestViewModel.SpecialEffectsPrice;
+
+                    // Add the request to the database
+                    _context.Add(request);
                     await _context.SaveChangesAsync();
 
-                    request.RequestImage = image.Data;
-
-                    Console.WriteLine(image.Data);
-                }
-
-                if (requestViewModel.SelectedSpecialEffekter != null && requestViewModel.SelectedSpecialEffekter.Any())
-                {
-                    request.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffekter);
-                }
-                else
-                {
-                    request.SpecialEffects = new List<string>(); // Tom lista om ingen special effekt är vald
-                }
-
-                _context.Add(request);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction("RequestSuccess", "Request");
-            }
-
-            foreach (var key in ModelState.Keys)
-            {
-                foreach (var error in ModelState[key].Errors)
-                {
-                    Console.WriteLine($"Fält: {key}, Fel: {error.ErrorMessage}");
+                    return RedirectToAction("RequestSuccess", "Request");
                 }
             }
 
@@ -90,6 +59,5 @@ namespace Hattfabriken.Controllers
         {
             return View();
         }
-
     }
 }
