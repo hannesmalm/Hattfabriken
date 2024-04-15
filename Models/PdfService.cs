@@ -149,6 +149,7 @@ namespace Hattfabriken.Models
                              row.Spacing(30);
                              row.RelativeItem().Column(c =>
                              {
+                                 c.Item().Text("Sender:").Bold();
                                  c.Item().Text("The Hat Factory");
                                  c.Item().Text("Adress 1 111 11");
                                  c.Item().Text("Hattorp");
@@ -156,9 +157,10 @@ namespace Hattfabriken.Models
 
                              row.RelativeItem().Column(c =>
                              {
-                                 c.Item().Text("Kund Kundsson");
-                                 c.Item().Text("Adress 2 222 22");
-                                 c.Item().Text("Uppsala");
+                                 c.Item().Text("Receiver:").Bold();
+                                 c.Item().Text("***");
+                                 c.Item().Text("***");
+                                 c.Item().Text("***");
 
                              });
 
@@ -169,10 +171,10 @@ namespace Hattfabriken.Models
                              row.Spacing(30);
                              row.RelativeItem().Column(c =>
                              {
-                                 c.Item().Text("Product code: ").LineHeight(2).Bold();
-                                 c.Item().Text("Number of packages: 1").LineHeight(2).Bold();
-                                 c.Item().Text("Weight: ").LineHeight(2).Bold();
-                                 c.Item().Text("Order number: ").LineHeight(2).Bold();
+                                 c.Item().Text("Product code: ***").LineHeight(2).Bold();
+                                 c.Item().Text("Number of packages included: ***pcs").LineHeight(2).Bold();
+                                 c.Item().Text("Weight: ***kg").LineHeight(2).Bold();
+                                 c.Item().Text("Order number: ***").LineHeight(2).Bold();
 
 
                              });
