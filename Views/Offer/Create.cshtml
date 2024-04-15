@@ -11,8 +11,13 @@
    </div>
 
    <div class="form-group">
+<<<<<<< Updated upstream:Views/Offer/FormOffer.cshtml
         <label asp-for="KundMail">Costumer mail:</label>
         <input asp-for="KundMail" class="form-control" />
+=======
+        <label asp-for="KundMail">Kund mail:</label>
+        <input asp-for="KundMail" class="form-control"/>
+>>>>>>> Stashed changes:Views/Offer/Create.cshtml
    </div>
 
     <div class="form-group">
@@ -78,10 +83,15 @@
 
 <script>
 
-                                    // Hur hämtar vi från formuläret?
+    // Hur hämtar vi från formuläret?
     function openOutlook() {
         var subject = "Offer for request ...";
+<<<<<<< Updated upstream:Views/Offer/FormOffer.cshtml
         var emailAdress = "kundMail";
+=======
+
+        var emailAdress = document.getElementById('KundMail').value;
+>>>>>>> Stashed changes:Views/Offer/Create.cshtml
         var body = "Dear Customer,\n\n  Here is an offer bla bla bla.  \n\nBest regards,\nThe Hat Factory Team";
         var mailtoLink = "mailto:" + encodeURIComponent(emailAdress) + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
         window.location.href = mailtoLink;
