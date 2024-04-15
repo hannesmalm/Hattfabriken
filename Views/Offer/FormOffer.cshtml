@@ -12,7 +12,7 @@
 
    <div class="form-group">
         <label asp-for="KundMail">Costumer mail:</label>
-        <input asp-for="KundMail" class="form-control" />
+        <input asp-for="KundMail" id="KundMail" class="form-control" />
    </div>
 
     <div class="form-group">
@@ -50,6 +50,32 @@
 
 </form>
 
+
+
+<script>
+
+    // Hur hämtar vi från formuläret?
+    function openOutlook() {
+        var subject = "Offer for request ...";
+        var emailAdress = document.getElementById("KundMail").value;
+        var body = "Dear Customer,\n\n  Here is an offer bla bla bla.  \n\nBest regards,\nThe Hat Factory Team";
+        var mailtoLink = "mailto:" + encodeURIComponent(emailAdress) + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        window.location.href = mailtoLink;
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
 <script>
 
                                     // Hur hämtar vi från formuläret?
@@ -61,3 +87,5 @@
         window.location.href = mailtoLink;
     }
 </script>
+
+-->
