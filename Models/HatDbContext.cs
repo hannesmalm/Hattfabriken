@@ -19,7 +19,9 @@ namespace Hattfabriken.Models
         public DbSet<Request> Requests { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<Offer> Offers { get; set; }
         public DbSet<QuantityRequest> QuantityRequests { get; set; }
+
 
 
 
