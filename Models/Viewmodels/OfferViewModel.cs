@@ -25,12 +25,13 @@ namespace Hattfabriken.Models.Viewmodels
 
         public double? FraktKostnad { get; set; }
 
-        [Required(ErrorMessage = "Choose a date")]
+        [Required(ErrorMessage = "Estimated date is required")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
        public DateTime EstimeratLeveransdatum { get; set; }
 
-       public double TotalKostnad { get; set; }
+        [Required(ErrorMessage = "Total cost is required")]
+        public double TotalKostnad { get; set; }
 
     }
 }

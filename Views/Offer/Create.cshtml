@@ -46,11 +46,17 @@
             </div>
         }
     </div>
+
+
     <div class="col-md-6">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
         <form asp-controller="Offer" asp-action="Create" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label asp-for="KundNamn">Costumer name:</label>
                 <input asp-for="KundNamn" class="form-control" value="@request?.Name" />
+
             </div>
             <div class="form-group">
                 <label asp-for="KundMail">Costumer mail:</label>
@@ -100,6 +106,7 @@
 
         var totalCost = materialCost + specialEffectCost + specialFabricCost + shippingCost;
 
-        document.getElementById("TotalKostnad").value = totalCost.toFixed(2);
+        document.getElementById("TotalKostnad").value = parseFloat(totalCost.toFixed(2));
+
     }
 </script>
