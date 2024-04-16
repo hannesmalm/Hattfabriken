@@ -43,6 +43,7 @@ namespace Hattfabriken.Controllers
                     Description = addHatViewModel.Description,
                     Price = addHatViewModel.Price,
                     SpecialEffects = addHatViewModel.SpecialEffects,
+                    Quantity = addHatViewModel.Quantity,    
                 };
                 _dbContext.Hattar.Add(newHat);
                 _dbContext.SaveChanges();
@@ -73,7 +74,8 @@ namespace Hattfabriken.Controllers
                 Description = hat.Description,
                 Price = hat.Price,
                 SpecialEffects = hat.SpecialEffects,
-                OuterMeasurement = hat.OuterMeasurement
+                OuterMeasurement = hat.OuterMeasurement,
+                Quantity = hat.Quantity,    
             };
             return View("~/Views/Lager/EditHat.cshtml", editHatViewModel); // Ange den fullständiga sökvägen till vyn här
 
@@ -96,6 +98,7 @@ namespace Hattfabriken.Controllers
                         existingHat.Price = editHatViewModel.Price;
                         existingHat.SpecialEffects = editHatViewModel.SpecialEffects;
                         existingHat.OuterMeasurement = editHatViewModel.OuterMeasurement;
+                        existingHat.Quantity = editHatViewModel.Quantity;
 
                         _dbContext.Hattar.Update(existingHat);
                         _dbContext.SaveChanges();

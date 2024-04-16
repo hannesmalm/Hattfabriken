@@ -19,5 +19,7 @@ namespace Hattfabriken.Models
 
         [Required(ErrorMessage = "Please enter an outer measurement")]
         public int OuterMeasurement { get; set;}
+        public int Quantity { get; set; }
+
     }
 }
