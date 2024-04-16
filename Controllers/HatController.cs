@@ -59,11 +59,9 @@ namespace Hattfabriken.Controllers
         public IActionResult EditHat(int HatId) 
         {
             var hat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == HatId);
-            Console.WriteLine("Hatt hittad");
 
             if (hat == null)
             {
-                Console.WriteLine("Hatt inte hittad");
                 return RedirectToAction("StorageOfHats", new { errorMessage = "Hat not found." });
             }
 
@@ -77,7 +75,6 @@ namespace Hattfabriken.Controllers
                 SpecialEffects = hat.SpecialEffects,
                 OuterMeasurement = hat.OuterMeasurement
             };
-            Console.WriteLine("editHatViewModel: " + editHatViewModel.HatId);
             return View("~/Views/Lager/EditHat.cshtml", editHatViewModel); // Ange den fullständiga sökvägen till vyn här
 
         }
@@ -90,10 +87,6 @@ namespace Hattfabriken.Controllers
                 try
                 {
                     var existingHat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == editHatViewModel.HatId);
-                    Console.WriteLine("editHatViewModel: " + editHatViewModel.HatId);
-
-                    Console.WriteLine("existingHat: " + existingHat);
-
 
                     if (existingHat != null)
                     {
@@ -104,15 +97,8 @@ namespace Hattfabriken.Controllers
                         existingHat.SpecialEffects = editHatViewModel.SpecialEffects;
                         existingHat.OuterMeasurement = editHatViewModel.OuterMeasurement;
 
-                        //_dbContext.Entry(existingHat).State = EntityState.Modified;
-                        Console.WriteLine("Värden tilldelade");
-
                         _dbContext.Hattar.Update(existingHat);
-                        Console.WriteLine("Uppdaterad");
-
                         _dbContext.SaveChanges();
-                        Console.WriteLine("Sparad");
-
                         return RedirectToAction(nameof(StorageOfHats));
                     }
                 }
@@ -124,6 +110,34 @@ namespace Hattfabriken.Controllers
 
             }
             return View("~/Views/Lager/EditHat.cshtml", editHatViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult DeleteHat(int HatId)
+        {
+            var hat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == HatId);
+
+            if (hat == null)
+            {
+                return RedirectToAction("StorageOfHats", new { errorMessage = "Hat not found." });
+            }
+            return View("~/Views/Lager/DeleteHat.cshtml", hat);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteHatConfirmed(int HatId)
+        {
+            var hat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == HatId);
+
+            if (hat == null)
+            {
+                return RedirectToAction("StorageOfHats", new { errorMessage = "Hat not found." });
+            }
+
+            _dbContext.Hattar.Remove(hat);
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(StorageOfHats));
+
         }
     }
 }
