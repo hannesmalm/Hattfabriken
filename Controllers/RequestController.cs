@@ -23,7 +23,6 @@ namespace Hattfabriken.Controllers
             _mailService = this._mailService;
         }
 
-
         [HttpGet]
         public IActionResult NewRequest()
         {
@@ -113,7 +112,8 @@ namespace Hattfabriken.Controllers
         [HttpPost]
         public IActionResult AcceptRequest(int requestId)
         {
-            var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
+            Request request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
+
             if (request == null)
             {
                 return NotFound();
@@ -123,7 +123,8 @@ namespace Hattfabriken.Controllers
             _context.Update(request);
             _context.SaveChanges();
 
-            return RedirectToAction("AllRequests");
+            // GÅ VIDARE TILL SKAPA OFFERT (CreateOffert())
+            return RedirectToAction("Create", "Offer", new { requestId = requestId });
         }
 
         [HttpPost]
@@ -132,7 +133,7 @@ namespace Hattfabriken.Controllers
             var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
             if (request == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
             request.Status = "Declined";

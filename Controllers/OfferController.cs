@@ -17,9 +17,20 @@ namespace Hattfabriken.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int? requestId)
         {
             OfferViewModel model = new OfferViewModel();
+
+            Request request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
+
+            if (request != null)
+            {
+                Console.WriteLine("Requesten är med, najs");
+
+                // Lägg till objektet i ViewBag
+                ViewBag.request = request;
+            }
+
             return View(model);
         }
 
@@ -30,7 +41,6 @@ namespace Hattfabriken.Controllers
 
             if (ModelState.IsValid) 
             {
-                double TotalKostnad = CalculateTotalCost(model);
                 Console.WriteLine("ModelState är valid");
 
                 Offer nyOffert = new Offer
@@ -43,8 +53,7 @@ namespace Hattfabriken.Controllers
                     SpecialtygKostnad = model.SpecialtygKostnad,
                     FraktKostnad = model.FraktKostnad,
                     SkapadDatum = DateTime.Today,
-                    EstimeratLeveransdatum = model.EstimeratLeveransdatum,
-                    TotalKostnad = model.TotalKostnad
+                    EstimeratLeveransdatum = model.EstimeratLeveransdatum
                 };
 
                 _context.Offers.Add(nyOffert);
@@ -59,19 +68,6 @@ namespace Hattfabriken.Controllers
             Console.WriteLine("ModelState är inte valid");
 
             return View(model);
-        }
-
-        private double CalculateTotalCost(OfferViewModel model)
-        {
-
-            double TotalKostnad = model.MaterialKostnad +
-                               (model.SpecialeffektKostnad ?? 0) +
-                               model.SpecialtygKostnad +
-                               (model.FraktKostnad ?? 0);
-
-            return TotalKostnad;
-
-
-        }
+        } 
     }
 }
