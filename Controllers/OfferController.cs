@@ -53,7 +53,8 @@ namespace Hattfabriken.Controllers
                     SpecialtygKostnad = model.SpecialtygKostnad,
                     FraktKostnad = model.FraktKostnad,
                     SkapadDatum = DateTime.Today,
-                    EstimeratLeveransdatum = model.EstimeratLeveransdatum
+                    EstimeratLeveransdatum = model.EstimeratLeveransdatum,
+                    TotalKostnad = model.TotalKostnad
                 };
 
                 _context.Offers.Add(nyOffert);

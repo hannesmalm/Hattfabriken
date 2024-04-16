@@ -20,7 +20,7 @@ namespace Hattfabriken.Models
 
         public double? SpecialeffektKostnad { get; set; }
 
-        public double SpecialtygKostnad { get; set; }
+        public double? SpecialtygKostnad { get; set; }
 
         public double? FraktKostnad { get; set; }
 
@@ -32,6 +32,8 @@ namespace Hattfabriken.Models
         public DateTime EstimeratLeveransdatum { get; set; }
 
         public double TotalKostnad { get; set; }
+
+        //public int MaterialId { get; set; }
 
     }
 }
