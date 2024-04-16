@@ -12,8 +12,10 @@ namespace Hattfabriken.Models
 
         [Required(ErrorMessage = "Please enter a hat name")]
         public string HatName { get; set; }
-        //[ForeignKey("Material")]
-        public string MaterialName {  get; set; }
+       
+        [ForeignKey("Material")]
+        public string MaterialName { get; set; }
+        public virtual Material Material { get; set; }
         public string Description { get; set; }
 
         [Required(ErrorMessage = "Please enter a price")]

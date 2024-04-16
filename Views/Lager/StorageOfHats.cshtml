@@ -1,36 +1,8 @@
-﻿@model IEnumerable<Hatt>
+﻿@model IEnumerable<Hattfabriken.Models.Hatt>
+
 
 <h1>Hats in stock</h1>
 
-@* <table class="table">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Material</th>
-            <th>Outer measurement</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Special effects</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var hat in Model)
-        {
-            <tr>
-                <td>@hat.HatName</td>
-                <td>@hat.MaterialName</td>
-                <td>@hat.OuterMeasurement</td>
-                <td>@hat.Description</td>
-                <td>@hat.Price</td>
-                <td>@hat.SpecialEffects</td>
-                <td>
-                    <a asp-action="EditHat" asp-route-HatId="@hat.HatId" class="btn btn-primary">Edit</a>
-                    <a asp-action="DeleteHat" asp-route-HatId="@hat.HatId" class="btn btn-primary">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table> *@
 <div id="hatList" class="row mt-5">
     @foreach (var hat in Model)
     {
@@ -42,7 +14,7 @@
                     <h5 class="card-title">@hat.HatName</h5>
                     <p class="card-text">@hat.Description</p>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Material: @hat.MaterialName</li>
+                        <li class="list-group-item">Material: @hat.Material?.MaterialName</li>
                         <li class="list-group-item">Outer measurement: @hat.OuterMeasurement</li>
                         <li class="list-group-item">Price: @hat.Price</li>
                         <li class="list-group-item">Special effects: @hat.SpecialEffects</li>
@@ -63,12 +35,39 @@
         <label for="name">Name:</label>
         <input type="text" id="name" name="HatName" class="form-control" />
     </div>
+@*     <div class="form-group">
+        <label for="material">Material:</label>
+        <select id="material" name="Material.MaterialName" class="form-control">
+            @if (ViewBag.Materials != null)
+            {
+               @foreach (var material in ViewBag.Materials)
+			    {
+				    <option value="@material.MaterialName">@material.MaterialName</option>
+			    } <!-- Din kod för att använda ViewBag.Materials här -->
+            }
+            else
+            {
+                <p>No materials available</p>
+            }
+			
+        </select>
+    </div> *@
     <div class="form-group">
         <label for="material">Material:</label>
-        <input type="text" id="material" name="MaterialName" class="form-control" />
-
+        <select id="material" name="MaterialName" class="form-control">
+            @if (ViewBag.Materials != null)
+            {
+                foreach (var material in ViewBag.Materials)
+                {
+                    <option value="@material.Value">@material.Text</option>
+                }
+            }
+            else
+            {
+                <option>No materials available</option>
+            }
+        </select>
     </div>
-    
     <div class="form-group">
         <label for="description">Description:</label>
         <input type="text" id="description" name="Description" class="form-control" />

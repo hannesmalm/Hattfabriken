@@ -1,5 +1,6 @@
 ﻿using Hattfabriken.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hattfabriken.Controllers
@@ -24,6 +25,9 @@ namespace Hattfabriken.Controllers
         [HttpGet]
         public IActionResult AddHat()
         {
+            List<SelectListItem> materials = _dbContext.Materials
+                    .Select(m => new SelectListItem { Text = m.MaterialName, Value = m.MaterialName })
+                    .ToList(); ViewBag.Materials = materials;
             AddHatViewModel addHatViewModel = new AddHatViewModel();
             return View(addHatViewModel);
         }
@@ -31,7 +35,6 @@ namespace Hattfabriken.Controllers
         [HttpPost]
         public IActionResult AddHat(AddHatViewModel addHatViewModel)
         {
-            
 
             if (ModelState.IsValid)
             {
