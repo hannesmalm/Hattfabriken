@@ -47,6 +47,13 @@
                 <td>
                     <p>@offer.EstimeratLeveransdatum.ToString("yyyy-MM-dd")</p>
                 </td>
+                <td>
+                    <!-- Knapp för att visa konversation (öppna mail) -->
+                    <button class="btn btn-primary" onclick="openConversation('@offer.KundMail')">Visa Konversation</button>
+
+                    <!-- Knapp för att acceptera offert -->
+                    <button class="btn btn-success" onclick="acceptOffer(@offer.OffertId)">Acceptera Offert</button>
+                </td>
             </tr>
         }
     </tbody>
@@ -69,4 +76,17 @@
             }
         });
     });
+
+    function openConversation(email) {
+        // Skapa ett mailto-länk med sökfrågan för e-postadressen
+        var mailtoLink = "mailto:?to=&subject=&body=BODY&cc=&bcc=&search=" + email;
+
+        // Öppna mailklienten (Outlook) med den förifyllda e-postadressen
+        window.location.href = mailtoLink;
+    }
+
+    function acceptOffer(offerId) {
+        // Här kan du implementera logiken för att acceptera offerten med det givna offerId
+        console.log("Acceptera offert med ID: " + offerId);
+    }
 </script>

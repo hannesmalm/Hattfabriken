@@ -69,12 +69,30 @@ namespace Hattfabriken.Controllers
             Console.WriteLine("ModelState är inte valid");
 
             return View(model);
-        } 
+        }
 
         public IActionResult OfferList()
         {
-            var offerList = _context.Offers.ToList(); // Hämta alla Förfrågningar från databasen
-            return View(offerList);
+            var offers = new List<Offer>
+            {
+                 new Offer
+               {
+            OffertId = 1,
+            KundNamn = "Kund1",
+            KundMail = "kund1@example.com",
+            KundTel = "123456789",
+            MaterialKostnad = 100.00,
+            SpecialeffektKostnad = 20.00,
+            SpecialtygKostnad = 30.00,
+            FraktKostnad = 10.00,
+            SkapadDatum = DateTime.Now,
+            EstimeratLeveransdatum = DateTime.Now.AddDays(7),
+            TotalKostnad = 160.00,
+
+               }
+            };
+            //var offerList = _context.Offers.ToList(); // Hämta alla Förfrågningar från databasen
+            return View(offers);
         }
     }
 }
