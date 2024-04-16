@@ -69,5 +69,11 @@ namespace Hattfabriken.Controllers
 
             return View(model);
         } 
+
+        public IActionResult OfferList()
+        {
+            var offerList = _context.Offers.ToList(); // Hämta alla Förfrågningar från databasen
+            return View(offerList);
+        }
     }
 }
