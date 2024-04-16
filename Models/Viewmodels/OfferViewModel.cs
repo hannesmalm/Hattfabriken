@@ -26,6 +26,8 @@ namespace Hattfabriken.Models.Viewmodels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
        public DateTime EstimeratLeveransdatum { get; set; }
 
+       public double TotalKostnad { get; set; }
+
     }
 }
 
