@@ -175,8 +175,7 @@ namespace Hattfabriken.Models
                                  c.Item().Text("Number of packages included: ***pcs").LineHeight(2).Bold();
                                  c.Item().Text("Weight: ***kg").LineHeight(2).Bold();
                                  c.Item().Text("Order number: ***").LineHeight(2).Bold();
-
-
+                                 c.Item().Text("HS-CODE: ***").LineHeight(2).Bold();
                              });
 
                          });
