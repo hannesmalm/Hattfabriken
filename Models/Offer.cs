@@ -14,7 +14,7 @@ namespace Hattfabriken.Models
 
         public string KundMail { get; set; }
 
-        public string? KundTel { get; set; }
+        public string? KundTel { get; set; }  
 
         public double MaterialKostnad { get; set; }
 
