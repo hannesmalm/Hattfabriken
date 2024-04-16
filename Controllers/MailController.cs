@@ -18,6 +18,7 @@ namespace Hattfabriken.Controllers
         {
             _mailService = _MailService;
         }
+
         [HttpPost]
         [Route("SendMail")]
         public IActionResult SendMail([FromBody] MailData mailData)

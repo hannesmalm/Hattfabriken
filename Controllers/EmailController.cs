@@ -1,12 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hattfabriken.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Hattfabriken.Controllers
 {
     public class EmailController : Controller
     {
-        public IActionResult SendAnEmail()
+        [HttpGet]
+        public IActionResult SendAnEmail(MailData mailData)
         {
-            return View();
+            return View(mailData);
         }
     }
 }

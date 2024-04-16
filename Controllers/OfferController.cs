@@ -16,6 +16,13 @@ namespace Hattfabriken.Controllers
             _imageService = imageService;
         }
 
+        [HttpGet]
+        public IActionResult Create()
+        {
+            OfferViewModel model = new OfferViewModel();
+            return View(model);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(OfferViewModel model)
         {
@@ -43,20 +50,13 @@ namespace Hattfabriken.Controllers
 
                 Console.WriteLine("SUCCESS");
 
+                ViewBag.Offer = nyOffert;
                 return View("OfferSuccess");
             }
 
             Console.WriteLine("ModelState är inte valid");
 
             return View(model);
-        }
-
-        public IActionResult FormOffer() 
-        {
-            return View();
-        
-        }
-
-       
+        } 
     }
 }

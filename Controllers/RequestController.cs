@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Hattfabriken.Models.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Hattfabriken.Models.Interfaces;
+using MailKit;
 
 
 namespace Hattfabriken.Controllers
@@ -12,11 +13,14 @@ namespace Hattfabriken.Controllers
     {
         private readonly HatDbContext _context;
         private readonly IImageService _imageService;
+        private readonly Models.Interfaces.IMailService _mailService;
+       
 
         public RequestController(HatDbContext context, IImageService imageService)
         {
             _context = context;
             _imageService = imageService;
+            _mailService = this._mailService;
         }
 
 
@@ -110,29 +114,33 @@ namespace Hattfabriken.Controllers
         public IActionResult AcceptRequest(int requestId)
         {
             var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
+            if (request == null)
+            {
+                return NotFound();
+            }
+
             request.Status = "Accepted";
-            
             _context.Update(request);
             _context.SaveChanges();
 
-            // GÅ VIDARE TILL SKAPA OFFERT
-
-            return View("Request", request);
+            return RedirectToAction("AllRequests");
         }
 
         [HttpPost]
         public IActionResult DeclineRequest(int requestId)
         {
             var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
+            if (request == null)
+            {
+                return NotFound(); 
+            }
+
             request.Status = "Declined";
-
-
             _context.Update(request);
             _context.SaveChanges();
 
-            // SKICKA MAIL (javascript)
-
-            return View("Request", request);
+            
+            return RedirectToAction("AllRequests");
         }
 
         public IActionResult RequestSuccess()
