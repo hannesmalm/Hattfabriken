@@ -5,8 +5,8 @@ namespace Hattfabriken.Models
     public class Order
     {
         public int Id { get; set; }
-        [ForeignKey("Request")]
-        public int? RequestId { get; set; }
+        [ForeignKey("Offer")]
+        public int? OfferId { get; set; }
         [ForeignKey("Hatt")]
         public int? HatId { get; set; }
         public string? Material { get; set; }
@@ -14,6 +14,8 @@ namespace Hattfabriken.Models
         public int? Height { get; set; }
         public string? Commentary { get; set; }
         public List<string>? SpecialEffects { get; set; }
+        [ForeignKey("Image")]
+        public byte[]? HatImage { get; set; }
         public string Adress { get; set; }
         public int PostalCode { get; set; }
         public string PhoneNumber { get; set; }
@@ -21,9 +23,9 @@ namespace Hattfabriken.Models
         [ForeignKey("Customer")]
         public string Email { get; set; }
         public string Name { get; set; }
-        public string Status { get; set; } = "Pending";
+        public string Status { get; set; } = "To do";
         public DateTime Date { get; set; }
-        public bool Invoice { get; set; }
-        public bool Waybill { get; set; }
+        public string Maker { get; set; }
+        public bool Delivery { get; set; }
     }
 }

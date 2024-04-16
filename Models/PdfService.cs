@@ -175,26 +175,110 @@ namespace Hattfabriken.Models
                                  c.Item().Text("Number of packages included: ***pcs").LineHeight(2).Bold();
                                  c.Item().Text("Weight: ***kg").LineHeight(2).Bold();
                                  c.Item().Text("Order number: ***").LineHeight(2).Bold();
-
-
                              });
-
                          });
-
-
-
-
                     });
                 });
             });
         }
 
-        //public byte[] GenerateOrder(OrderData data)
-        //{
-        //    return GenerateDocument(document =>
-        //    {
-        //        // Här kan du definiera layout och innehåll för beställningen
-        //    }, data);
-        //}
+        public byte[] GenerateHatOrderDocument(OrderData order)
+        {
+            return GenerateDocument(document =>
+            {
+                document.Page(page =>
+                {
+                    page.Margin(1, Unit.Centimetre);
+                    page.Size(PageSizes.A5);
+
+                    page.Header()
+                        .BorderHorizontal(1)
+                        .Height(50)
+                        .AlignCenter()
+                        .Text($"Order ID: {order.Id}")
+                        .Bold().FontSize(24)
+                        .FontColor(Colors.Black);
+
+                    page.Content()
+                        .Column(column =>
+                        {
+                            column.Spacing(10);
+
+                            //// Customer Details
+                            //column.Item()
+                            //    .BorderBottom(1)
+                            //    .Padding(5)
+                            //    .Row(row =>
+                            //    {
+                            //        row.RelativeItem().Column(c =>
+                            //        {
+                            //            c.Item().Text("Customer:").Bold();
+                            //            c.Item().Text($"{order.Name}");
+                            //            c.Item().Text($"{order.Adress}, {order.PostalCode}");
+                            //            c.Item().Text($"{order.Country}");
+                            //        });
+
+                            //        row.RelativeItem().Column(c =>
+                            //        {
+                            //            c.Item().Text("Contact:").Bold();
+                            //            c.Item().Text($"Phone: {order.PhoneNumber}");
+                            //            c.Item().Text($"Email: {order.Email}");
+                            //        });
+                            //    });
+
+                            // Hat Details
+                            column.Item()
+                                .Padding(5)
+                                .BorderBottom(1)
+                                .Column(c =>
+                                {
+                                    c.Item().Text("Hat Details:").Bold();
+                                    if (order.HatId != null)
+                                        c.Item().Text($"Hat ID: {order.HatId}");
+                                    if (!string.IsNullOrEmpty(order.Material))
+                                        c.Item().Text($"Material: {order.Material}");
+                                    if (order.Measurement != null)
+                                        c.Item().Text($"Measurement: {order.Measurement} cm");
+                                    if (order.Height != null)
+                                        c.Item().Text($"Height: {order.Height} cm");
+                                    if (!string.IsNullOrWhiteSpace(order.Commentary))
+                                        c.Item().Text($"Commentary: {order.Commentary}");
+                                });
+
+                            // Special Effects
+                            if (order.SpecialEffects?.Count > 0)
+                            {
+                                column.Item()
+                                    .Padding(5)
+                                    .Column(c =>
+                                    {
+                                        c.Item().Text("Special Effects:").Bold();
+                                        foreach (var effect in order.SpecialEffects)
+                                            c.Item().Text(effect);
+                                    });
+                            }
+
+                            // Order and Delivery Details
+                            column.Item()
+                                .Padding(5)
+                                .Column(c =>
+                                {
+                                    c.Item().Text("Order Details:").Bold();
+                                    c.Item().Text($"Order Date: {order.Date.ToShortDateString()}");
+                                    c.Item().Text($"Urgent Delivery: {(order.Urgent ? "Yes" : "No")}");
+                                });
+                        });
+
+                    page.Footer()
+                        .AlignCenter()
+                        .Text(x =>
+                        {
+                            x.CurrentPageNumber();
+                            x.Span(" of ");
+                            x.TotalPages();
+                        });
+                });
+            });
+        }
     }
 }

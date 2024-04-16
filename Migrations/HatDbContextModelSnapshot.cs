@@ -79,7 +79,7 @@ namespace Hattfabriken.Migrations
 
                     b.HasKey("HatId");
 
-                    b.ToTable("Hats");
+                    b.ToTable("Hattar");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Image", b =>
@@ -118,6 +118,78 @@ namespace Hattfabriken.Migrations
                     b.HasKey("MaterialName");
 
                     b.ToTable("Materials");
+
+                    b.HasData(
+                        new
+                        {
+                            MaterialName = "Leather",
+                            MaterialQuantity = 1000,
+                            MaterialSupplier = "Leather@gmail.com",
+                            Price = 45
+                        },
+                        new
+                        {
+                            MaterialName = "Straw",
+                            MaterialQuantity = 800,
+                            MaterialSupplier = "StrawSwag@icloud.com",
+                            Price = 14
+                        },
+                        new
+                        {
+                            MaterialName = "Cloth",
+                            MaterialQuantity = 2200,
+                            MaterialSupplier = "ClothCircus@hotmail.com",
+                            Price = 13
+                        },
+                        new
+                        {
+                            MaterialName = "Snakeskin",
+                            MaterialQuantity = 400,
+                            MaterialSupplier = "SnakeKiller@icloud.com",
+                            Price = 84
+                        },
+                        new
+                        {
+                            MaterialName = "Felt",
+                            MaterialQuantity = 600,
+                            MaterialSupplier = "FeltFear@icloud.com",
+                            Price = 14
+                        },
+                        new
+                        {
+                            MaterialName = "Panama",
+                            MaterialQuantity = 900,
+                            MaterialSupplier = "PanamaSwag@icloud.com",
+                            Price = 16
+                        },
+                        new
+                        {
+                            MaterialName = "Cotton",
+                            MaterialQuantity = 200,
+                            MaterialSupplier = "CottonCorner@icloud.com",
+                            Price = 16
+                        },
+                        new
+                        {
+                            MaterialName = "Linen",
+                            MaterialQuantity = 300,
+                            MaterialSupplier = "GrischLaidback@icloud.com",
+                            Price = 28
+                        },
+                        new
+                        {
+                            MaterialName = "Satin",
+                            MaterialQuantity = 1000,
+                            MaterialSupplier = "SatinSwag@icloud.com",
+                            Price = 12
+                        },
+                        new
+                        {
+                            MaterialName = "Polyester",
+                            MaterialQuantity = 2900,
+                            MaterialSupplier = "PolyesterChina@icloud.com",
+                            Price = 11
+                        });
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Offer", b =>
@@ -160,6 +232,31 @@ namespace Hattfabriken.Migrations
                     b.HasKey("OffertId");
 
                     b.ToTable("Offers");
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MaterialName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RequestedQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaterialName");
+
+                    b.ToTable("QuantityRequests");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Request", b =>
@@ -449,6 +546,17 @@ namespace Hattfabriken.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
+                {
+                    b.HasOne("Hattfabriken.Models.Material", "Material")
+                        .WithMany()
+                        .HasForeignKey("MaterialName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Material");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
