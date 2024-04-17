@@ -5,7 +5,7 @@
 namespace Hattfabriken.Migrations
 {
     /// <inheritdoc />
-    public partial class LOOOOOOL : Migration
+    public partial class sdjfdjd : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

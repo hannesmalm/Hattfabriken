@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    [Migration("20240408094408_users")]
-    partial class users
+    [Migration("20240417083627_lol")]
+    partial class lol
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.4")
                 .HasAnnotation("Proxies:ChangeTracking", false)
                 .HasAnnotation("Proxies:CheckEquality", false)
                 .HasAnnotation("Proxies:LazyLoading", true)
@@ -53,44 +53,6 @@ namespace Hattfabriken.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Hattfabriken.Models.Forfragan", b =>
-                {
-                    b.Property<int>("ForfraganID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ForfraganID"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("HatId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Hojd")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Kommentar")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Material")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Matt")
-                        .HasColumnType("int");
-
-                    b.Property<string>("SpecialEffekter")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ForfraganID");
-
-                    b.ToTable("Forfragor");
-                });
-
             modelBuilder.Entity("Hattfabriken.Models.Hatt", b =>
                 {
                     b.Property<int>("HatId")
@@ -121,6 +83,23 @@ namespace Hattfabriken.Migrations
                     b.HasKey("HatId");
 
                     b.ToTable("Hattar");
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<byte[]>("Data")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Material", b =>
@@ -214,6 +193,147 @@ namespace Hattfabriken.Migrations
                             MaterialSupplier = "PolyesterChina@icloud.com",
                             Price = 11
                         });
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.Offer", b =>
+                {
+                    b.Property<int>("OffertId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OffertId"));
+
+                    b.Property<DateTime>("EstimeratLeveransdatum")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("FraktKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<string>("KundMail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KundNamn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("KundTel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("MaterialKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("SkapadDatum")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double?>("SpecialeffektKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SpecialtygKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalKostnad")
+                        .HasColumnType("float");
+
+                    b.HasKey("OffertId");
+
+                    b.ToTable("Offers");
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("MaterialName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("RequestedQuantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MaterialName");
+
+                    b.ToTable("QuantityRequests");
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.Request", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Adress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Commentary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DeliveryOrPickup")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("HatId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Material")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Measurement")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostalCode")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("RequestImage")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("SpecialEffects")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Urgent")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Requests");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.User", b =>
@@ -407,33 +527,33 @@ namespace Hattfabriken.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1daf9ab9-76b0-45cf-870f-fbabb496ebaf",
+                            Id = "e69bcdb2-cd4a-4901-9c37-0800bd28f70d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7eb51ab7-ac85-4e55-b0d1-a027f57f0eb6",
+                            ConcurrencyStamp = "73bcd7f1-179f-4458-ac86-9ea56bfa75bf",
                             Email = "admin1@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN1@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBa3mRl1LPVkpkD6egF7o9qfobl2zDYWccEjmKPhwly3ry1mCsqVSvH2T0M9yhx/kA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENYDfFECTXF4LCj3rMQJ0QqD0T+75xKiqZFHzMoq6kLtRazIZjkU7rs+5vqV0Vsq3w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1ecc9f36-d768-4e01-b2d3-b9d1446ffedf",
+                            SecurityStamp = "d2b9e041-681a-479b-b51d-2aa729d7245d",
                             TwoFactorEnabled = false,
                             UserName = "admin1@example.com"
                         },
                         new
                         {
-                            Id = "30d65e6d-cc63-47f5-a0e3-65b9ff2112b7",
+                            Id = "225f0673-4662-4dde-9fa0-546cdd29ff0e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "302c966d-bb0c-4a3d-a62e-da8559e4fd3f",
+                            ConcurrencyStamp = "dff53637-c56d-41a8-8cbc-80e16a476147",
                             Email = "admin2@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN2@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOJDEXCNmE8IssdpA5dQKSQeYXba9bK6+YWhSgiZJ3eNvHFSeys05ufy1D0Mv6aeCg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE3izxQCLZi13hVLRhDCEJfHUeU+/ybxtTcFFcjYXAJaSrJzlLATEeu0C5LD6N/Mog==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c5d589cc-5bbf-4b2b-9947-c7d87e7a9bda",
+                            SecurityStamp = "1099ade5-7fba-46b1-b0c7-965168a2ca18",
                             TwoFactorEnabled = false,
                             UserName = "admin2@example.com"
                         });
@@ -518,6 +638,17 @@ namespace Hattfabriken.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
+                {
+                    b.HasOne("Hattfabriken.Models.Material", "Material")
+                        .WithMany()
+                        .HasForeignKey("MaterialName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Material");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

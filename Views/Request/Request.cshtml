@@ -1,6 +1,136 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-    <h1> Hejsansvejsan </h1>
-}
+﻿@using System.Security.Claims
+@model Request
+
+<div class="container">
+    <a asp-controller="Request" asp-action="AllRequests" class="btn btn-primary mb-3">Back to list</a>
+
+    @if (Model == null)
+    {
+        <p class="alert alert-warning">Förfrågan hittades inte.</p>
+    }
+    else
+    {
+        <h4 class="mb-4">FÖRFRÅGAN</h4>
+
+        <div class="row">
+            <div class="col-md-6">
+                <p>ID: @Model.Id</p>
+                <p>Name: @Model.Name</p>
+                <p>Address: @Model.Adress</p>
+                <p>Postal Code: @Model.PostalCode</p>
+                <p>Country: @Model.Country</p>
+                <p>Email: @Model.Email</p>
+                <p>Phone Number: @Model.PhoneNumber</p>
+                <p>Client's Message: @Model.Commentary</p>
+            </div>
+            <div class="col-md-6">
+                @if (Model.RequestImage != null)
+                {
+                    var imageBase64 = Convert.ToBase64String(Model.RequestImage);
+                    var imageSrc = $"data:image/png;base64,{imageBase64}";
+                    <img class="img-fluid rounded" src="@imageSrc" alt="Request Image">
+                }
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+            <div class="col-md-6">
+                <p>Hat-ID: @Model.HatId</p>
+                <p>Material: @Model.Material</p>
+                <p>Measurement: @Model.Measurement</p>
+                <p>Height: @Model.Height</p>
+                <p>Special Effects:</p>
+                <ul>
+                    @foreach (var specialEffect in Model.SpecialEffects)
+                    {
+                        <li>@specialEffect</li>
+                    }
+                </ul>
+            </div>
+
+            <div class="col-md-6">
+                <h4>Status: @Model.Status</h4>
+                <br />
+                @if (Model.Status == "Pending")
+                {
+                    <form method="post" asp-controller="Request" asp-action="AcceptRequest" class="mb-3">
+                        <input type="hidden" name="requestId" value="@Model.Id" />
+                        <button type="submit" class="btn btn-success w-100">Accept Request</button>
+                    </form>
+
+                    <form id="declineForm">
+                        <input type="hidden" name="requestId" value="@Model.Id" />
+                        <input type="hidden" name="customerEmail" value="@Model.Email" />
+                        <input type="hidden" name="customerName" value="@Model.Name" />
+                        <button type="button" onclick="declineRequest()" class="btn btn-danger w-100">Decline Request</button>
+                    </form>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+
+        // function acceptRequest() {
+        //     var form = document.getElementById('acceptForm');
+        //     var requestId = form.querySelector('[name="requestId"]').value;
+
+        //     $.ajax({
+        //         url: '@Url.Action("AcceptRequest", "Request")',
+        //         type: 'POST',
+        //         data: { requestId: requestId },
+        //         success: function (response) {
+                    
+        //             console.log(response);
+        //             redirectToSendEmail(form, true); 
+        //         },
+        //         error: function (xhr, status, error) {
+                    
+        //             console.error(xhr.responseText);
+        //         }
+        //     });
+        // }
+
+        function declineRequest() {
+            var form = document.getElementById('declineForm');
+            var requestId = form.querySelector('[name="requestId"]').value;
+
+            $.ajax({
+                url: '@Url.Action("DeclineRequest", "Request")',
+                type: 'POST',
+                data: { requestId: requestId },
+                success: function (response) {
+                    
+                    console.log(response);
+                    redirectToSendEmail(form, false); 
+                },
+                error: function (xhr, status, error) {
+
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+
+        function redirectToSendEmail(form, isAccepted) {
+            var customerEmail = form.querySelector('[name="customerEmail"]').value;
+            var customerName = form.querySelector('[name="customerName"]').value;
+            var requestId = form.querySelector('[name="requestId"]').value;
+            var status = isAccepted ? "Accepted" : "Declined";
+            var subject = "Request " + status;
+
+            var url = '/Email/SendAnEmail?' +
+                'EmailToID=' + encodeURIComponent(customerEmail) +
+                '&EmailToName=' + encodeURIComponent(customerName) +
+                '&EmailSubject=' + encodeURIComponent(subject) +
+                '&EmailBody=' + encodeURIComponent("Dear " + customerName + ",\n\nYour request with Request-ID " + requestId + " has been " + status + ".\n\nBest regards,\nThe Hat Factory Team");
+
+            window.location.href = url;
+        }
+
+    </script>
+    }
+

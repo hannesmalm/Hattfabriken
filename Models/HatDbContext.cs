@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using System.Net;
+using System.Net.Mail;
 
 namespace Hattfabriken.Models
 {
@@ -14,13 +16,29 @@ namespace Hattfabriken.Models
 
         public DbSet<Material> Materials { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
-        public DbSet<Forfragan> Forfragor { get; set; }
+        public DbSet<Request> Requests { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Offer> Offers { get; set; }
+        public DbSet<QuantityRequest> QuantityRequests { get; set; }
 
-        //SÄÄÄÄD method for initializing default materials LOOOOOOL
+
+
+
+     
+
+
+
+        //SÄÄÄÄD method for initializing default materials LOOOOOOL :3
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<QuantityRequest>()
+                .HasOne(q => q.Material)               // QuantityRequest has one Material
+                .WithMany()                            // Material can have many QuantityRequests
+                .HasForeignKey(q => q.MaterialName)   // Foreign key property
+                .HasPrincipalKey(m => m.MaterialName); // Principal key property
 
             // Call the seeding method
             SeedMaterials(modelBuilder);

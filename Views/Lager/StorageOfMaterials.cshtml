@@ -2,6 +2,8 @@
 
 <h1>Storage of Materials</h1>
 
+@* :3 *@
+
 <table class="table">
     <thead>
         <tr>
@@ -22,15 +24,13 @@
                 <td>@material.Price</td>
                 <td>
                     <a asp-action="EditMaterial" asp-route-id="@material.MaterialName" class="btn btn-primary">Edit</a>
-                    <form asp-action="OrderMaterial" method="post">
-                        <input type="hidden" name="materialName" value="@material.MaterialName" />
-                        <button type="submit" class="btn btn-success">Order More</button>
-                    </form>
+                    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Orders", "Material")'">Order</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
 
 <h2>Add New Material</h2>
 <form asp-action="AddMaterial" method="post">

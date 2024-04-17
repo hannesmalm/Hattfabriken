@@ -1,0 +1,105 @@
+﻿@model Hattfabriken.Models.Viewmodels.OfferViewModel
+
+<h1>Create Offer</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        @{
+            var request = ViewBag.request as Request;
+        }
+
+        @if (request != null)
+        {
+            <h5 class="mb-4">FÖRFRÅGAN</h5>
+
+            <div>
+                <p>ID: @request.Id</p>
+                <p>Name: @request.Name</p>
+                <p>Address: @request.Adress</p>
+                <p>Postal Code: @request.PostalCode</p>
+                <p>Country: @request.Country</p>
+                <p>Email: @request.Email</p>
+                <p>Phone Number: @request.PhoneNumber</p>
+                <p>Client's Message: @request.Commentary</p>
+            </div>
+
+            @if (request != null && request.RequestImage != null)
+            {
+                var imageBase64 = Convert.ToBase64String(request.RequestImage);
+                var imageSrc = $"data:image/png;base64,{imageBase64}";
+                <img class="img-fluid rounded" src="@imageSrc" alt="Request Image">
+            }
+            <hr>
+
+            <div>
+                <p>Hat-ID: @request.HatId</p>
+                <p>Material: @request.Material</p>
+                <p>Measurement: @request.Measurement</p>
+                <p>Height: @request.Height</p>
+                <p>Special Effects:</p>
+                <ul>
+                    @foreach (var specialEffect in @request.SpecialEffects)
+                    {
+                        <li>@specialEffect</li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+    <div class="col-md-6">
+        <form asp-controller="Offer" asp-action="Create" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label asp-for="KundNamn">Costumer name:</label>
+                <input asp-for="KundNamn" class="form-control" value="@request?.Name" />
+            </div>
+            <div class="form-group">
+                <label asp-for="KundMail">Costumer mail:</label>
+                <input asp-for="KundMail" class="form-control" value="@request?.Email" />
+            </div>
+            <div class="form-group">
+                <label asp-for="KundTel">Costumer phone number:</label>
+                <input asp-for="KundTel" class="form-control" value="@request?.PhoneNumber" />
+            </div>
+            <div class="form-group">
+                <label asp-for="MaterialKostnad">Material cost:</label>
+                <input asp-for="MaterialKostnad" class="form-control" onchange="UpdateTotalPrice()" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecialeffektKostnad">Special effect fabric cost:</label>
+                <input asp-for="SpecialeffektKostnad" class="form-control" onchange="UpdateTotalPrice()" />
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecialtygKostnad">Special fabric cost:</label>
+                <input asp-for="SpecialtygKostnad" class="form-control" onchange="UpdateTotalPrice()" />
+            </div>
+            <div class="form-group">
+                <label asp-for="FraktKostnad">Shipping cost:</label>
+                <input asp-for="FraktKostnad" class="form-control" onchange="UpdateTotalPrice()" />
+            </div>
+            <div class="form-group">
+                <label asp-for="EstimeratLeveransdatum">Estimated delivery date:</label>
+                <input asp-for="EstimeratLeveransdatum" class="form-control"/>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TotalKostnad">Total Cost:</label>
+                <input asp-for="TotalKostnad" class="form-control" readonly />
+            </div>
+
+            <button type="submit" class="btn btn-primary" onclick="openOutlook()">Send In</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function UpdateTotalPrice() {
+        var materialCost = parseFloat(document.getElementById("MaterialKostnad").value) || 0;
+        var specialEffectCost = parseFloat(document.getElementById("SpecialeffektKostnad").value) || 0;
+        var specialFabricCost = parseFloat(document.getElementById("SpecialtygKostnad").value) || 0;
+        var shippingCost = parseFloat(document.getElementById("FraktKostnad").value) || 0;
+
+        var totalCost = materialCost + specialEffectCost + specialFabricCost + shippingCost;
+
+        document.getElementById("TotalKostnad").value = totalCost.toFixed(2);
+    }
+</script>
