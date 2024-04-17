@@ -12,61 +12,114 @@ namespace Hattfabriken.Controllers
         {
             _dbContext = dbContext;
         }
-        public IActionResult Index()
-        {
-            var hats = _dbContext.Hattar.ToList();
-            return View(hats);
-        }
         public IActionResult StorageOfHats()
         {
-            var hats = _dbContext.Hattar.ToList();
-            return View(hats);
+            var existingHats = _dbContext.Hattar
+                .Select(hat => new HatViewModel
+                {
+                    HatId = hat.HatId,
+                    HatName = hat.HatName,
+                    MaterialName = hat.MaterialName,
+                    Description = hat.Description,
+                    Price = hat.Price,
+                    SpecialEffects = hat.SpecialEffects,
+                    OuterMeasurement = hat.OuterMeasurement,
+                    Quantity = hat.Quantity
+                })
+                .ToList();
+
+            return View("~/Views/Lager/StorageOfHats.cshtml", existingHats);
         }
         [HttpGet]
         public IActionResult AddHat()
         {
             var materials = _dbContext.Materials.ToList();
             ViewBag.Materials = materials;
+
+            Console.WriteLine("Material:" + materials);
+
             AddHatViewModel addHatViewModel = new AddHatViewModel();
-            return View(addHatViewModel);
+            return View("~/Views/Lager/AddHat.cshtml", addHatViewModel);
         }
 
         [HttpPost]
         public IActionResult AddHat(AddHatViewModel addHatViewModel)
         {
+            Console.WriteLine(addHatViewModel.MaterialName);
 
             if (ModelState.IsValid)
             {
-                Hatt newHat = new Hatt()
+                var material = _dbContext.Materials.FirstOrDefault(m => m.MaterialName == addHatViewModel.MaterialName);
+
+                if (material != null)
                 {
-                    HatName = addHatViewModel.HatName,
-                    MaterialName = addHatViewModel.MaterialName,
-                    OuterMeasurement = addHatViewModel.OuterMeasurement,
-                    Description = addHatViewModel.Description,
-                    Price = addHatViewModel.Price,
-                    SpecialEffects = addHatViewModel.SpecialEffects,
-                    Quantity = addHatViewModel.Quantity,    
-                };
-                _dbContext.Hattar.Add(newHat);
-                _dbContext.SaveChanges();
-                return RedirectToAction(nameof(StorageOfHats));
+                    Hatt newHat = new Hatt()
+                    {
+                        HatId = addHatViewModel.HatId,
+                        HatName = addHatViewModel.HatName,
+                        MaterialName = addHatViewModel.MaterialName,
+                        OuterMeasurement = addHatViewModel.OuterMeasurement,
+                        Description = addHatViewModel.Description,
+                        Price = addHatViewModel.Price,
+                        SpecialEffects = addHatViewModel.SpecialEffects,
+                        Quantity = addHatViewModel.Quantity,
+                        Material = material  
+                    };
+                    _dbContext.Hattar.Add(newHat);
+                    _dbContext.SaveChanges();
+                    return RedirectToAction(nameof(StorageOfHats));
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "The selected material does not exist.");
+                }
             }
-            else
-            {
-                Console.WriteLine("KNAUS");
-            }
-            return View("~/Views/Lager/StorageOfHats.cshtml");
+
+            var materials = _dbContext.Materials.ToList();
+            ViewBag.Materials = materials;
+            return View("~/Views/Lager/AddHat.cshtml", addHatViewModel);
         }
 
-        [HttpGet]
-        public IActionResult EditHat(int HatId) 
-        {
-            var hat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == HatId);
 
-            if (hat == null)
+        ////[HttpGet]
+        ////public IActionResult EditHat(int HatId) 
+        ////{
+        ////    var hat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == HatId);
+
+        ////    if (hat == null)
+        ////    {
+        ////        return RedirectToAction("StorageOfHats", new { errorMessage = "Hat not found." });
+        ////    }
+
+        ////    var editHatViewModel = new EditHatViewModel
+        ////    {
+        ////        HatId = hat.HatId,
+        ////        HatName = hat.HatName,
+        ////        MaterialName = hat.MaterialName,
+        ////        Description = hat.Description,
+        ////        Price = hat.Price,
+        ////        SpecialEffects = hat.SpecialEffects,
+        ////        OuterMeasurement = hat.OuterMeasurement,
+        ////        Quantity = hat.Quantity,    
+        ////    };
+        ////    return View("~/Views/Lager/EditHat.cshtml", editHatViewModel); 
+
+        ////}
+        [HttpGet]
+        public IActionResult EditHat(int HatId)
+        {
+			var hat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == HatId);
+
+			if (hat == null)
             {
                 return RedirectToAction("StorageOfHats", new { errorMessage = "Hat not found." });
             }
+
+            //var materials = _dbContext.Materials.Select(m => m.MaterialName).ToList();
+            //ViewBag.Materials = materials;
+
+            var materials = _dbContext.Materials.ToList();
+            ViewBag.Materials = materials;
 
             var editHatViewModel = new EditHatViewModel
             {
@@ -77,10 +130,10 @@ namespace Hattfabriken.Controllers
                 Price = hat.Price,
                 SpecialEffects = hat.SpecialEffects,
                 OuterMeasurement = hat.OuterMeasurement,
-                Quantity = hat.Quantity,    
+                Quantity = hat.Quantity,
             };
-            return View("~/Views/Lager/EditHat.cshtml", editHatViewModel); // Ange den fullständiga sökvägen till vyn här
 
+            return View("~/Views/Lager/EditHat.cshtml", editHatViewModel);
         }
 
         [HttpPost]

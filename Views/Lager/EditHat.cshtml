@@ -7,10 +7,35 @@
         <input asp-for="HatName" class="form-control" />
         <span asp-validation-for="HatName" class="text-danger"></span>
     </div>
+ @*    <div class="form-group">
+        <label for="material">Material:</label>
+        <select id="material" name="MaterialName" class="form-control">
+            @if (ViewBag.Materials != null && ViewBag.Materials.Count > 0)
+            {
+                foreach (var material in ViewBag.Materials)
+                {
+                    <option value="@material.MaterialName">@material.MaterialName</option>
+                }
+            }
+            else
+            {
+                <option>No materials available</option>
+            }
+        </select>
+    </div> *@
     <div class="form-group">
-        <label asp-for="MaterialName">Material:</label>
-        <input asp-for="MaterialName" class="form-control" />
-        <span asp-validation-for="MaterialName" class="text-danger"></span>
+        <label for="material">Material:</label>
+        <select id="material" name="MaterialName" class="form-control">
+            @{
+                foreach (var material in ViewBag.Materials)
+                {
+                    var isSelected = material.MaterialName == Model.MaterialName ? "selected" : "";
+                    <option value="@material.MaterialName" selected="@isSelected">
+                        @material.MaterialName
+                    </option>
+                }
+            }
+        </select>
     </div>
 
     <div class="form-group">

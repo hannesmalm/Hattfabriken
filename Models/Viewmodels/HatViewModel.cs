@@ -2,6 +2,7 @@
 {
     public class HatViewModel
     {
+        public int HatId { get; set; }  
         public string HatName { get; set; }
         public string MaterialName { get; set; }
         public Material Material { get; set; }
