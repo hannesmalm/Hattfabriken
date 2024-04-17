@@ -29,7 +29,7 @@
 @section Scripts {
     <script>
         document.getElementById('saveChangesBtn').addEventListener('click', function () {
-            // Check if any of the input fields are empty :3
+            
             var quantity = document.getElementById('quantity').value.trim();
             var supplier = document.getElementById('supplier').value.trim();
             var price = document.getElementById('price').value.trim();
@@ -39,7 +39,6 @@
                 return;
             }
 
-            // If all fields are filled, submit the form
             document.getElementById('editMaterialForm').submit();
         });
     </script>

@@ -14,7 +14,6 @@ namespace Hattfabriken.Controllers
 
         public IActionResult GoToAdminPage()
         {
-            // Anv�nd RedirectToAction f�r att dirigera till AdminController och dess Index-�tg�rd
             return RedirectToAction();
         }
 

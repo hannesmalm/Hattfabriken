@@ -4,15 +4,15 @@
 }
 
 <h1>Offer created!</h1>
-<a asp-controller="Home" asp-action="Index">Gå tillbaka till startsidan</a>
+<a asp-controller="Home" asp-action="Index">Go back to start</a>
 
 <script>
 
-    // Hur hämtar vi från formuläret? (getElementByID = "ASP-FOR" )
+    // How do we fetch from the form? (getElementByID = "ASP-FOR" )
     window.onload = function() {
         var subject = "Offer for request ...";
-        var emailAdress = "@offer.KundMail";
-        var name = "@offer.KundNamn";
+        var emailAdress = "@offer.CustomerMail";
+        var name = "@offer.CustomerName";
         var body = "Dear " + name + ",\n\n  Here is an offer bla bla bla.  \n\nBest regards,\nThe Hat Factory Team";
         var mailtoLink = "mailto:" + encodeURIComponent(emailAdress) + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
         window.location.href = mailtoLink;

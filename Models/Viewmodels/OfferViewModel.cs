@@ -7,26 +7,26 @@ namespace Hattfabriken.Models.Viewmodels
 {
     public class OfferViewModel
     {
-        public string KundNamn { get; set; }
+        public string CustomerName { get; set; }
 
-        public string KundMail { get; set; }
+        public string CustomerMail { get; set; }
 
-        public string? KundTel { get; set; }
+        public string? CustomerTel { get; set; }
 
-        public double MaterialKostnad { get; set; }
+        public double MaterialCost { get; set; }
 
-        public double? SpecialeffektKostnad { get; set; }
+        public double? SpecialEffectCost { get; set; }
 
-        public double SpecialtygKostnad { get; set; }
-
-        public double? FraktKostnad { get; set; }
+        public double SpecialFabricCost { get; set; }
+        
+        public double? ShippingCost { get; set; }
 
         [Required(ErrorMessage = "Choose a date")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-       public DateTime EstimeratLeveransdatum { get; set; }
+       public DateTime EstimatedDeliveryDate { get; set; }
 
-       public double TotalKostnad { get; set; }
+       public double TotalCost { get; set; }
 
     }
 }

@@ -37,13 +37,12 @@ public class MailService : IMailService
                 client.Disconnect(true);
             }
 
-            return true; // Email sent successfully
+            return true;
         }
         catch (Exception ex)
         {
-            // Log the exception for debugging
             Console.WriteLine(ex.ToString());
-            return false; // Failed to send email
+            return false;
         }
     }
 }
