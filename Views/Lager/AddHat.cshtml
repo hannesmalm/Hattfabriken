@@ -1,0 +1,66 @@
+﻿@model Hattfabriken.Models.AddHatViewModel
+
+<h2>Add hat</h2>
+<form asp-action="AddHat" method="post">
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="HatName" class="form-control" />
+    </div>
+    @*     <div class="form-group">
+    <label for="material">Material:</label>
+    <select id="material" name="Material.MaterialName" class="form-control">
+    @if (ViewBag.Materials != null)
+    {
+    @foreach (var material in ViewBag.Materials)
+    {
+    <option value="@material.MaterialName">@material.MaterialName</option>
+    } <!-- Din kod för att använda ViewBag.Materials här -->
+    }
+    else
+    {
+    <p>No materials available</p>
+    }
+
+    </select>
+    </div> *@
+    <div class="form-group">
+        <label for="material">Material:</label>
+        <select id="material" name="MaterialName" class="form-control">
+            @if (ViewBag.Materials != null && ViewBag.Materials.Count > 0)
+            {
+                foreach (var material in ViewBag.Materials)
+                {
+                    <option value="@material.MaterialName">@material.MaterialName</option>
+                }
+            }
+            @* else
+            {
+            <option>No materials available</option>
+            } *@
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="Description" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="Price" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="specialEffects">Special effects:</label>
+        <input type="text" id="specialEffects" name="SpecialEffects" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="measurement">Outer measurement:</label>
+        <input type="number" id="measurement" name="OuterMeasurement" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="Quantity" class="form-control" />
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Add Hat</button>
+</form>

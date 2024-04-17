@@ -20,14 +20,13 @@ namespace Hattfabriken.Controllers
         public IActionResult StorageOfHats()
         {
             var hats = _dbContext.Hattar.ToList();
-            return View("~/Views/Lager/StorageOfHats.cshtml", hats);
+            return View(hats);
         }
         [HttpGet]
         public IActionResult AddHat()
         {
-            List<SelectListItem> materials = _dbContext.Materials
-                    .Select(m => new SelectListItem { Text = m.MaterialName, Value = m.MaterialName })
-                    .ToList(); ViewBag.Materials = materials;
+            var materials = _dbContext.Materials.ToList();
+            ViewBag.Materials = materials;
             AddHatViewModel addHatViewModel = new AddHatViewModel();
             return View(addHatViewModel);
         }
