@@ -37,22 +37,26 @@
                             <label class="form-label">Choose a hat type:</label>
                             <select asp-for="HatId" class="form-select">
                                 <option value="">Choose a type...</option>
-                                <option value="1">Cowboy</option>
-                                <option value="2">Sheriff</option>
-                                <option value="3">Peaky Blinders</option>
+                                <option value="1">Filthatt</option>
+                                <option value="2">Panamahatt</option>
+                                <option value="3">Stråhatt</option>
+                                <option value="4">Tyghatt</option>
+                                <option value="5">Läderhatt</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label">Which material do you want?</label>
-
-                            <select asp-for="Material" class="form-select">
-                                <option value="">Material...</option>
-                                <option value="Leather">Leather</option>
-                                <option value="Cloth">Cloth</option>
-                                <option value="Panama">Panama</option>
-                                <option value="Linen">Linen</option>
-                                <option value="Straw">Straw</option>
+                            <select asp-for="Material" class="form-select" id="Material">
+                                <option value="">Choose material...</option>
+                                @foreach (var material in ViewBag.Materials)
+                                {
+                                    <!-- Lägg till villkor för att bara visa material av typen 1 -->
+                                    @if (material.Type == 1)
+                                    {
+                                        <option value="@material.MaterialName">@material.MaterialName</option>
+                                    }
+                                }
                             </select>
                         </div>
 
@@ -67,19 +71,23 @@
                                 }
                             </select>
                         </div> *@
+
                         <div class="mb-3">
                             <label class="form-label">Which Special effects do you want?</label>
-                            <select asp-for="Material" class="form-select" id="Material" multiple>
-                                <option value=""disabled>Choose material...</option >
+                            <div id="checkboxes">
                                 @foreach (var material in ViewBag.Materials)
                                 {
-                                    <!-- Add condition to only display materials of type 2 -->
                                     @if (material.Type == 2)
                                     {
-                                        <option value="@material.MaterialName">@material.MaterialName</option>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="@("checkbox_" + material.MaterialName)" value="@material.MaterialName">
+                                            <label class="form-check-label" for="@("checkbox_" + material.MaterialName)">
+                                                @material.MaterialName
+                                            </label>
+                                        </div>
                                     }
                                 }
-                            </select>
+                            </div>
                         </div>
 
                         <div class="mb-3">
