@@ -49,7 +49,7 @@ namespace Hattfabriken.Models
         //            });
 
         //            // Faktura titel och datum
-        //            page.Header().Height(50).PaddingTop(30).AlignCenter().Text($"FAKTURA - {data.InvoiceNumber}").FontSize(20);
+        //            page.Header().Height(50).PaddingTop(30).AlignCenter().Text($"FAKTURA - #{data.InvoiceNumber}").FontSize(20);
 
         //            // Kundinformation
         //            page.Header().Height(60).PaddingTop(10).Column(column =>
@@ -264,7 +264,7 @@ namespace Hattfabriken.Models
                                 .Column(c =>
                                 {
                                     c.Item().Text("Order Details:").Bold();
-                                    c.Item().Text($"Order Date: {order.Date.ToShortDateString()}");
+                                    c.Item().Text($"To be completed by: {order.DueDate.ToShortDateString()}");
                                     c.Item().Text($"Urgent Delivery: {(order.Urgent ? "Yes" : "No")}");
                                 });
                         });

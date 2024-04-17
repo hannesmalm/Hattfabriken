@@ -12,7 +12,7 @@ namespace Hattfabriken.Models.DTOs
         public string? Commentary { get; set; }
         public List<string>? SpecialEffects { get; set; }
         public byte[]? HatImage { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime DueDate { get; set; }
         public bool Urgent { get; set; }
     }
 }
