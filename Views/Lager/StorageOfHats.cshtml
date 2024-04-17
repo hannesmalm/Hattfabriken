@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Hattfabriken.Models.HatViewModel>
+
+
+<h1>Hats in stock</h1>
+
+<div id="hatList" class="row mt-5">
+    @if(Model != null){
+    foreach (var hat in Model)
+    {
+        <div class="col">
+            <div class="card mx-auto mb-4 shadow" style="width: 240px;">
+                <img class="img roundes-circle m-4" style="aspect-ratio: 1/1; object-fit: cover;"
+                     src="" alt="Hat Picture" />
+                <div class="card-body text-center">
+                    <h5 class="card-title">@hat.HatName</h5>
+                    <p class="card-text">@hat.Description</p>
+                    <ul class="list-group list-group-flush">
+                            <li class="list-group-item">ID: @hat.HatId</li>
+
+                        <li class="list-group-item">Material: @hat.MaterialName</li>
+                        <li class="list-group-item">Outer measurement: @hat.OuterMeasurement</li>
+                        <li class="list-group-item">Price: @hat.Price</li>
+                        <li class="list-group-item">Special effects: @hat.SpecialEffects</li>
+                    </ul>
+                    <div class="text-center mt-3">
+                        <a asp-action="EditHat" asp-route-HatId="@hat.HatId" class="btn btn-primary">Edit</a>
+                        <a asp-action="DeleteHat" asp-route-HatId="@hat.HatId" class="btn btn-danger">Delete</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No hats in stock</p>
+    }
+</div>
+<div class="text-center">
+    <a asp-controller="Hat" asp-action="AddHat" class="btn btn-success mb-2">Add Hat</a>
+</div>
