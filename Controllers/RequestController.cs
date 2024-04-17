@@ -24,11 +24,22 @@ namespace Hattfabriken.Controllers
         }
 
 
+        //[HttpGet]
+        //public IActionResult NewRequest()
+        //{
+        //    RequestViewModel requestviewModel = new RequestViewModel();
+        //    return View(requestviewModel);
+        //}
+
+        //vi provar detta 
         [HttpGet]
         public IActionResult NewRequest()
         {
-            RequestViewModel requestviewModel = new RequestViewModel();
-            return View(requestviewModel);
+            var materials = _context.Materials.ToList();
+            var specialEffectsMaterials = materials.Where(materials => materials.Type ==2).ToList();
+            ViewBag.Materials = materials; // Send materials to the view as ViewBag
+            RequestViewModel requestViewModel = new RequestViewModel();
+            return View(requestViewModel);
         }
 
         [HttpPost]
@@ -69,9 +80,9 @@ namespace Hattfabriken.Controllers
                     Console.WriteLine(image.Data);
                 }
 
-                if (requestViewModel.SelectedSpecialEffekter != null && requestViewModel.SelectedSpecialEffekter.Any())
+                if (requestViewModel.SelectedSpecialEffects != null && requestViewModel.SelectedSpecialEffects.Any())
                 {
-                    request.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffekter);
+                    request.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffects);
                 }
                 else
                 {

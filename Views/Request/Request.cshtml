@@ -36,19 +36,39 @@
         <hr>
 
         <div class="row">
-            <div class="col-md-6">
+
+            @* RIKTIGA *@
+           @*  <div class="col-md-6">
                 <p>Hat-ID: @Model.HatId</p>
                 <p>Material: @Model.Material</p>
                 <p>Measurement: @Model.Measurement</p>
                 <p>Height: @Model.Height</p>
-                <p>Special Effects:</p>
+                <p>Special Effects: @Model.Material</p>
                 <ul>
-                    @foreach (var specialEffect in Model.SpecialEffects)
+                    @foreach (var material in ViewBag.Materials)
                     {
-                        <li>@specialEffect</li>
+                        <li>@material.MaterialName</li>
                     }
                 </ul>
+            </div> *@
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Hat-ID: @Model.HatId</p>
+                    <p>Material: @Model.Material</p>
+                    <p>Measurement: @Model.Measurement</p>
+                    <p>Height: @Model.Height</p>
+                    <p>Special Effects: @Model.Material</p>
+                    <ul>
+                        @foreach (var material in (IEnumerable<Material>)ViewBag.specialEffectsMaterials)
+                        {
+                            <li>@material.MaterialName</li>
+                        }
+                    </ul>
+                </div>
             </div>
+
+
+
 
             <div class="col-md-6">
                 <h4>Status:</h4>

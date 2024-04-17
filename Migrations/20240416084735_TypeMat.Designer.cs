@@ -4,6 +4,7 @@ using Hattfabriken.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    partial class HatDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240416084735_TypeMat")]
+    partial class TypeMat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,7 +118,7 @@ namespace Hattfabriken.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("Type")
+                    b.Property<int?>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("MaterialName");
@@ -128,80 +131,70 @@ namespace Hattfabriken.Migrations
                             MaterialName = "Leather",
                             MaterialQuantity = 1000,
                             MaterialSupplier = "Leather@gmail.com",
-                            Price = 45,
-                            Type = 1
+                            Price = 45
                         },
                         new
                         {
                             MaterialName = "Straw",
                             MaterialQuantity = 800,
                             MaterialSupplier = "StrawSwag@icloud.com",
-                            Price = 14,
-                            Type = 1
+                            Price = 14
                         },
                         new
                         {
                             MaterialName = "Cloth",
                             MaterialQuantity = 2200,
                             MaterialSupplier = "ClothCircus@hotmail.com",
-                            Price = 13,
-                            Type = 1
+                            Price = 13
                         },
                         new
                         {
                             MaterialName = "Snakeskin",
                             MaterialQuantity = 400,
                             MaterialSupplier = "SnakeKiller@icloud.com",
-                            Price = 84,
-                            Type = 1
+                            Price = 84
                         },
                         new
                         {
                             MaterialName = "Felt",
                             MaterialQuantity = 600,
                             MaterialSupplier = "FeltFear@icloud.com",
-                            Price = 14,
-                            Type = 1
+                            Price = 14
                         },
                         new
                         {
                             MaterialName = "Panama",
                             MaterialQuantity = 900,
                             MaterialSupplier = "PanamaSwag@icloud.com",
-                            Price = 16,
-                            Type = 1
+                            Price = 16
                         },
                         new
                         {
                             MaterialName = "Cotton",
                             MaterialQuantity = 200,
                             MaterialSupplier = "CottonCorner@icloud.com",
-                            Price = 16,
-                            Type = 1
+                            Price = 16
                         },
                         new
                         {
                             MaterialName = "Linen",
                             MaterialQuantity = 300,
                             MaterialSupplier = "GrischLaidback@icloud.com",
-                            Price = 28,
-                            Type = 1
+                            Price = 28
                         },
                         new
                         {
                             MaterialName = "Satin",
                             MaterialQuantity = 1000,
                             MaterialSupplier = "SatinSwag@icloud.com",
-                            Price = 12,
-                            Type = 1
+                            Price = 12
                         },
                         new
                         {
                             MaterialName = "Polyester",
                             MaterialQuantity = 2900,
                             MaterialSupplier = "PolyesterChina@icloud.com",
-                            Price = 11,
-                            Type = 1
+                            Price = 11
                         });
                 });
 
@@ -317,9 +310,6 @@ namespace Hattfabriken.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("OuterDimension")
-                        .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()

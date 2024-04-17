@@ -16,6 +16,7 @@ namespace Hattfabriken.Models
         public string? Material { get; set; }
 
         public int? Measurement { get; set; }
+        public int? OuterDimension { get; set; }
 
         public int? Height { get; set; }
 

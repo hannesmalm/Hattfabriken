@@ -15,8 +15,9 @@ namespace Hattfabriken.Models.ViewModels
         public int? Height { get; set; }
 
         public string? Commentary { get; set; }
+        public int? OuterDimension { get; set; }
 
-        public List<string>? SelectedSpecialEffekter { get; set; }
+        public List<string>? SelectedSpecialEffects { get; set; }
 
         public string Adress { get; set; }
 
