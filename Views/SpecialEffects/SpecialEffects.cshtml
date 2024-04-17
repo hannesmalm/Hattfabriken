@@ -1,0 +1,36 @@
+﻿@model Hattfabriken.Models.SpecialEffects
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Effect Details</title>
+</head>
+<body>
+    <h1>Special Effect Details</h1>
+    @if (Model != null)
+    {
+        <div>
+            <p><strong>Effect Name:</strong> @Model.SpecialEffectName</p>
+            <p><strong>Price:</strong> @Model.Price</p>
+        </div>
+    }
+    else
+    {
+        <p>No special effects found.</p>
+    }
+    <h2>Add New Special Effect</h2>
+    <form method="post" asp-controller="SpecialEffects" asp-action="CreateSpecial">
+        <div>
+            <label for="SpecialEffectName">Effect Name:</label>
+            <input type="text" id="SpecialEffectName" name="SpecialEffectName" required>
+        </div>
+        <div>
+            <label for="Price">Price:</label>
+            <input type="number" id="Price" name="Price" required>
+        </div>
+        <button type="submit">Add Special Effect</button>
+    </form>
+</body>
+</html>

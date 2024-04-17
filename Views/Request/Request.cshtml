@@ -58,12 +58,7 @@
                     <p>Measurement: @Model.Measurement</p>
                     <p>Height: @Model.Height</p>
                     <p>Special Effects: @Model.Material</p>
-                    <ul>
-                        @foreach (var material in (IEnumerable<Material>)ViewBag.specialEffectsMaterials)
-                        {
-                            <li>@material.MaterialName</li>
-                        }
-                    </ul>
+                    <ul id="specialEffectsMaterials"></ul>
                 </div>
             </div>
 

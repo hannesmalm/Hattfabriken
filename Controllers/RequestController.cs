@@ -80,14 +80,14 @@ namespace Hattfabriken.Controllers
                     Console.WriteLine(image.Data);
                 }
 
-                if (requestViewModel.SelectedSpecialEffects != null && requestViewModel.SelectedSpecialEffects.Any())
-                {
-                    request.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffects);
-                }
-                else
-                {
-                    request.SpecialEffects = new List<string>(); // Tom lista om ingen special effekt är vald
-                }
+                //if (requestViewModel.SelectedSpecialEffects != null && requestViewModel.SelectedSpecialEffects.Any())
+                //{
+                //    request.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffects);
+                //}
+                //else
+                //{
+                //    request.SpecialEffects = new List<string>(); // Tom lista om ingen special effekt är vald
+                //}
 
                 _context.Add(request);
                 await _context.SaveChangesAsync();

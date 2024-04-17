@@ -22,8 +22,8 @@ namespace Hattfabriken.Models
 
         public string? Commentary { get; set; }
 
-        public List<string>? SpecialEffects { get; set; }
-
+        [ForeignKey("SpecialEffects")]
+        public string SpecialEffects {  get; set; }
         public string Adress { get; set; }
 
         public int PostalCode { get; set; }
@@ -36,6 +36,9 @@ namespace Hattfabriken.Models
         public string Email { get; set; }
 
         public string Name { get; set; }
+        [ForeignKey("Material")]
+        public string Type { get; set; }
+
 
         [ForeignKey("Image")]
         public byte[]? RequestImage { get; set; }
