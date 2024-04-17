@@ -1,36 +1,30 @@
-﻿@model Hattfabriken.Models.SpecialEffects
+﻿@model IEnumerable<SpecialEffects>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Special Effect Details</title>
-</head>
-<body>
-    <h1>Special Effect Details</h1>
-    @if (Model != null)
-    {
-        <div>
-            <p><strong>Effect Name:</strong> @Model.SpecialEffectName</p>
-            <p><strong>Price:</strong> @Model.Price</p>
-        </div>
-    }
-    else
-    {
-        <p>No special effects found.</p>
-    }
-    <h2>Add New Special Effect</h2>
-    <form method="post" asp-controller="SpecialEffects" asp-action="CreateSpecial">
-        <div>
-            <label for="SpecialEffectName">Effect Name:</label>
-            <input type="text" id="SpecialEffectName" name="SpecialEffectName" required>
-        </div>
-        <div>
-            <label for="Price">Price:</label>
-            <input type="number" id="Price" name="Price" required>
-        </div>
-        <button type="submit">Add Special Effect</button>
-    </form>
-</body>
-</html>
+<h1>Storage of Special Effects</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Effect Name</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var specialEffect in Model)
+        {
+            <tr>
+                <td>@specialEffect.SpecialEffectName</td>
+                <td>@specialEffect.Price</td>
+                <td>
+                    <a asp-action="EditSpecialEffect" asp-route-id="@specialEffect.SpecialEffectName" class="btn btn-primary">Edit</a>
+                    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Orders", "SpecialEffects")'">Order</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="AddSpecialEffects" asp-controller="SpecialEffects" class="btn btn-primary">Add New SpecialEffects</a>
+
+

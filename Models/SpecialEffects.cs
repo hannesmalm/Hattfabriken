@@ -7,8 +7,6 @@ namespace Hattfabriken.Models
     {
         [Key]
         public string SpecialEffectName { get; set; }
-
-        [Required(ErrorMessage = "Price is required")]
         public decimal Price { get; set; }
     }
 }

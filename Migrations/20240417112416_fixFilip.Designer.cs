@@ -4,6 +4,7 @@ using Hattfabriken.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    partial class HatDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240417112416_fixFilip")]
+    partial class fixFilip
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -349,19 +352,6 @@ namespace Hattfabriken.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Requests");
-                });
-
-            modelBuilder.Entity("Hattfabriken.Models.SpecialEffects", b =>
-                {
-                    b.Property<string>("SpecialEffectName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("SpecialEffectName");
-
-                    b.ToTable("SpecialEffects");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.User", b =>

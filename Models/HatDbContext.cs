@@ -21,7 +21,7 @@ namespace Hattfabriken.Models
         public DbSet<Image> Images { get; set; }
         public DbSet<Offer> Offers { get; set; }
         public DbSet<QuantityRequest> QuantityRequests { get; set; }
-        public object SpecialEffects { get; internal set; }
+        public DbSet<SpecialEffects> SpecialEffects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

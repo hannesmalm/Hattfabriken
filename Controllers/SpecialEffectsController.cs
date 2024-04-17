@@ -1,5 +1,7 @@
 ﻿using Hattfabriken.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Hattfabriken.Models.ViewModels;
 
 namespace Hattfabriken.Controllers
 {
@@ -11,30 +13,45 @@ namespace Hattfabriken.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View("SpecialEffects");
+            var specialEffects = await _context.SpecialEffects.ToListAsync();
+            return View("SpecialEffects", specialEffects);
         }
 
         [HttpGet]
         public IActionResult CreateSpecial()
         {
-            return View();
+            SpecialEffectsViewModel specialEffectsViewModel = new SpecialEffectsViewModel();   
+            return View(specialEffectsViewModel);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSpecial(SpecialEffects specialEffect)
-        {
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateSpecial(SpecialEffectsViewModel specialEffectsViewModel) { 
 
             if(ModelState.IsValid)
+
             {
-                _context.Add(specialEffect);
+                SpecialEffects specialEffects = new SpecialEffects
+                {
+                    SpecialEffectName = specialEffectsViewModel.SpecialEffectName,
+                    Price = specialEffectsViewModel.Price
+                };
+
+                _context.Add(specialEffects);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction("Index");
             }
 
-            return View(specialEffect);
+            return View(specialEffectsViewModel);
             
+        }
+
+        public IActionResult AddSpecialEffects()
+        {
+            return View();
         }
     }
 }
