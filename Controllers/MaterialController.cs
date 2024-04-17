@@ -218,7 +218,7 @@ namespace Hattfabriken.Controllers
         }
 
 
-
+        //:3
         [HttpPost]
         public IActionResult DeleteMaterial(string materialName)
         {
