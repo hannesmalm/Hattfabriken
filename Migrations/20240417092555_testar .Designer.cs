@@ -4,6 +4,7 @@ using Hattfabriken.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    partial class HatDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240417092555_testar ")]
+    partial class testar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,10 +108,6 @@ namespace Hattfabriken.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("MaterialHsCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("MaterialQuantity")
                         .HasColumnType("int");
 
@@ -127,7 +126,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Leather",
-                            MaterialHsCode = "4202 91 80 10",
                             MaterialQuantity = 1000,
                             MaterialSupplier = "Leather@gmail.com",
                             Price = 45
@@ -135,7 +133,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Straw",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 800,
                             MaterialSupplier = "StrawSwag@icloud.com",
                             Price = 14
@@ -143,7 +140,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Cloth",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 2200,
                             MaterialSupplier = "ClothCircus@hotmail.com",
                             Price = 13
@@ -151,7 +147,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Snakeskin",
-                            MaterialHsCode = "4202 91 80 10",
                             MaterialQuantity = 400,
                             MaterialSupplier = "SnakeKiller@icloud.com",
                             Price = 84
@@ -159,7 +154,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Felt",
-                            MaterialHsCode = "4202 91 80 10",
                             MaterialQuantity = 600,
                             MaterialSupplier = "FeltFear@icloud.com",
                             Price = 14
@@ -167,7 +161,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Panama",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 900,
                             MaterialSupplier = "PanamaSwag@icloud.com",
                             Price = 16
@@ -175,7 +168,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Cotton",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 200,
                             MaterialSupplier = "CottonCorner@icloud.com",
                             Price = 16
@@ -183,7 +175,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Linen",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 300,
                             MaterialSupplier = "GrischLaidback@icloud.com",
                             Price = 28
@@ -191,7 +182,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Satin",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 1000,
                             MaterialSupplier = "SatinSwag@icloud.com",
                             Price = 12
@@ -199,7 +189,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Polyester",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 2900,
                             MaterialSupplier = "PolyesterChina@icloud.com",
                             Price = 11
