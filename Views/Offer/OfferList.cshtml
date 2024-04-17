@@ -2,6 +2,7 @@
 
 <p>Här är alla offers brush</p>
 
+
 <style>
     #offerTable tbody tr:hover {
         background-color: lightgray;
@@ -49,7 +50,7 @@
                 </td>
                 <td>
                     <!-- Knapp för att visa konversation (öppna mail) -->
-                    <button class="btn btn-primary" onclick="openConversation('@offer.KundMail')">Visa Konversation</button>
+                    <button class="btn btn-primary open-email-client" data-email="@offer.KundMail">Visa Konversation</button>
 
                     <!-- Knapp för att acceptera offert -->
                     <button class="btn btn-success" onclick="acceptOffer(@offer.OffertId)">Acceptera Offert</button>
@@ -59,34 +60,34 @@
     </tbody>
 </table>
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var table = document.getElementById("offerTable");
-        table.addEventListener("click", function (event) {
-            var target = event.target;
-            while (target && target !== table) {
-                if (target.tagName === "TR") {
-                    var href = target.getAttribute("data-href");
-                    if (href) {
-                        window.location.href = href;
-                    }
-                    return;
+    $(document).ready(function () {
+        $('.open-email-client').click(function () {
+            console.log('Klick på knappen för att öppna e-postklienten.');
+
+            var email = $(this).data('email');
+
+            // AJAX-anrop till din controller
+            $.ajax({
+                url: '@Url.Action("OpenEmailClient", "Email")',
+                type: 'GET',
+                data: { emailAdress: email },
+                success: function (response) {
+                    console.log(response); // Logga svaret från servern
+                },
+                error: function (xhr, status, error) {
+                    console.error(xhr.responseText); // Logga eventuella fel
+                    alert('Ett fel uppstod: ' + xhr.responseText); // Visa ett meddelande för användaren
                 }
-                target = target.parentNode;
-            }
+            });
         });
     });
-
-    function openConversation(email) {
-        // Skapa ett mailto-länk med sökfrågan för e-postadressen
-        var mailtoLink = "mailto:?to=&subject=&body=BODY&cc=&bcc=&search=" + email;
-
-        // Öppna mailklienten (Outlook) med den förifyllda e-postadressen
-        window.location.href = mailtoLink;
-    }
-
-    function acceptOffer(offerId) {
-        // Här kan du implementera logiken för att acceptera offerten med det givna offerId
-        console.log("Acceptera offert med ID: " + offerId);
-    }
 </script>
+
+
+
+

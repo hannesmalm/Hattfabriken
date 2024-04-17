@@ -79,7 +79,7 @@ namespace Hattfabriken.Controllers
                {
             OffertId = 1,
             KundNamn = "Kund1",
-            KundMail = "kund1@example.com",
+            KundMail = "filip.nyden@gmail.com",
             KundTel = "123456789",
             MaterialKostnad = 100.00,
             SpecialeffektKostnad = 20.00,
