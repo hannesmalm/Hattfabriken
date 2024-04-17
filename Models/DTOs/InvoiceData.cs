@@ -12,12 +12,13 @@
         public string CompanyEmail { get; set;}
         public string CompanyPhone { get; set; }
         public string CompanyLogoPath { get; set;}
+        public string CompanyCountry { get; set; }
         public double TotalAmount { get; set; }
-
         public InvoiceData()
         {
             CompanyName = "The Hat Factory";
             CompanyAddress = "Hattgatan 1";
+            CompanyCountry = "Sweden";
             CompanyEmail = "OttoHatt";
             CompanyPhone = "010-1234567";
             CompanyLogoPath = "lib\\KG9DESawSZG8K495cQrqwQ.png";

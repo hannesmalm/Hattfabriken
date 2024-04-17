@@ -13,11 +13,14 @@ namespace Hattfabriken.Controllers
             _pdfService = pdfService;
         }
 
-        public IActionResult CreateShippingLablePdf(Offer offer)
+        public IActionResult CreateShippingLabelPdf(Offer offer)
         {
-            
+            var data = new ShippingLabelData
+            {
 
-            byte[] pdf = _pdfService.GenerateShippingLable();
+            };
+
+            byte[] pdf = _pdfService.GenerateShippingLabel(data);
             var contentDispositionHeader = new System.Net.Mime.ContentDisposition
             {
                 FileName = "TestDokument.pdf",
@@ -35,7 +38,7 @@ namespace Hattfabriken.Controllers
         //        HatId = offer.HatId,
         //        Material = offer.Material,
         //        Measurement = offer.Measurement,
-        //        Height = offer.´Height,
+        //        Height = offer.Height,
         //        Commentary = offer.Commentary,
         //        HatImage = HatImage,
         //        Date = offer.EstimeratLeveransdatum,

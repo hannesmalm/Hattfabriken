@@ -5,14 +5,12 @@ namespace Hattfabriken.Models.DTOs
     public class OrderData
     {
         public int Id { get; set; }
-        [ForeignKey("Hatt")]
         public int? HatId { get; set; }
         public string? Material { get; set; }
         public int? Measurement { get; set; }
         public int? Height { get; set; }
         public string? Commentary { get; set; }
         public List<string>? SpecialEffects { get; set; }
-        [ForeignKey("Image")]
         public byte[]? HatImage { get; set; }
         public DateTime Date { get; set; }
         public bool Urgent { get; set; }

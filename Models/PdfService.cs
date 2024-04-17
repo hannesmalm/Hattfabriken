@@ -120,7 +120,7 @@ namespace Hattfabriken.Models
         //    }, data);
         //}
 
-        public byte[] GenerateShippingLable()
+        public byte[] GenerateShippingLabel(ShippingLabelData data)
         {
             return GenerateDocument(document =>
             {
@@ -150,17 +150,17 @@ namespace Hattfabriken.Models
                              row.RelativeItem().Column(c =>
                              {
                                  c.Item().Text("Sender:").Bold();
-                                 c.Item().Text("The Hat Factory");
-                                 c.Item().Text("Adress 1 111 11");
-                                 c.Item().Text("Hattorp");
+                                 c.Item().Text($"{data.CompanyName}");
+                                 c.Item().Text($"{data.CompanyAddress}");
+                                 c.Item().Text($"{data.CompanyCountry}");
                              });
 
                              row.RelativeItem().Column(c =>
                              {
                                  c.Item().Text("Receiver:").Bold();
-                                 c.Item().Text("***");
-                                 c.Item().Text("***");
-                                 c.Item().Text("***");
+                                 c.Item().Text($"{data.Name}");
+                                 c.Item().Text($"{data.Adress}, {data.PostalCode}");
+                                 c.Item().Text($"{data.Country}");
 
                              });
 
@@ -171,10 +171,10 @@ namespace Hattfabriken.Models
                              row.Spacing(30);
                              row.RelativeItem().Column(c =>
                              {
-                                 c.Item().Text("Product code: ***").LineHeight(2).Bold();
-                                 c.Item().Text("Number of packages included: ***pcs").LineHeight(2).Bold();
-                                 c.Item().Text("Weight: ***kg").LineHeight(2).Bold();
-                                 c.Item().Text("Order number: ***").LineHeight(2).Bold();
+                                 c.Item().Text($"HS-Code: {data.HsCode}").LineHeight(2).Bold();
+                                 c.Item().Text("Number of packages included: 1pcs").LineHeight(2).Bold();
+                                 c.Item().Text("Weight: 2kg").LineHeight(2).Bold();
+                                 c.Item().Text($"Order number: {data.OrderNumber}").LineHeight(2).Bold();
                              });
                          });
                     });
@@ -204,7 +204,7 @@ namespace Hattfabriken.Models
                         {
                             column.Spacing(10);
 
-                            //// Customer Details
+                            //// Customer Details ****Behövs inte????****
                             //column.Item()
                             //    .BorderBottom(1)
                             //    .Padding(5)
