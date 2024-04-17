@@ -219,6 +219,17 @@ namespace Hattfabriken.Controllers
 
 
 
+        [HttpPost]
+        public IActionResult DeleteMaterial(string materialName)
+        {
+            var material = _dbContext.Materials.FirstOrDefault(m => m.MaterialName == materialName);
+            if (material != null)
+            {
+                _dbContext.Materials.Remove(material);
+                _dbContext.SaveChanges();
+            }
+            return RedirectToAction(nameof(StorageOfMaterials));
+        }
 
 
 
