@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    [Migration("20240416103725_OffertRequiredGrejer")]
-    partial class OffertRequiredGrejer
+    [Migration("20240418112153_vaihelvetet")]
+    partial class vaihelvetet
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -203,37 +203,75 @@ namespace Hattfabriken.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OffertId"));
 
-                    b.Property<DateTime>("EstimeratLeveransdatum")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double?>("FraktKostnad")
-                        .HasColumnType("float");
-
-                    b.Property<string>("KundMail")
+                    b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("KundNamn")
+                    b.Property<string>("Country")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("KundTel")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("MaterialKostnad")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("SkapadDatum")
+                    b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("SpecialeffektKostnad")
+                    b.Property<string>("DeliveryOrPickup")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EstimatedDeliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("HatType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HatmakerComment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Material")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("MaterialCost")
                         .HasColumnType("float");
 
-                    b.Property<double?>("SpecialtygKostnad")
+                    b.Property<int>("Measurement")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostalCode")
+                        .HasColumnType("int");
+
+                    b.Property<double?>("ShippingCost")
                         .HasColumnType("float");
 
-                    b.Property<double>("TotalKostnad")
+                    b.Property<double?>("SpecialEffectCost")
                         .HasColumnType("float");
+
+                    b.Property<string>("SpecialEffects")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("TotalCost")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("Urgent")
+                        .HasColumnType("bit");
 
                     b.HasKey("OffertId");
 

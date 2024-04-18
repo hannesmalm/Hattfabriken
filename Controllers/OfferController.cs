@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Hattfabriken.Models.Viewmodels;
 using Hattfabriken.Models.Interfaces;
 using Hattfabriken.Models.ViewModels;
+using NuGet.Protocol.Plugins;
 
 namespace Hattfabriken.Controllers
 {
@@ -10,14 +11,14 @@ namespace Hattfabriken.Controllers
     {
         private readonly HatDbContext _context;
         private readonly IImageService _imageService;
+        private readonly RequestController _requestController;
 
-        public OfferController(HatDbContext context, IImageService imageService)
+        public OfferController(HatDbContext context, IImageService imageService, RequestController requestController)
         {
             _context = context;
             _imageService = imageService;
+            _requestController = requestController;
         }
-
-        public double SpecialEffectCost { get; private set; }
 
         [HttpGet]
         public IActionResult Create(int? requestId)
@@ -30,7 +31,6 @@ namespace Hattfabriken.Controllers
             {
                 Console.WriteLine("Requesten är med, najs");
 
-                // Lägg till objektet i ViewBag
                 ViewBag.request = request;
             }
 
@@ -38,7 +38,8 @@ namespace Hattfabriken.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(OfferViewModel model)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(OfferViewModel model, int? requestId)
         {
             Console.WriteLine("Metod körs");
 
@@ -83,12 +84,27 @@ namespace Hattfabriken.Controllers
                 await _context.SaveChangesAsync();
 
                 Console.WriteLine("SUCCESS");
-
+                
                 ViewBag.Offer = nyOffert;
+
+                if (requestId.HasValue)
+                {
+                    Console.WriteLine("Förfrågan accepterad");
+                    _requestController.AcceptRequest(requestId.Value);
+                }
+
                 return View("OfferSuccess");
             }
 
             Console.WriteLine("ModelState är inte valid");
+
+            if (requestId.HasValue)
+            {
+                Console.WriteLine("Requesten är med, najs");
+                // Hämta requesten här baserat på requestId
+                var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
+                ViewBag.request = request;
+            }
 
             return View(model);
         }

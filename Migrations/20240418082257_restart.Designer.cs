@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    [Migration("20240417111107_namnbyten")]
-    partial class namnbyten
+    [Migration("20240418082257_restart")]
+    partial class restart
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -342,7 +342,7 @@ namespace Hattfabriken.Migrations
                     b.Property<string>("Material")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Measurement")
+                    b.Property<int?>("Measurement")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")

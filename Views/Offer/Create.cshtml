@@ -5,9 +5,12 @@
         <div class="col-md-6">
             @{
                 var request = ViewBag.request as Request;
-            }
 
-            <div asp-validation-summary="All" class="text-danger"></div>
+                if (request != null && request.Id != null)
+                {
+                    <input type="hidden" name="requestId" value="@request.Id" />
+                }
+            }
 
             @if (request != null)
             {
@@ -17,35 +20,40 @@
             }
             
             <div>
-
                 <div class="form-group">
                     <label asp-for="Name">Name:</label>
                     <input asp-for="Name" class="form-control" value="@request?.Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="Address">Address:</label>
                     <input asp-for="Address" class="form-control" value="@request?.Adress" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="PostalCode">PostalCode:</label>
                     <input asp-for="PostalCode" class="form-control" value="@request?.PostalCode" />
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="Country">Country:</label>
                     <input asp-for="Country" class="form-control" value="@request?.Country" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="Email">Email:</label>
                     <input asp-for="Email" class="form-control" value="@request?.Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="PhoneNumber">PhoneNumber:</label>
                     <input asp-for="PhoneNumber" class="form-control" value="@request?.PhoneNumber" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
 
                 <br />
@@ -72,26 +80,8 @@
                     <option value="2">Sheriff</option>
                     <option value="3">Peaky Blinders</option>
                 </select>
-
-                <script>
-                    // Hämta dropdown-elementet
-                    var hatTypeSelect = document.getElementById("HatTypeSelect");
-
-                    // Hämta värdet från request?.HatId om det finns tillgängligt
-                    var requestHatId = parseInt("@(request?.HatId ?? 0)");
-
-                    // Loopa igenom alla alternativ i dropdown-listan
-                    for (var i = 0; i < hatTypeSelect.options.length; i++) {
-                        // Om värdet från request?.HatId matchar värdet för det aktuella alternativet
-                        if (parseInt(hatTypeSelect.options[i].value) === requestHatId) {
-                            // Sätt det aktuella alternativet som valt
-                            hatTypeSelect.options[i].selected = true;
-                            // Bryt loopen eftersom vi har hittat det matchande alternativet
-                            break;
-                        }
-                    }
-                </script>
-
+                <span asp-validation-for="HatType" class="text-danger"></span>
+                
                 <label class="form-label">Material:</label>
                 <select asp-for="Material" class="form-select" value="@request?.Material">
                     <option value="">Choose</option>
@@ -101,6 +91,7 @@
                     <option value="Linen">Linen</option>
                     <option value="Straw">Straw</option>
                 </select>
+                <span asp-validation-for="Material" class="text-danger"></span>
 
                 <div class="form-group">
                     <label asp-for="Measurement">Measurement:</label>
@@ -110,6 +101,7 @@
                 <div class="form-group">
                     <label asp-for="Height">Height:</label>
                     <input asp-for="Height" class="form-control" value="@request?.Height" />
+                    <span asp-validation-for="Height" class="text-danger"></span>
                 </div>
 
                 <p>Special Effects:</p>
@@ -154,6 +146,7 @@
                             <input class="form-check-input" type="radio" name="DeliveryOrPickup" value="Home delivery" checked="@((request?.DeliveryOrPickup == "Home delivery"))" asp-for="DeliveryOrPickup" onchange="UpdateTotalPrice()" />
                             <label class="form-check-label" for="deliveryRadio">Home delivery</label>
                         </div>
+                        <span asp-validation-for="DeliveryOrPickup" class="text-danger"></span>
                     </div>
 
                     <div class="form-check form-switch mb-3">
@@ -173,28 +166,34 @@
             <div class="form-group">
                 <label asp-for="MaterialCost">Material cost:</label>
                 <input asp-for="MaterialCost" class="form-control" onchange="UpdateTotalPrice()" />
+            <span asp-validation-for="MaterialCost" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SpecialEffectCost">Special effect cost:</label>
                 <input asp-for="SpecialEffectCost" class="form-control" onchange="UpdateTotalPrice()" />
+            <span asp-validation-for="SpecialEffectCost" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ShippingCost">Shipping Cost:</label>
                 <input id="ShippingCost" asp-for="ShippingCost" class="form-control" onchange="UpdateTotalPrice()" />
+            <span asp-validation-for="ShippingCost" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EstimatedDeliveryDate ">Estimated delivery date:</label>
                 <input asp-for="EstimatedDeliveryDate" class="form-control" value="DateTime.Today" />
+            <span asp-validation-for="EstimatedDeliveryDate" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="TotalCost">Total Cost:</label>
                 <input asp-for="TotalCost" class="form-control" readonly />
+            <span asp-validation-for="TotalCost" class="text-danger"></span>
             </div>
 
         <div class="mb-3">
             <label class="form-label">Hatmaker commentary</label>
-            <textarea asp-for="HatmakerComment" class="form-control" id="hatmakerComment" placeholder="..." required style="resize: none; height: 200px;"></textarea>
+            <textarea asp-for="HatmakerComment" class="form-control" id="hatmakerComment" style="resize: none; height: 200px;"></textarea>
+            <span asp-validation-for="HatmakerComment" class="text-danger"></span>
         </div>
 
             <button type="submit" class="btn btn-primary" onclick="openOutlook()">Send offer</button>
