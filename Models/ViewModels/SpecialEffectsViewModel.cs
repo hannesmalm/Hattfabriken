@@ -14,5 +14,10 @@ namespace Hattfabriken.Models.ViewModels
         [Display(Name = "Price")]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
+
+        //[System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Quantity is required")]
+        //public int MaterialQuantity { get; set; }
+        //[System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Supplier is required")]
+        //public string MaterialSupplier { get; set; }
     }
 }
