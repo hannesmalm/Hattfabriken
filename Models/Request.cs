@@ -37,6 +37,7 @@ namespace Hattfabriken.Models
         public string Email { get; set; }
 
         public string Name { get; set; }
+
         //[ForeignKey("Material")]
         //public string Type { get; set; }
 
