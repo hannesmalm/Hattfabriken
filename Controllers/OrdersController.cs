@@ -36,5 +36,17 @@ namespace Hattfabriken.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ReadMore(int id)
+        {
+            var order = await _context.Orders.FindAsync(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return View(order);
+        }
     }
 }
