@@ -234,6 +234,120 @@ namespace Hattfabriken.Migrations
                     b.ToTable("Offers");
                 });
 
+            modelBuilder.Entity("Hattfabriken.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Adress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Commentary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Delivery")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("HatId")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("HatImage")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<int?>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Maker")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Material")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Measurement")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OfferId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostalCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SpecialEffects")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Adress = "Köpmansgatan 10",
+                            Commentary = "Beställningen brådskar.",
+                            Country = "Sverige",
+                            Date = new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Delivery = true,
+                            Email = "kund@example.com",
+                            Height = 10,
+                            Maker = "Otto",
+                            Material = "Leather",
+                            Measurement = 58,
+                            Name = "Kund Namnsson",
+                            PhoneNumber = "0701234567",
+                            PostalCode = 12345,
+                            SpecialEffects = "[\"Waterproof\"]",
+                            Status = "To-Do"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Adress = "Handelsgatan 20",
+                            Commentary = "Extra storlek behövs.",
+                            Country = "Sverige",
+                            Date = new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Delivery = false,
+                            Email = "annan.kund@example.com",
+                            Height = 8,
+                            Maker = "Judith",
+                            Material = "Straw",
+                            Measurement = 60,
+                            Name = "Annan Kundsson",
+                            PhoneNumber = "0707654321",
+                            PostalCode = 23456,
+                            SpecialEffects = "[\"Sunproof\"]",
+                            Status = "Judith Ongoing"
+                        });
+                });
+
             modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
                 {
                     b.Property<int>("Id")

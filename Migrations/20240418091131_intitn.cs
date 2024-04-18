@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Hattfabriken.Migrations
 {
     /// <inheritdoc />
-    public partial class HannesIsTheBest : Migration
+    public partial class intitn : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -130,6 +130,36 @@ namespace Hattfabriken.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Offers", x => x.OffertId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OfferId = table.Column<int>(type: "int", nullable: true),
+                    HatId = table.Column<int>(type: "int", nullable: true),
+                    Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Measurement = table.Column<int>(type: "int", nullable: true),
+                    Height = table.Column<int>(type: "int", nullable: true),
+                    Commentary = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SpecialEffects = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HatImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Adress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostalCode = table.Column<int>(type: "int", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Maker = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Delivery = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -319,6 +349,15 @@ namespace Hattfabriken.Migrations
                     { "Straw", 800, "StrawSwag@icloud.com", 14 }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "Id", "Adress", "Commentary", "Country", "Date", "Delivery", "Email", "HatId", "HatImage", "Height", "Maker", "Material", "Measurement", "Name", "OfferId", "PhoneNumber", "PostalCode", "SpecialEffects", "Status" },
+                values: new object[,]
+                {
+                    { 1, "Köpmansgatan 10", "Beställningen brådskar.", "Sverige", new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "kund@example.com", null, null, 10, "Otto", "Leather", 58, "Kund Namnsson", null, "0701234567", 12345, "[\"Waterproof\"]", "To-Do" },
+                    { 2, "Handelsgatan 20", "Extra storlek behövs.", "Sverige", new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "annan.kund@example.com", null, null, 8, "Judith", "Straw", 60, "Annan Kundsson", null, "0707654321", 23456, "[\"Sunproof\"]", "Judith Ongoing" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -393,6 +432,9 @@ namespace Hattfabriken.Migrations
 
             migrationBuilder.DropTable(
                 name: "Offers");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "QuantityRequests");

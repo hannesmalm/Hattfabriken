@@ -1,138 +1,169 @@
-﻿@{
+﻿@model List<Order>
+
+@{
     ViewData["Title"] = "Orders";
 }
-
-<div class="container">
-    <h2>Orders</h2>
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-3">
-            <h3>To-do</h3>
-            <table id="todoTable" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Column 1</th>
-                        <th>Column 2</th>
-                        <th>Destination</th> <!-- Button column -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Task A</td>
-                        <td>Task Description A</td>
-                        <td>
-                            <select id="destinationSelect">
-                                <option value="ottoTable">Otto</option>
-                                <option value="judithTable">Judith</option>
-                            </select>
-                            <button class="btn btn-primary" onclick="moveToTable('Task A', 'Task Description A')">Move</button>
-                            <button class="btn btn-info" onclick="openPDF('Task A', 'Task Description A')">Open PDF</button>
-                        </td>
-                    </tr>
-                    <!-- Add more tasks as needed -->
-                </tbody>
-            </table>
+        <!-- To-Do Column -->
+        <div id="To-Do" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <h4>To-Do</h4>
+            @foreach (var order in Model.Where(o => o.Status == "To-Do"))
+            {
+                <div id="order-@order.Id"
+                     class="card"
+                     draggable="true"
+                     ondragstart="drag(event)"
+                     data-status="@order.Status">
+                    <div class="card-body">
+                        <h5 class="card-title">Order: #@order.Id</h5>
+                        <p class="card-text">@order.Name</p>
+                    </div>
+                </div>
+            }
         </div>
-        <div class="col-md-3">
-            <h3>Otto on-going</h3>
-            <table id="ottoTable" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Column A</th>
-                        <th>Column B</th>
-                        <th>Actions</th> <!-- Button column -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Items will be dynamically added here -->
-                </tbody>
-            </table>
+        <!-- Otto Ongoing Column -->
+        <div id="Otto-Ongoing" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <h4>Otto Ongoing</h4>
+            @foreach (var order in Model.Where(o => o.Status == "Otto Ongoing"))
+            {
+                <div id="order-@order.Id"
+                     class="card"
+                     draggable="true"
+                     ondragstart="drag(event)"
+                     data-status="@order.Status">
+                    <div class="card-body">
+                        <h5 class="card-title">Order: #@order.Id</h5>
+                        <p class="card-text">@order.Name</p>
+                    </div>
+                </div>
+            }
         </div>
-        <div class="col-md-3">
-            <h3>Judith on-going</h3>
-            <table id="judithTable" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Actions</th> <!-- Button column -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Items will be dynamically added here -->
-                </tbody>
-            </table>
+        <!-- Judith Ongoing Column -->
+        <div id="Judith-Ongoing" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <h4>Judith Ongoing</h4>
+            @foreach (var order in Model.Where(o => o.Status == "Judith Ongoing"))
+            {
+                <div id="order-@order.Id"
+                     class="card"
+                     draggable="true"
+                     ondragstart="drag(event)"
+                     data-status="@order.Status">
+                    <div class="card-body">
+                        <h5 class="card-title">Order: #@order.Id</h5>
+                        <p class="card-text">@order.Name</p>
+                    </div>
+                </div>
+            }
         </div>
-        <div class="col-md-3">
-            <h3>Done</h3>
-            <table id="doneTable" class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Data X</th>
-                        <th>Data Y</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Items will be dynamically added here -->
-                </tbody>
-            </table>
+
+        <!-- Completed Column -->
+        <div id="Completed" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <h4>Completed</h4>
+            @foreach (var order in Model.Where(o => o.Status == "Completed"))
+            {
+                <div id="order-@order.Id"
+                     class="card"
+                     draggable="true"
+                     ondragstart="drag(event)"
+                     data-status="@order.Status">
+                    <div class="card-body">
+                        <h5 class="card-title">Order: #@order.Id</h5>
+                        <p class="card-text">@order.Name</p>
+                    </div>
+                </div>
+            }
         </div>
+
     </div>
 </div>
 
-@section scripts {
-    <script>
-        function moveToTable(taskName, taskDescription) {
-            var destinationTableId = document.getElementById("destinationSelect").value;
-            var targetTable = document.getElementById(destinationTableId).getElementsByTagName('tbody')[0];
+<style>
+    .kanban-column {
+        border-right: 2px solid #dee2e6; /* En grå linje som skiljer kolumnerna åt */
+        min-height: 400px; /* Ställ in en minimumhöjd så att även tomma kolumner visar sin gräns */
+    }
 
-            // Create a new row in the target table and append the task data
-            var newRow = targetTable.insertRow();
-            var cell1 = newRow.insertCell(0);
-            var cell2 = newRow.insertCell(1);
-            var cell3 = newRow.insertCell(2);
-            var cell4 = newRow.insertCell(3);
-            cell1.innerHTML = targetTable.rows.length + 1; // Add 1 for new row
-            cell2.innerHTML = taskName;
-            cell3.innerHTML = taskDescription;
+        /* Ta bort border från sista kolumnen eftersom den inte behöver en gräns på höger sida */
+        .kanban-column:last-child {
+            border-right: none;
+        }
 
-            if (destinationTableId !== 'doneTable') {
-                cell4.innerHTML = '<button class="btn btn-success" onclick="moveToDone(this)">Move to Done</button>' +
-                    '<button class="btn btn-info" onclick="openPDF(\'' + taskName + '\', \'' + taskDescription + '\')">Open PDF</button>';
+    .card {
+        margin-bottom: 0.5rem; /* Lägg till lite marginal mellan korten */
+    }
+
+    /* Stil för att förbättra kolumnernas utseende */
+    .kanban-column > h4 {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    /* Säkerställ att hela kolumnen kan acceptera draggade objekt, inte bara befintliga kort */
+    .kanban-column {
+        padding: 1rem;
+        transition: background-color 0.3s; /* Lägg till en övergångseffekt vid dragover */
+    }
+</style>
+
+<script>
+    // Antag att orders-arrayen är deklarerad och initialiserad korrekt tidigare i koden.
+
+    function updateOrderStatus(orderId, newStatus) {
+        // Använda AJAX för att skicka en förfrågan till servern för att uppdatera orderns status
+        $.ajax({
+            url: '/Orders/UpdateStatus', // URL till action-metoden i din OrdersController
+            method: 'POST',
+            data: { id: orderId, status: newStatus },
+            success: function (response) {
+                // Hantera ett framgångsrikt svar
+                console.log('Order status updated successfully!');
+            },
+            error: function (xhr) {
+                // Hantera fel
+                console.error('Error updating order status: ' + xhr.responseText);
             }
+        });
+    }
 
-            // Remove the row from the original table
-            event.target.parentNode.parentNode.remove();
+    function allowDrop(ev) {
+        ev.preventDefault();
+        if (ev.target.classList.contains('kanban-column')) {
+            ev.target.classList.add('drag-over');
+        }
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text/plain", ev.target.id);
+    }
+
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        var draggableElement = document.getElementById(data);
+        var newStatus = ev.target.id.replace('kanban-column-', ''); // Anta att kolumnens id är 'kanban-column-STATUS'
+
+        if (ev.target.classList.contains('kanban-column')) {
+            ev.target.appendChild(draggableElement);
+        } else {
+            ev.target.closest('.kanban-column').appendChild(draggableElement);
         }
 
-        function moveToDone(button) {
-            var taskRow = button.parentNode.parentNode;
-            var taskName = taskRow.cells[1].innerText;
-            var taskDescription = taskRow.cells[2].innerText;
-
-            var doneTable = document.getElementById("doneTable").getElementsByTagName('tbody')[0];
-
-            // Create a new row in the "Done" table and append the task data
-            var newRow = doneTable.insertRow();
-            var cell1 = newRow.insertCell(0);
-            var cell2 = newRow.insertCell(1);
-            var cell3 = newRow.insertCell(2);
-            cell1.innerHTML = doneTable.rows.length + 1; // Add 1 for new row
-            cell2.innerHTML = taskName;
-            cell3.innerHTML = taskDescription;
-
-            // Remove the row from the current table
-            taskRow.remove();
+        var oldStatus = draggableElement.getAttribute('data-status');
+        if (newStatus !== oldStatus) {
+            draggableElement.setAttribute('data-status', newStatus);
+            var orderId = data.split('-')[1]; // Anta att id är det andra elementet efter split
+            updateOrderStatus(orderId, newStatus);
         }
+    }
 
-        function openPDF(taskName, taskDescription) {
-            // For demonstration, we'll just alert, replace this with your logic to open PDF
-            alert("Opening PDF for: " + taskName + " - " + taskDescription);
-        }
-    </script>
-}
+    document.querySelectorAll('.kanban-column').forEach(function (column) {
+        column.addEventListener('dragover', allowDrop);
+        column.addEventListener('drop', drop);
+        column.addEventListener('dragleave', function (ev) {
+            if (ev.target.classList.contains('kanban-column')) {
+                ev.target.classList.remove('drag-over');
+            }
+        });
+    });
+</script>

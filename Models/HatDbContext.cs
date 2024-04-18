@@ -12,7 +12,7 @@ namespace Hattfabriken.Models
 
 
 
-        public DbSet <Hatt> Hattar {  get; set; }
+        public DbSet<Hatt> Hattar { get; set; }
 
         public DbSet<Material> Materials { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
@@ -21,11 +21,12 @@ namespace Hattfabriken.Models
         public DbSet<Image> Images { get; set; }
         public DbSet<Offer> Offers { get; set; }
         public DbSet<QuantityRequest> QuantityRequests { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
 
 
 
-     
+
 
 
 
@@ -42,6 +43,7 @@ namespace Hattfabriken.Models
 
             // Call the seeding method
             SeedMaterials(modelBuilder);
+            SeedOrders(modelBuilder);
         }
 
         private void SeedMaterials(ModelBuilder modelBuilder)
@@ -59,34 +61,83 @@ namespace Hattfabriken.Models
                 new Material { MaterialName = "Polyester", MaterialQuantity = 2900, MaterialSupplier = "PolyesterChina@icloud.com", Price = 11 }
 
             );
-
-            //// Seed admin accounts with hashed passwords
-            //PasswordHasher<IdentityUser> passwordHasher = new PasswordHasher<IdentityUser>();
-
-            //Microsoft.EntityFrameworkCore.Metadata.Builders.DataBuilder<IdentityUser> dataBuilder = modelBuilder.Entity<IdentityUser>().HasData(
-            //    new IdentityUser
-            //    {
-            //        Id = Guid.NewGuid().ToString(), // Generate a unique ID
-            //        UserName = "admin1@example.com",
-            //        NormalizedUserName = "ADMIN1@EXAMPLE.COM",
-            //        Email = "admin1@example.com",
-            //        NormalizedEmail = "ADMIN1@EXAMPLE.COM",
-            //        EmailConfirmed = true,
-            //        PasswordHash = passwordHasher.HashPassword(null, "Hej123!") // Hash the password
-            //    },
-            //    new IdentityUser
-            //    {
-            //        Id = Guid.NewGuid().ToString(), // Generate a unique ID
-            //        UserName = "admin2@example.com",
-            //        NormalizedUserName = "ADMIN2@EXAMPLE.COM",
-            //        Email = "admin2@example.com",
-            //        NormalizedEmail = "ADMIN2@EXAMPLE.COM",
-            //        EmailConfirmed = true,
-            //        PasswordHash = passwordHasher.HashPassword(null, "Hej123!") // Hash the password
-            //    }
-
-            //    );
         }
 
+        private void SeedOrders(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Order>().HasData(
+                new Order
+                {
+                    Id = 1,
+                    OfferId = null, // Ersätt med giltigt värde om det finns
+                    HatId = null, // Ersätt med giltigt värde om det finns
+                    Material = "Leather",
+                    Measurement = 58,
+                    Height = 10,
+                    Commentary = "Beställningen brådskar.",
+                    SpecialEffects = new List<string> { "Waterproof" },
+                    Adress = "Köpmansgatan 10",
+                    PostalCode = 12345,
+                    PhoneNumber = "0701234567",
+                    Country = "Sverige",
+                    Email = "kund@example.com",
+                    Name = "Kund Namnsson",
+                    Status = "To-Do",
+                    Date = new DateTime(2023, 10, 1),
+                    Maker = "Otto",
+                    Delivery = true
+                },
+                new Order
+                {
+                    Id = 2,
+                    OfferId = null, // Ersätt med giltigt värde om det finns
+                    HatId = null, // Ersätt med giltigt värde om det finns
+                    Material = "Straw",
+                    Measurement = 60,
+                    Height = 8,
+                    Commentary = "Extra storlek behövs.",
+                    SpecialEffects = new List<string> { "Sunproof" },
+                    Adress = "Handelsgatan 20",
+                    PostalCode = 23456,
+                    PhoneNumber = "0707654321",
+                    Country = "Sverige",
+                    Email = "annan.kund@example.com",
+                    Name = "Annan Kundsson",
+                    Status = "Judith Ongoing",
+                    Date = new DateTime(2023, 11, 15),
+                    Maker = "Judith",
+                    Delivery = false
+                }
+            );
+        }
+
+        //// Seed admin accounts with hashed passwords
+        //PasswordHasher<IdentityUser> passwordHasher = new PasswordHasher<IdentityUser>();
+
+        //Microsoft.EntityFrameworkCore.Metadata.Builders.DataBuilder<IdentityUser> dataBuilder = modelBuilder.Entity<IdentityUser>().HasData(
+        //    new IdentityUser
+        //    {
+        //        Id = Guid.NewGuid().ToString(), // Generate a unique ID
+        //        UserName = "admin1@example.com",
+        //        NormalizedUserName = "ADMIN1@EXAMPLE.COM",
+        //        Email = "admin1@example.com",
+        //        NormalizedEmail = "ADMIN1@EXAMPLE.COM",
+        //        EmailConfirmed = true,
+        //        PasswordHash = passwordHasher.HashPassword(null, "Hej123!") // Hash the password
+        //    },
+        //    new IdentityUser
+        //    {
+        //        Id = Guid.NewGuid().ToString(), // Generate a unique ID
+        //        UserName = "admin2@example.com",
+        //        NormalizedUserName = "ADMIN2@EXAMPLE.COM",
+        //        Email = "admin2@example.com",
+        //        NormalizedEmail = "ADMIN2@EXAMPLE.COM",
+        //        EmailConfirmed = true,
+        //        PasswordHash = passwordHasher.HashPassword(null, "Hej123!") // Hash the password
+        //    }
+
+        //    );
     }
+
 }
+
