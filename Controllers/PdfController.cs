@@ -2,22 +2,36 @@
 using Hattfabriken.Models;
 using Hattfabriken.Models.DTOs;
 
+
 namespace Hattfabriken.Controllers
 {
     public class PdfController : Controller
     {
         private readonly PdfService _pdfService;
+        private readonly HatDbContext _context;
 
-        public PdfController(PdfService pdfService)
+        public PdfController(PdfService pdfService, HatDbContext context)
         {
             _pdfService = pdfService;
+            _context = context;
         }
 
-        public IActionResult CreateShippingLabelPdf(Offer offer)
+        [HttpPost]
+        public IActionResult CreateShippingLabelPdf(int orderId)
         {
+            Order order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
             var data = new ShippingLabelData
             {
-
+                Name = order.Name,
+                Adress = order.Adress,
+                PostalCode = order.PostalCode,
+                Country = order.Country,
+                OrderNumber = order.Id,
             };
 
             byte[] pdf = _pdfService.GenerateShippingLabel(data);

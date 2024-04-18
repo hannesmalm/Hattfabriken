@@ -13,7 +13,10 @@
     </div>
     <div>
         <button class="btn btn-primary" onclick="printQuote()">Print Quote</button>
-        <button class="btn btn-primary" onclick="printShippingLabel()">Print Shipping Label</button>
+        <form method="post" asp-action="CreateShippingLabelPdf" asp-controller="Pdf">
+            <input type="hidden" name="orderId" value="@Model.Id" />
+            <button type="submit" class="btn btn-primary">Print Shipping Label</button>
+        </form>
         <form asp-controller="Orders" asp-action="Orders" method="get">
                             <button type="submit" class="btn btn-primary">Read More</button>
                         </form>
