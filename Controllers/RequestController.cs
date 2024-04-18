@@ -37,11 +37,25 @@ namespace Hattfabriken.Controllers
         {
             var materials = _context.Materials.ToList();
             var specialEffectsMaterials = materials.Where(materials => materials.Type ==2).ToList();
+            var specialEffectsList = _context.SpecialEffects.ToList();
+            ViewBag.SpecialEffects = specialEffectsList;
             ViewBag.Materials = materials; // Send materials to the view as ViewBag
             RequestViewModel requestViewModel = new RequestViewModel();
             return View(requestViewModel);
         }
 
+        //[HttpGet]
+        //public IActionResult NewRequestSpecial()
+        //{
+        //    var specialEffectsList = _context.SpecialEffects.ToList();
+
+        //    // Felsökning: Skriv ut antalet poster i specialEffectsList till konsolen
+        //    Console.WriteLine($"Antal special effects i listan: {specialEffectsList.Count}");
+
+        //    ViewBag.SpecialEffects = specialEffectsList; // Send special effects to the view as ViewBag
+        //    RequestViewModel requestViewModel = new RequestViewModel();
+        //    return View(requestViewModel);
+        //}
         [HttpPost]
         public async Task<IActionResult> NewRequest(RequestViewModel requestViewModel)
         {

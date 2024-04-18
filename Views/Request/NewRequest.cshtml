@@ -74,25 +74,19 @@
 
                         <div class="mb-3">
                             <label class="form-label">Do you want any special effects?</label>
-                            <div id="checkboxes">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="specialEffectsCheckbox" value="specialEffects">
-                                    <label class="form-check-label" for="specialEffectsCheckbox">
-                                        Yes, I want special effects
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                                <select asp-for="SpecialEffects" class="form-select" id="SpecialEffectsDrop">
+                                <option value="">Choose Special effect...</option>
+                                @if (ViewBag.SpecialEffects != null)
+                                {
+                                    @foreach (var specialEffectsList in ViewBag.SpecialEffects)
+                                    {
 
-                        <div class="mb-3">
-                            <label class="form-label">List of Special Effects:</label>
-                            <ul class="list-group">
-                                <li class="list-group-item disabled" aria-disabled="true">Special Effects:</li>
-                                <li class="list-group-item">Pearls</li>
-                                <li class="list-group-item">Feathers</li>
-                                <li class="list-group-item">Buttons</li>
-                            </ul>
-                            <small id="specialEffectsHelp" class="form-text text-muted">Write in the description which effects you want.</small>
+                                        <option value="@specialEffectsList.SpecialEffectName">@specialEffectsList.SpecialEffectName</option>
+
+                                    }
+                                }
+
+                            </select>
                         </div>
 
                         <div class="mb-3">
