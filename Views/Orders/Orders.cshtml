@@ -29,7 +29,7 @@
         <!-- Otto Ongoing Column -->
         <div id="Otto-Ongoing" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
             <h4>Otto Ongoing</h4>
-            @foreach (var order in Model.Where(o => o.Status == "Otto Ongoing"))
+            @foreach (var order in Model.Where(o => o.Status == "Otto-Ongoing"))
             {
                 <div id="order-@order.Id"
                      class="card"
@@ -50,7 +50,7 @@
         <!-- Judith Ongoing Column -->
         <div id="Judith-Ongoing" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
             <h4>Judith Ongoing</h4>
-            @foreach (var order in Model.Where(o => o.Status == "Judith Ongoing"))
+            @foreach (var order in Model.Where(o => o.Status == "Judith-Ongoing"))
             {
                 <div id="order-@order.Id"
                      class="card"
