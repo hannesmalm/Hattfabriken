@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Hattfabriken.Migrations
 {
     /// <inheritdoc />
-    public partial class nyStart : Migration
+    public partial class fredrik : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -115,15 +117,16 @@ namespace Hattfabriken.Migrations
                 {
                     OffertId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    KundNamn = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    KundMail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    KundTel = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MaterialKostnad = table.Column<double>(type: "float", nullable: false),
-                    SpecialeffektKostnad = table.Column<double>(type: "float", nullable: true),
-                    SpecialtygKostnad = table.Column<double>(type: "float", nullable: false),
-                    FraktKostnad = table.Column<double>(type: "float", nullable: true),
-                    SkapadDatum = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EstimeratLeveransdatum = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomerMail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomerTel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MaterialCost = table.Column<double>(type: "float", nullable: false),
+                    SpecialEffectCost = table.Column<double>(type: "float", nullable: true),
+                    SpecialFabricCost = table.Column<double>(type: "float", nullable: false),
+                    ShippingCost = table.Column<double>(type: "float", nullable: true),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EstimatedDeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    TotalCost = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -279,6 +282,44 @@ namespace Hattfabriken.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "QuantityRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MaterialName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RequestedQuantity = table.Column<int>(type: "int", nullable: false),
+                    IsConfirmed = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QuantityRequests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_QuantityRequests_Materials_MaterialName",
+                        column: x => x.MaterialName,
+                        principalTable: "Materials",
+                        principalColumn: "MaterialName",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Materials",
+                columns: new[] { "MaterialName", "MaterialQuantity", "MaterialSupplier", "Price" },
+                values: new object[,]
+                {
+                    { "Cloth", 2200, "ClothCircus@hotmail.com", 13 },
+                    { "Cotton", 200, "CottonCorner@icloud.com", 16 },
+                    { "Felt", 600, "FeltFear@icloud.com", 14 },
+                    { "Leather", 1000, "Leather@gmail.com", 45 },
+                    { "Linen", 300, "GrischLaidback@icloud.com", 28 },
+                    { "Panama", 900, "PanamaSwag@icloud.com", 16 },
+                    { "Polyester", 2900, "PolyesterChina@icloud.com", 11 },
+                    { "Satin", 1000, "SatinSwag@icloud.com", 12 },
+                    { "Snakeskin", 400, "SnakeKiller@icloud.com", 84 },
+                    { "Straw", 800, "StrawSwag@icloud.com", 14 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -317,6 +358,11 @@ namespace Hattfabriken.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuantityRequests_MaterialName",
+                table: "QuantityRequests",
+                column: "MaterialName");
         }
 
         /// <inheritdoc />
@@ -347,10 +393,10 @@ namespace Hattfabriken.Migrations
                 name: "Images");
 
             migrationBuilder.DropTable(
-                name: "Materials");
+                name: "Offers");
 
             migrationBuilder.DropTable(
-                name: "Offers");
+                name: "QuantityRequests");
 
             migrationBuilder.DropTable(
                 name: "Requests");
@@ -363,6 +409,9 @@ namespace Hattfabriken.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Materials");
         }
     }
 }
