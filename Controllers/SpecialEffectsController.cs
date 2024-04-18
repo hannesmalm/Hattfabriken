@@ -20,7 +20,7 @@ namespace Hattfabriken.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateSpecial()
+        public IActionResult AddSpecialEffects()
         {
             SpecialEffectsViewModel specialEffectsViewModel = new SpecialEffectsViewModel();   
             return View(specialEffectsViewModel);
@@ -28,7 +28,7 @@ namespace Hattfabriken.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateSpecial(SpecialEffectsViewModel specialEffectsViewModel) { 
+        public async Task<IActionResult> AddSpecialEffects(SpecialEffectsViewModel specialEffectsViewModel) { 
 
             if(ModelState.IsValid)
 
@@ -47,11 +47,6 @@ namespace Hattfabriken.Controllers
 
             return View(specialEffectsViewModel);
             
-        }
-
-        public IActionResult AddSpecialEffects()
-        {
-            return View();
         }
     }
 }
