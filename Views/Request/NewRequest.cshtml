@@ -51,8 +51,8 @@
                                 <option value="">Choose material...</option>
                                 @foreach (var material in ViewBag.Materials)
                                 {
-                                    <!-- Lägg till villkor för att bara visa material av typen 1 -->
-                                    @if (material.Type == 1)
+                                     <!-- Lägg till villkor för att bara visa material av typen 1 -->
+                                    @if (material.Type == 1) 
                                     {
                                         <option value="@material.MaterialName">@material.MaterialName</option>
                                     }

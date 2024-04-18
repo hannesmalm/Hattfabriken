@@ -23,7 +23,7 @@ namespace Hattfabriken.Models
         public string? Commentary { get; set; }
 
         [ForeignKey("SpecialEffects")]
-        public string SpecialEffects {  get; set; }
+        public string? SpecialEffectName {  get; set; }
         public string Adress { get; set; }
 
         public int PostalCode { get; set; }
