@@ -2,8 +2,6 @@
 
 <h1>Storage of Materials</h1>
 
-@* :3 *@
-
 <table class="table">
     <thead>
         <tr>
@@ -11,7 +9,6 @@
             <th>Quantity</th>
             <th>Supplier</th>
             <th>Price</th>
-            <th>Type of material</th>
             <th></th>
         </tr>
     </thead>
@@ -23,7 +20,6 @@
                 <td>@material.MaterialQuantity</td>
                 <td>@material.MaterialSupplier</td>
                 <td>@material.Price</td>
-                <td>@(material.Type == 1 ? "Material" : "Special effects")</td>
                 <td>
                     <a asp-action="EditMaterial" asp-route-id="@material.MaterialName" class="btn btn-primary">Edit</a>
                     <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Orders", "Material")'">Order</button>
@@ -51,13 +47,6 @@
     <div class="form-group">
         <label for="price">Price:</label>
         <input type="number" id="price" name="Price" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="type">Type</label>
-        <select id="type" name="Type" class="form-control">
-            <option value="1">Material</option>
-            <option value="2">Special Effect</option>
-        </select>
     </div>
     <button type="submit" class="btn btn-primary">Add Material</button>
 </form>
