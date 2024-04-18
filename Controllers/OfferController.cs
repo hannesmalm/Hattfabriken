@@ -73,19 +73,19 @@ namespace Hattfabriken.Controllers
 
                 if (model.SpecialEffects != null && model.SpecialEffects.Any())
                 {
-                    nyOffert.SpecialEffects = new List<string>(model.SpecialEffects);
+                    newOffer.SpecialEffects = new List<string>(model.SpecialEffects);
                 }
                 else
                 {
-                    nyOffert.SpecialEffects = new List<string>(); // Tom lista om ingen special effekt är vald
+                    newOffer.SpecialEffects = new List<string>(); // Tom lista om ingen special effekt är vald
                 }
 
-                _context.Offers.Add(nyOffert);
+                _context.Offers.Add(newOffer);
                 await _context.SaveChangesAsync();
 
                 Console.WriteLine("SUCCESS");
                 
-                ViewBag.Offer = nyOffert;
+                ViewBag.Offer = newOffer;
 
                 if (requestId.HasValue)
                 {
