@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Hattfabriken.Models
 {
-    public class Hatt
+    public class Hat
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]

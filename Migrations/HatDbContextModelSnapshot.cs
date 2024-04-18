@@ -50,7 +50,7 @@ namespace Hattfabriken.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Hattfabriken.Models.Hatt", b =>
+            modelBuilder.Entity("Hattfabriken.Models.Hat", b =>
                 {
                     b.Property<int>("HatId")
                         .ValueGeneratedOnAdd()
@@ -85,9 +85,8 @@ namespace Hattfabriken.Migrations
 
                     b.HasKey("HatId");
 
-                    b.HasIndex("MaterialName");
+                    b.ToTable("Hats");
 
-                    b.ToTable("Hattar");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Image", b =>
@@ -208,36 +207,36 @@ namespace Hattfabriken.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OffertId"));
 
-                    b.Property<DateTime>("EstimeratLeveransdatum")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("FraktKostnad")
-                        .HasColumnType("float");
-
-                    b.Property<string>("KundMail")
+                    b.Property<string>("CustomerMail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("KundNamn")
+                    b.Property<string>("CustomerName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("KundTel")
+                    b.Property<string>("CustomerTel")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("MaterialKostnad")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime>("SkapadDatum")
+                    b.Property<DateTime>("EstimatedDeliveryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<double?>("SpecialeffektKostnad")
+                    b.Property<double>("MaterialCost")
                         .HasColumnType("float");
 
-                    b.Property<double>("SpecialtygKostnad")
+                    b.Property<double?>("ShippingCost")
                         .HasColumnType("float");
 
-                    b.Property<double>("TotalKostnad")
+                    b.Property<double?>("SpecialEffectCost")
+                        .HasColumnType("float");
+
+                    b.Property<double>("SpecialFabricCost")
+                        .HasColumnType("float");
+
+                    b.Property<double>("TotalCost")
                         .HasColumnType("float");
 
                     b.HasKey("OffertId");
@@ -476,92 +475,6 @@ namespace Hattfabriken.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("IdentityUser");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "cd40ffd8-83f0-460f-bc95-9b55d1ebd61f",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "18e004ef-b839-4cf0-b412-bd62322f900e",
-                            Email = "admin1@example.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN1@EXAMPLE.COM",
-                            NormalizedUserName = "ADMIN1@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDWrrrLfmc80hfVnjmVEPCc0+LKJZoYk49pBRpynpBaU/iPHKHhxmRUtfRRyyFqa1w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "e36be372-59ae-4f6f-9084-290c27dc4dfe",
-                            TwoFactorEnabled = false,
-                            UserName = "admin1@example.com"
-                        },
-                        new
-                        {
-                            Id = "4c15346a-2226-4cbf-abdb-ab57f97f6e1c",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "df4bfaac-1254-4fac-ac82-7a76b6f0e870",
-                            Email = "admin2@example.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN2@EXAMPLE.COM",
-                            NormalizedUserName = "ADMIN2@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHpBS1P4+kahd2B/ovWcwhrew5NhmHiJj+muKSFPwNhNTqmOvzYkeWklrK2RMVq6fw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "ef808e1a-925b-4a72-829e-ffcda80dd77a",
-                            TwoFactorEnabled = false,
-                            UserName = "admin2@example.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>

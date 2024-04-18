@@ -26,7 +26,7 @@ namespace Hattfabriken.Controllers
         public IActionResult StorageOfMaterials()
         {
             var materials = _dbContext.Materials.ToList();
-            return View("~/Views/Lager/StorageOfMaterials.cshtml", materials);
+            return View("~/Views/Storage/StorageOfMaterials.cshtml", materials);
         }
 
         public IActionResult Orders()
@@ -34,7 +34,7 @@ namespace Hattfabriken.Controllers
             var materials = _dbContext.Materials.ToList();
             ViewData["Materials"] = materials;
             var requests = _dbContext.QuantityRequests.ToList();
-            return View("~/Views/Lager/Orders.cshtml", requests);
+            return View("~/Views/Storage/Orders.cshtml", requests);
         }
 
 
@@ -57,7 +57,7 @@ namespace Hattfabriken.Controllers
             {
                 return NotFound();
             }
-            return View("~/Views/Lager/EditMaterial.cshtml", material);
+            return View("~/Views/Storage/EditMaterial.cshtml", material);
         }
 
         [HttpPost]
@@ -82,22 +82,19 @@ namespace Hattfabriken.Controllers
                 material.MaterialQuantity += Quantity;
                 _dbContext.SaveChanges();
             }
-            return RedirectToAction(nameof(Orders)); // Ensure this redirects to the Orders action
+            return RedirectToAction(nameof(Orders));
         }
 
 
         [HttpPost]
         public IActionResult ConfirmDelivery()
         {
-            // Get all quantity requests that are not yet confirmed
             var requests = _dbContext.QuantityRequests.Where(r => !r.IsConfirmed).ToList();
 
             foreach (var request in requests)
             {
-                // Mark the request as confirmed
                 request.IsConfirmed = true;
 
-                // Update the material quantity in the database
                 var material = _dbContext.Materials.FirstOrDefault(m => m.MaterialName == request.MaterialName);
                 if (material != null)
                 {
@@ -105,10 +102,8 @@ namespace Hattfabriken.Controllers
                 }
             }
 
-            // Save changes to the database
             _dbContext.SaveChanges();
 
-            // Redirect back to the Orders action
             return RedirectToAction(nameof(Orders));
         }
 
@@ -143,48 +138,38 @@ namespace Hattfabriken.Controllers
         [HttpPost]
         public IActionResult RequestQuantity(string MaterialName, int Quantity)
         {
-            // Find the material based on the material name
             var material = _dbContext.Materials.FirstOrDefault(m => m.MaterialName == MaterialName);
             if (material != null)
             {
-                // Create a new quantity request associated with the material
                 var request = new QuantityRequest
                 {
                     MaterialName = MaterialName,
                     RequestedQuantity = Quantity,
                     IsConfirmed = false,
-                    Material = material // Associate the quantity request with the material
+                    Material = material 
                 };
 
-                // Add the request to the database
                 _dbContext.QuantityRequests.Add(request);
                 _dbContext.SaveChanges();
 
-                // Update the view model with the latest unconfirmed quantity requests
                 var unconfirmedRequests = _dbContext.QuantityRequests
                     .Include(r => r.Material)
                     .Where(r => !r.IsConfirmed)
                     .ToList();
 
-                // Pass the updated view model to the Orders view
                 ViewData["UnconfirmedRequests"] = unconfirmedRequests;
 
-                // Extract the supplier name from the email address (text before '@' symbol)
                 var supplierName = material.MaterialSupplier.Split('@')[0];
 
-                // Generate the email body
                 var emailBody = $"Dear {supplierName},\n\n" +
                                 $"I would like to request {Quantity} units of {MaterialName}.\n\n" +
                                 "Best regards,\n[Your Name]";
 
-                // Generate the mailto link
                 var mailtoLink = $"mailto:{material.MaterialSupplier}?subject=Material Request&body={Uri.EscapeDataString(emailBody)}";
 
-                // Redirect the user to the mailto link
                 return Redirect(mailtoLink);
             }
 
-            // Redirect back to the Orders action
             return RedirectToAction(nameof(Orders));
         }
 

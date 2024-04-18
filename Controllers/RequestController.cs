@@ -68,13 +68,13 @@ namespace Hattfabriken.Controllers
                     Console.WriteLine(image.Data);
                 }
 
-                if (requestViewModel.SelectedSpecialEffekter != null && requestViewModel.SelectedSpecialEffekter.Any())
+                if (requestViewModel.SelectedSpecialEffects != null && requestViewModel.SelectedSpecialEffects.Any())
                 {
-                    request.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffekter);
+                    request.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffects);
                 }
                 else
                 {
-                    request.SpecialEffects = new List<string>(); // Tom lista om ingen special effekt är vald
+                    request.SpecialEffects = new List<string>(); 
                 }
 
                 _context.Add(request);
@@ -87,7 +87,7 @@ namespace Hattfabriken.Controllers
             {
                 foreach (var error in ModelState[key].Errors)
                 {
-                    Console.WriteLine($"Fält: {key}, Fel: {error.ErrorMessage}");
+                    Console.WriteLine($"Field: {key}, Error: {error.ErrorMessage}");
                 }
             }
 
@@ -96,7 +96,7 @@ namespace Hattfabriken.Controllers
 
         public IActionResult AllRequests()
         {
-            var requestList = _context.Requests.ToList(); // Hämta alla Förfrågningar från databasen
+            var requestList = _context.Requests.ToList(); 
             return View(requestList);
         }
 
@@ -123,7 +123,6 @@ namespace Hattfabriken.Controllers
             _context.Update(request);
             _context.SaveChanges();
 
-            // GÅ VIDARE TILL SKAPA OFFERT (CreateOffert())
             return RedirectToAction("Create", "Offer", new { requestId = requestId });
         }
 

@@ -25,9 +25,8 @@ namespace Hattfabriken.Controllers
 
             if (request != null)
             {
-                Console.WriteLine("Requesten är med, najs");
+                Console.WriteLine("The request goes through");
 
-                // Lägg till objektet i ViewBag
                 ViewBag.request = request;
             }
 
@@ -37,31 +36,31 @@ namespace Hattfabriken.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(OfferViewModel model)
         {
-            Console.WriteLine("Metod körs");
+            Console.WriteLine("Method runs");
 
             if (ModelState.IsValid) 
             {
-                Console.WriteLine("ModelState är valid");
+                Console.WriteLine("ModelState is valid");
 
-                Offer nyOffert = new Offer
+                Offer newOffer = new Offer
                 {
-                    KundNamn = model.KundNamn,
-                    KundMail = model.KundMail,
-                    KundTel = model.KundTel,
-                    MaterialKostnad = model.MaterialKostnad,
-                    SpecialeffektKostnad = model.SpecialeffektKostnad,
-                    SpecialtygKostnad = model.SpecialtygKostnad,
-                    FraktKostnad = model.FraktKostnad,
-                    SkapadDatum = DateTime.Today,
-                    EstimeratLeveransdatum = model.EstimeratLeveransdatum
+                    CustomerName = model.CustomerName,
+                    CustomerMail = model.CustomerMail,
+                    CustomerTel = model.CustomerTel,
+                    MaterialCost = model.MaterialCost,
+                    SpecialEffectCost = model.SpecialEffectCost,
+                    SpecialFabricCost = model.SpecialFabricCost,
+                    ShippingCost = model.ShippingCost,
+                    CreatedDate = DateTime.Today,
+                    EstimatedDeliveryDate = model.EstimatedDeliveryDate
                 };
 
-                _context.Offers.Add(nyOffert);
+                _context.Offers.Add(newOffer);
                 await _context.SaveChangesAsync();
 
                 Console.WriteLine("SUCCESS");
 
-                ViewBag.Offer = nyOffert;
+                ViewBag.Offer = newOffer;
                 return View("OfferSuccess");
             }
 
