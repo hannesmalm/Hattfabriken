@@ -1,0 +1,11 @@
+﻿@model Hattfabriken.Models.Hatt
+
+<h2>Confirm Deletion</h2>
+
+<p>Are you sure you want to delete the hat: <a>@Model.HatName</a>?</p>
+
+<form asp-action="DeleteHatConfirmed" method="post">
+	<input asp-for="HatId" type="hidden" value="@Model.HatId" />
+    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+    <a asp-action="StorageOfHats" class="btn btn-primary">Cancel</a>
+</form>
