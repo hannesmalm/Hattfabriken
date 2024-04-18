@@ -39,8 +39,8 @@ namespace Hattfabriken.Models.ViewModels
 
         public IFormFile? RequestImage { get; set; }
 
-        public string DeliveryOrPickup { get; set; } 
+        public string DeliveryOrPickup { get; set; }
 
-        public Boolean Urgent { get; set; } 
+        public Boolean Urgent { get; set; }
     }
 }

@@ -1,7 +1,4 @@
-﻿@using System.Security.Claims
-@model Request
-
-<div class="container">
+﻿<div class="container">
     <a asp-controller="Request" asp-action="AllRequests" class="btn btn-primary mb-3">Back to list</a>
 
     @if (Model == null)
@@ -36,34 +33,14 @@
         <hr>
 
         <div class="row">
-
-            @* RIKTIGA *@
-           @*  <div class="col-md-6">
+            <div class="col-md-6">
                 <p>Hat-ID: @Model.HatId</p>
                 <p>Material: @Model.Material</p>
                 <p>Measurement: @Model.Measurement</p>
                 <p>Height: @Model.Height</p>
                 <p>Special Effects: @Model.Material</p>
-                <ul>
-                    @foreach (var material in ViewBag.Materials)
-                    {
-                        <li>@material.MaterialName</li>
-                    }
-                </ul>
-            </div> *@
-            <div class="row">
-                <div class="col-md-6">
-                    <p>Hat-ID: @Model.HatId</p>
-                    <p>Material: @Model.Material</p>
-                    <p>Measurement: @Model.Measurement</p>
-                    <p>Height: @Model.Height</p>
-                    <p>Special Effects: @Model.Material</p>
-                    <ul id="specialEffectsMaterials"></ul>
-                </div>
+                <ul id="specialEffectsMaterials"></ul>
             </div>
-
-
-
 
             <div class="col-md-6">
                 <h4>Status:</h4>
@@ -87,6 +64,7 @@
         </div>
     }
 </div>
+
 
 @section Scripts {
     <script>
