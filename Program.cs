@@ -1,3 +1,4 @@
+using Hattfabriken.Controllers;
 using Hattfabriken.Models;
 using Hattfabriken.Models.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -20,6 +21,7 @@ builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<HatDbContext>()
     .AddDefaultTokenProviders();
 builder.Services.AddScoped<PdfService>();
+builder.Services.AddScoped<RequestController>();
 
 
 
