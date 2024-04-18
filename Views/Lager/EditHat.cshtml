@@ -1,0 +1,69 @@
+﻿@model Hattfabriken.Models.EditHatViewModel
+
+<form asp-action="EditHat" asp-controller="Hat" method="post">
+    <input asp-for="HatId" type="hidden" />
+    <div class="form-group">
+        <label asp-for="HatName">Name:</label>
+        <input asp-for="HatName" class="form-control" />
+        <span asp-validation-for="HatName" class="text-danger"></span>
+    </div>
+ @*    <div class="form-group">
+        <label for="material">Material:</label>
+        <select id="material" name="MaterialName" class="form-control">
+            @if (ViewBag.Materials != null && ViewBag.Materials.Count > 0)
+            {
+                foreach (var material in ViewBag.Materials)
+                {
+                    <option value="@material.MaterialName">@material.MaterialName</option>
+                }
+            }
+            else
+            {
+                <option>No materials available</option>
+            }
+        </select>
+    </div> *@
+    <div class="form-group">
+        <label for="material">Material:</label>
+        <select id="material" name="MaterialName" class="form-control">
+            @{
+                foreach (var material in ViewBag.Materials)
+                {
+                    var isSelected = material.MaterialName == Model.MaterialName ? "selected" : "";
+                    <option value="@material.MaterialName" selected="@isSelected">
+                        @material.MaterialName
+                    </option>
+                }
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Description:</label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+    <label asp-for="Price">Price:</label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="SpecialEffects">Special effects:</label>
+        <input asp-for="SpecialEffects" class="form-control" />
+        <span asp-validation-for="SpecialEffects" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="OuterMeasurement">Outer measurement:</label>
+        <input asp-for="OuterMeasurement" class="form-control" />
+        <span asp-validation-for="OuterMeasurement" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Quantity">Quantity:</label>
+        <input asp-for="Quantity" class="form-control" />
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Edit Hat</button>
+</form>
