@@ -1,4 +1,4 @@
-﻿@model List<Hattfabriken.Models.Offer>
+﻿@model List<Offer>
 
 <p>Här är alla offers brush</p>
 
@@ -28,25 +28,25 @@
         {
             <tr data-href="@Url.Action("OfferDetails", "Offer", new { offerId = offer.OffertId })">
                 <td>
-                    <p>@offer.SkapadDatum.ToString("yyyy-MM-dd")</p>
+                    <p>@offer.DateCreated.ToString("yyyy-MM-dd")</p>
                 </td>
                 <td>
                     <p>@offer.OffertId</p>
                 </td>
                 <td>
-                    <p>@offer.KundNamn</p>
+                    <p>@offer.Name</p>
                 </td>
                 <td>
-                    <p>@offer.KundMail</p>
+                    <p>@offer.Email</p>
                 </td>
                 <td>
-                    <p>@offer.KundTel</p>
+                    <p>@offer.PhoneNumber</p>
                 </td>
                 <td>
-                    <p>@offer.TotalKostnad</p>
+                    <p>@offer.TotalCost</p>
                 </td>
                 <td>
-                    <p>@offer.EstimeratLeveransdatum.ToString("yyyy-MM-dd")</p>
+                    <p>@offer.EstimatedDeliveryDate.ToString("yyyy-MM-dd")</p>
                 </td>
                 <td>
                     <!-- Knapp för att visa konversation (öppna mail) -->

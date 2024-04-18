@@ -11,8 +11,8 @@
     // Hur hämtar vi från formuläret? (getElementByID = "ASP-FOR" )
     window.onload = function() {
         var subject = "Offer for request ...";
-        var emailAdress = "@offer.KundMail";
-        var name = "@offer.KundNamn";
+        var emailAdress = "@offer.Email";
+        var name = "@offer.Name";
         var body = "Dear " + name + ",\n\n  Here is an offer bla bla bla.  \n\nBest regards,\nThe Hat Factory Team";
         var mailtoLink = "mailto:" + encodeURIComponent(emailAdress) + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
         window.location.href = mailtoLink;

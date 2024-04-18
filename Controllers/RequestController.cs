@@ -97,6 +97,12 @@ namespace Hattfabriken.Controllers
         public IActionResult AllRequests()
         {
             var requestList = _context.Requests.ToList(); // Hämta alla Förfrågningar från databasen
+            
+            if (requestList.Count == 0)
+            {
+                requestList = new List<Request>();
+            }
+            
             return View(requestList);
         }
 

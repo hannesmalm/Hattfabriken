@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Hattfabriken.Models.Viewmodels;
 using Hattfabriken.Models.Interfaces;
+using Hattfabriken.Models.ViewModels;
 
 namespace Hattfabriken.Controllers
 {
@@ -15,6 +16,8 @@ namespace Hattfabriken.Controllers
             _context = context;
             _imageService = imageService;
         }
+
+        public double SpecialEffectCost { get; private set; }
 
         [HttpGet]
         public IActionResult Create(int? requestId)
@@ -45,17 +48,36 @@ namespace Hattfabriken.Controllers
 
                 Offer nyOffert = new Offer
                 {
-                    KundNamn = model.KundNamn,
-                    KundMail = model.KundMail,
-                    KundTel = model.KundTel,
-                    MaterialKostnad = model.MaterialKostnad,
-                    SpecialeffektKostnad = model.SpecialeffektKostnad,
-                    SpecialtygKostnad = model.SpecialtygKostnad,
-                    FraktKostnad = model.FraktKostnad,
-                    SkapadDatum = DateTime.Today,
-                    EstimeratLeveransdatum = model.EstimeratLeveransdatum,
-                    TotalKostnad = model.TotalKostnad
+                    Name = model.Name,
+                    Email = model.Email,
+                    PhoneNumber = model.PhoneNumber,
+                    Address = model.Address,
+                    PostalCode = model.PostalCode,
+                    Country = model.Country,
+                    MaterialCost = model.MaterialCost,
+                    SpecialEffectCost = model.SpecialEffectCost,
+                    ShippingCost = model.ShippingCost,
+                    DateCreated = DateTime.Today,
+                    EstimatedDeliveryDate = model.EstimatedDeliveryDate,
+                    TotalCost = model.TotalCost,
+                    HatType = model.HatType,
+                    Material = model.Material,
+                    Measurement = model.Measurement,
+                    Height = model.Height,
+                    HatmakerComment = model.HatmakerComment,
+                    Status = model.Status,
+                    DeliveryOrPickup = model.DeliveryOrPickup,
+                    Urgent = model.Urgent
                 };
+
+                if (model.SpecialEffects != null && model.SpecialEffects.Any())
+                {
+                    nyOffert.SpecialEffects = new List<string>(model.SpecialEffects);
+                }
+                else
+                {
+                    nyOffert.SpecialEffects = new List<string>(); // Tom lista om ingen special effekt är vald
+                }
 
                 _context.Offers.Add(nyOffert);
                 await _context.SaveChangesAsync();
@@ -73,26 +95,26 @@ namespace Hattfabriken.Controllers
 
         public IActionResult OfferList()
         {
-            var offers = new List<Offer>
-            {
-                 new Offer
-               {
-            OffertId = 1,
-            KundNamn = "Kund1",
-            KundMail = "filip.nyden@gmail.com",
-            KundTel = "123456789",
-            MaterialKostnad = 100.00,
-            SpecialeffektKostnad = 20.00,
-            SpecialtygKostnad = 30.00,
-            FraktKostnad = 10.00,
-            SkapadDatum = DateTime.Now,
-            EstimeratLeveransdatum = DateTime.Now.AddDays(7),
-            TotalKostnad = 160.00,
+            var offers = new List<Offer>();
+            //{
+            //   new Offer
+            //   {
+            //        OffertId = 1,
+            //        Name = "Kund1",
+            //        Email = "kund1@example.com",
+            //        PhoneNumber = "123456789",
+            //        HatType = 1,
+            //        SpecialEffectCost = 20.00,
+            //        MaterialCost = 100,
+            //        ShippingCost = 10.00,
+            //        DateCreated = DateTime.Now,
+            //        EstimatedDeliveryDate = DateTime.Now.AddDays(7),
+            //        TotalCost = 160.00,
+            //   }
+            //};
 
-               }
-            };
-            //var offerList = _context.Offers.ToList(); // Hämta alla Förfrågningar från databasen
-            return View(offers);
+            var offerList = _context.Offers.ToList(); // Hämta alla Förfrågningar från databasen
+            return View(offerList);
         }
     }
 }
