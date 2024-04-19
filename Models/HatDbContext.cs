@@ -99,7 +99,7 @@ namespace Hattfabriken.Models
                     Country = "Sverige",
                     Email = "annan.kund@example.com",
                     Name = "Annan Kundsson",
-                    Status = "Judith Ongoing",
+                    Status = "Judith-Ongoing",
                     Date = new DateTime(2023, 11, 15),
                     Maker = "Judith",
                     Delivery = false
