@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Hattfabriken.Migrations
 {
     /// <inheritdoc />
-    public partial class nyStart : Migration
+    public partial class AlltFix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -66,7 +68,7 @@ namespace Hattfabriken.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Hats",
+                name: "Hattar",
                 columns: table => new
                 {
                     HatId = table.Column<int>(type: "int", nullable: false)
@@ -79,7 +81,7 @@ namespace Hattfabriken.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Hats", x => x.HatId);
+                    table.PrimaryKey("PK_Hattar", x => x.HatId);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,7 +104,8 @@ namespace Hattfabriken.Migrations
                     MaterialName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     MaterialQuantity = table.Column<int>(type: "int", nullable: false),
                     MaterialSupplier = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    Type = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -139,6 +142,7 @@ namespace Hattfabriken.Migrations
                     HatId = table.Column<int>(type: "int", nullable: true),
                     Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Measurement = table.Column<int>(type: "int", nullable: true),
+                    OuterDimension = table.Column<int>(type: "int", nullable: true),
                     Height = table.Column<int>(type: "int", nullable: true),
                     Commentary = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SpecialEffects = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -157,6 +161,18 @@ namespace Hattfabriken.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Requests", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpecialEffects",
+                columns: table => new
+                {
+                    SpecialEffectName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialEffects", x => x.SpecialEffectName);
                 });
 
             migrationBuilder.CreateTable(
@@ -279,6 +295,44 @@ namespace Hattfabriken.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "QuantityRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MaterialName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    RequestedQuantity = table.Column<int>(type: "int", nullable: false),
+                    IsConfirmed = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_QuantityRequests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_QuantityRequests_Materials_MaterialName",
+                        column: x => x.MaterialName,
+                        principalTable: "Materials",
+                        principalColumn: "MaterialName",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Materials",
+                columns: new[] { "MaterialName", "MaterialQuantity", "MaterialSupplier", "Price", "Type" },
+                values: new object[,]
+                {
+                    { "Cloth", 2200, "ClothCircus@hotmail.com", 13, 1 },
+                    { "Cotton", 200, "CottonCorner@icloud.com", 16, 1 },
+                    { "Felt", 600, "FeltFear@icloud.com", 14, 1 },
+                    { "Leather", 1000, "Leather@gmail.com", 45, 1 },
+                    { "Linen", 300, "GrischLaidback@icloud.com", 28, 1 },
+                    { "Panama", 900, "PanamaSwag@icloud.com", 16, 1 },
+                    { "Polyester", 2900, "PolyesterChina@icloud.com", 11, 1 },
+                    { "Satin", 1000, "SatinSwag@icloud.com", 12, 1 },
+                    { "Snakeskin", 400, "SnakeKiller@icloud.com", 84, 1 },
+                    { "Straw", 800, "StrawSwag@icloud.com", 14, 1 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -317,6 +371,11 @@ namespace Hattfabriken.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuantityRequests_MaterialName",
+                table: "QuantityRequests",
+                column: "MaterialName");
         }
 
         /// <inheritdoc />
@@ -341,19 +400,22 @@ namespace Hattfabriken.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Hats");
+                name: "Hattar");
 
             migrationBuilder.DropTable(
                 name: "Images");
 
             migrationBuilder.DropTable(
-                name: "Materials");
-
-            migrationBuilder.DropTable(
                 name: "Offers");
 
             migrationBuilder.DropTable(
+                name: "QuantityRequests");
+
+            migrationBuilder.DropTable(
                 name: "Requests");
+
+            migrationBuilder.DropTable(
+                name: "SpecialEffects");
 
             migrationBuilder.DropTable(
                 name: "Warehouses");
@@ -363,6 +425,9 @@ namespace Hattfabriken.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Materials");
         }
     }
 }
