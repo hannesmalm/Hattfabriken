@@ -6,7 +6,7 @@ namespace Hattfabriken.Models.ViewModels
 {
     public class RequestViewModel
     {
-        public int? HatId { get; set; }
+        public string? HatType { get; set; }
 
         public string? Material { get; set; }
 

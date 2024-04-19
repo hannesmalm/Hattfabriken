@@ -1,0 +1,108 @@
+﻿@model List<Order>
+
+@{
+    ViewData["Title"] = "Orders";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/orders.css" />
+    <script src="~/js/orders.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- To-Do Column -->
+            <div id="To-Do" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h4>To-Do</h4>
+                @foreach (var order in Model.Where(o => o.Status == "To-Do"))
+                {
+                    <div id="order-@order.Id"
+                         class="card"
+                         draggable="true"
+                         ondragstart="drag(event)"
+                         data-status="@order.Status">
+                        <div class="card-body">
+                            <h5 class="card-title">Order: #@order.Id</h5>
+                            <p class="card-text">@order.Name</p>
+                            <form asp-controller="Orders" asp-action="ReadMore" method="get">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button type="submit" class="btn btn-primary">Read More</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- Otto Ongoing Column -->
+            <div id="Otto-Ongoing" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h4>Otto Ongoing</h4>
+                @foreach (var order in Model.Where(o => o.Status == "Otto-Ongoing"))
+                {
+                    <div id="order-@order.Id"
+                         class="card"
+                         draggable="true"
+                         ondragstart="drag(event)"
+                         data-status="@order.Status">
+                        <div class="card-body">
+                            <h5 class="card-title">Order: #@order.Id</h5>
+                            <p class="card-text">@order.Name</p>
+                            <form asp-controller="Orders" asp-action="ReadMore" method="get">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button type="submit" class="btn btn-primary">Read More</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- Judith Ongoing Column -->
+            <div id="Judith-Ongoing" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h4>Judith Ongoing</h4>
+                @foreach (var order in Model.Where(o => o.Status == "Judith-Ongoing"))
+                {
+                    <div id="order-@order.Id"
+                         class="card"
+                         draggable="true"
+                         ondragstart="drag(event)"
+                         data-status="@order.Status">
+                        <div class="card-body">
+                            <h5 class="card-title">Order: #@order.Id</h5>
+                            <p class="card-text">@order.Name</p>
+                            <form asp-controller="Orders" asp-action="ReadMore" method="get">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button type="submit" class="btn btn-primary">Read More</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Completed Column -->
+            <div id="Completed" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h4>Completed</h4>
+                @foreach (var order in Model.Where(o => o.Status == "Completed"))
+                {
+                    <div id="order-@order.Id"
+                         class="card"
+                         draggable="true"
+                         ondragstart="drag(event)"
+                         data-status="@order.Status">
+                        <div class="card-body">
+                            <h5 class="card-title">Order: #@order.Id</h5>
+                            <p class="card-text">@order.Name</p>
+                            <form asp-controller="Orders" asp-action="ReadMore" method="get">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button type="submit" class="btn btn-primary">Read More</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div
+</body>
+</html>

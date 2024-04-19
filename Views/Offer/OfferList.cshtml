@@ -48,42 +48,11 @@
                     <p>@offer.EstimatedDeliveryDate.ToString("yyyy-MM-dd")</p>
                 </td>
                 <td>
-                    <!-- Knapp för att acceptera offert -->
-                    <button class="btn btn-success" onclick="acceptOffer(@offer.OffertId)">Acceptera Offert</button>
+                    <button class="btn btn-danger" >Offer Declined</button>
+
+                    <button class="btn btn-success" >Offer Accepted</button>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-
-<script>
-    $(document).ready(function () {
-        $('.open-email-client').click(function () {
-            console.log('Klick på knappen för att öppna e-postklienten.');
-
-            var email = $(this).data('email');
-
-            // AJAX-anrop till din controller
-            $.ajax({
-                url: '@Url.Action("OpenEmailClient", "Email")',
-                type: 'GET',
-                data: { emailAdress: email },
-                success: function (response) {
-                    console.log(response); // Logga svaret från servern
-                },
-                error: function (xhr, status, error) {
-                    console.error(xhr.responseText); // Logga eventuella fel
-                    alert('Ett fel uppstod: ' + xhr.responseText); // Visa ett meddelande för användaren
-                }
-            });
-        });
-    });
-</script>
-
-
-
-

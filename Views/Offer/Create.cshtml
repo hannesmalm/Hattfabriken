@@ -73,12 +73,18 @@
             <hr>
 
             <div>
+
+                <p>Hat-ID: @request.HatType</p>
+                <p>Material: @request.Material</p>
+                <p>Measurement: @request.Measurement</p>
+                <p>Height: @request.Height</p>
+
                 <label class="form-label">Choose a hat type:</label>
-                <select asp-for="HatType" class="form-select" value="@request?.HatId">
+                <select asp-for="HatType" class="form-select" value="@request?.HatType">
                     <option value="">Choose</option>
-                    <option value="1">Cowboy</option>
-                    <option value="2">Sheriff</option>
-                    <option value="3">Peaky Blinders</option>
+                    <option value="Cowboy">Cowboy</option>
+                    <option value="Sheriff">Sheriff</option>
+                    <option value="Peaky Blinders">Peaky Blinders</option>
                 </select>
                 <span asp-validation-for="HatType" class="text-danger"></span>
                 
@@ -103,6 +109,7 @@
                     <input asp-for="Height" class="form-control" value="@request?.Height" />
                     <span asp-validation-for="Height" class="text-danger"></span>
                 </div>
+
 
                 <p>Special Effects:</p>
                 <ul>

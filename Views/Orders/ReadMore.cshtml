@@ -1,0 +1,40 @@
+﻿@model Order
+
+@{
+    ViewData["Title"] = "Read More";
+}
+
+<div class="container">
+    <h1>Order Details</h1>
+    <div>
+        <h4>Order Id: @Model.Id</h4>
+        <p>Name: @Model.Name</p>
+        <!-- Visa övrig orderinformation här -->
+    </div>
+    <div>
+        <button class="btn btn-primary" onclick="printQuote()">Print Quote</button>
+        <form method="post" asp-action="CreateShippingLabelPdf" asp-controller="Pdf">
+            <input type="hidden" name="orderId" value="@Model.Id" />
+            <button type="submit" class="btn btn-primary">Print Shipping Label</button>
+        </form>
+        <form asp-controller="Orders" asp-action="Orders" method="get">
+                            <button type="submit" class="btn btn-primary">Back to Orders</button>
+                        </form>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        function printQuote() {
+            // Implementera logik för att skriva ut offert här
+        }
+
+        function printShippingLabel() {
+            // Implementera logik för att skriva ut fraktsedel här
+        }
+    </script>
+}
+
+<style>
+    /* Lägg till CSS-stilar efter behov för att anpassa utseendet på ReadMore-vyn */
+</style
