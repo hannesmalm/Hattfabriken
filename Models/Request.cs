@@ -12,7 +12,7 @@ namespace Hattfabriken.Models
 
         [ForeignKey("Hatt")]
         public int? HatId { get; set; }
-
+        [ForeignKey("Material")]
         public string? Material { get; set; }
 
         public int? Measurement { get; set; }
@@ -23,7 +23,7 @@ namespace Hattfabriken.Models
         public string? Commentary { get; set; }
 
         [ForeignKey("SpecialEffects")]
-        public string SpecialEffects { get; set; } = "";
+        public string? SpecialEffects { get; set; } = "";
 
         public string Adress { get; set; }
 
