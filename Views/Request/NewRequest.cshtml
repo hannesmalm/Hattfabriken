@@ -91,7 +91,7 @@
 
                             <label class="form-label">Contact and Delivery</label>
 
-                            <div class="mb-2">
+                           @*  <div class="mb-2">
 								<select asp-for="Country" class="form-select">
 									<option value="">Country</option>
 									<option value="Sweden">Sverige</option>
@@ -101,6 +101,11 @@
 									<option value="Norway">Norge</option>
 									<option value="Finland">Finland</option>
 								</select>
+                            </div> *@
+
+                            <div class="mb-2">
+                                <label class="form-label">Country for shipping</label>
+                                <input asp-for="Country" class="form-control" placeholder="Country for shipping" />
                             </div>
                             
                             <div class="mb-2">
@@ -123,10 +128,7 @@
                                 <input asp-for="PhoneNumber" class="form-control" placeholder="Phonenumber" />
                             </div>
 
-                            <div class="mb-2">
-                                <label class="form-label">Country for shipping</label>
-                                <input asp-for="Country" class="form-control" placeholder="Country for shipping"/>
-                            </div>
+                            
                             
                         </div>
 
