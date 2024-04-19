@@ -2,8 +2,6 @@
 
 <h1>Storage of Materials</h1>
 
-@* :3 *@
-
 <table class="table">
     <thead>
         <tr>
@@ -25,6 +23,15 @@
                 <td>
                     <a asp-action="EditMaterial" asp-route-id="@material.MaterialName" class="btn btn-primary">Edit</a>
                     <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Orders", "Material")'">Order</button>
+
+                <td>
+                    <!-- Delete button -->
+                    <form asp-action="DeleteMaterial" method="post">
+                        <input type="hidden" name="materialName" value="@material.MaterialName" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+
                 </td>
             </tr>
         }

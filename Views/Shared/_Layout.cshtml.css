@@ -50,3 +50,7 @@ button.accept-policy {
 .Table tbody tr:hover {
     background-color: darkred; /* För att visa att raden är klickbar */
 }
+
+.hidden {
+    display: none;
+}

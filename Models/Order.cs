@@ -6,6 +6,7 @@ namespace Hattfabriken.Models
     {
         public int Id { get; set; }
         public string HatType { get; set; }
+
         public string? Material { get; set; }
         public int? Measurement { get; set; }
         public int? Height { get; set; }

@@ -10,8 +10,8 @@ namespace Hattfabriken.Models
         [Key]
         public int Id { get; set; }
 
-        [ForeignKey("Hatt")]
-        public int? HatId { get; set; }
+        [ForeignKey("Hat")]
+        public string? HatType { get; set; }
 
         public string? Material { get; set; }
 

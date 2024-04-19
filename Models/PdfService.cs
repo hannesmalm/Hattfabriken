@@ -205,6 +205,7 @@ namespace Hattfabriken.Models
                         {
                             column.Spacing(10);
 
+
                             //// Customer Details ****Behövs inte????****
                             //column.Item()
                             //    .BorderBottom(1)

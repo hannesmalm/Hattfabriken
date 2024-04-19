@@ -6,7 +6,7 @@ namespace Hattfabriken.Models.ViewModels
 {
     public class RequestViewModel
     {
-        public int? HatId { get; set; }
+        public string? HatType { get; set; }
 
         public string? Material { get; set; }
 
@@ -16,24 +16,24 @@ namespace Hattfabriken.Models.ViewModels
 
         public string? Commentary { get; set; }
 
-        public List<string>? SelectedSpecialEffekter { get; set; }
+        public List<string>? SelectedSpecialEffects { get; set; }
 
         public string Adress { get; set; }
 
-        [RegularExpression(@"^\d{5}$", ErrorMessage = "Postnumret måste vara 5 siffror.")]
+        [RegularExpression(@"^\d{5}$", ErrorMessage = "The postal code must be 5 digits.")]
         public int PostalCode { get; set; }
 
-        [Required(ErrorMessage = "Telefonnummer måste anges")]
-        [RegularExpression("^[0-9]*$", ErrorMessage = "Telefonnumret får bara innehålla siffror.")]
+        [Required(ErrorMessage = "The phone number must be provided")]
+        [RegularExpression("^[0-9]*$", ErrorMessage = "The phone number must only contain digits.")]
         public string PhoneNumber { get; set; }
 
         public string Country { get; set; }
 
-        [Required(ErrorMessage = "Email måste anges")]
-        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Ange en giltig e-postadress.")]
+        [Required(ErrorMessage = "Email must be provided")]
+        [RegularExpression(@"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", ErrorMessage = "Please provide a valid email address.")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage = "Namn måste anges")]
+        [Required(ErrorMessage = "Please provide a name for your request")]
         public string Name { get; set; }
 
         public IFormFile? RequestImage { get; set; }

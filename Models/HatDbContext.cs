@@ -12,8 +12,7 @@ namespace Hattfabriken.Models
 
 
 
-        public DbSet<Hatt> Hattar { get; set; }
-
+        public DbSet <Hat> Hats {  get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<Request> Requests { get; set; }

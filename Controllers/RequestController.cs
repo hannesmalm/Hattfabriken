@@ -23,7 +23,6 @@ namespace Hattfabriken.Controllers
             _mailService = this._mailService;
         }
 
-
         [HttpGet]
         public IActionResult NewRequest()
         {
@@ -42,7 +41,7 @@ namespace Hattfabriken.Controllers
                     Material = requestViewModel.Material,
                     Measurement = requestViewModel.Measurement,
                     Height = requestViewModel.Height,
-                    HatId = requestViewModel.HatId,
+                    HatType = requestViewModel.HatType,
                     Country = requestViewModel.Country,
                     Adress = requestViewModel.Adress,
                     PostalCode = requestViewModel.PostalCode,
@@ -69,13 +68,13 @@ namespace Hattfabriken.Controllers
                     Console.WriteLine(image.Data);
                 }
 
-                if (requestViewModel.SelectedSpecialEffekter != null && requestViewModel.SelectedSpecialEffekter.Any())
+                if (requestViewModel.SelectedSpecialEffects != null && requestViewModel.SelectedSpecialEffects.Any())
                 {
-                    request.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffekter);
+                    request.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffects);
                 }
                 else
                 {
-                    request.SpecialEffects = new List<string>(); // Tom lista om ingen special effekt är vald
+                    request.SpecialEffects = new List<string>(); 
                 }
 
                 _context.Add(request);
@@ -88,7 +87,7 @@ namespace Hattfabriken.Controllers
             {
                 foreach (var error in ModelState[key].Errors)
                 {
-                    Console.WriteLine($"Fält: {key}, Fel: {error.ErrorMessage}");
+                    Console.WriteLine($"Field: {key}, Error: {error.ErrorMessage}");
                 }
             }
 
@@ -98,6 +97,12 @@ namespace Hattfabriken.Controllers
         public IActionResult AllRequests()
         {
             var requestList = _context.Requests.ToList(); // Hämta alla Förfrågningar från databasen
+            
+            if (requestList.Count == 0)
+            {
+                requestList = new List<Request>();
+            }
+            
             return View(requestList);
         }
 
@@ -111,19 +116,15 @@ namespace Hattfabriken.Controllers
         }
 
         [HttpPost]
-        public IActionResult AcceptRequest(int requestId)
+        public void AcceptRequest(int requestId)
         {
-            var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
-            if (request == null)
-            {
-                return NotFound();
-            }
+            Request request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
+
+            // SKA EJ KÖRAS I REQUESTS, FLYTTAD TILL OFFER SÅ EN REQUEST INTE SÄTTS TILL ACCEPTED INNAN OFFERT ÄR SKICKAD ! ! !
 
             request.Status = "Accepted";
             _context.Update(request);
             _context.SaveChanges();
-
-            return RedirectToAction("AllRequests");
         }
 
         [HttpPost]
@@ -132,14 +133,13 @@ namespace Hattfabriken.Controllers
             var request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
             if (request == null)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
             request.Status = "Declined";
             _context.Update(request);
             _context.SaveChanges();
 
-            
             return RedirectToAction("AllRequests");
         }
 
@@ -147,6 +147,5 @@ namespace Hattfabriken.Controllers
         {
             return View();
         }
-
     }
 }

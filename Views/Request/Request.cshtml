@@ -6,11 +6,11 @@
 
     @if (Model == null)
     {
-        <p class="alert alert-warning">Förfrågan hittades inte.</p>
+        <p class="alert alert-warning">Request was not found.</p>
     }
     else
     {
-        <h4 class="mb-4">FÖRFRÅGAN</h4>
+        <h4 class="mb-4">REQUEST</h4>
 
         <div class="row">
             <div class="col-md-6">
@@ -37,7 +37,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <p>Hat-ID: @Model.HatId</p>
+                <p>Hat-ID: @Model.HatType</p>
                 <p>Material: @Model.Material</p>
                 <p>Measurement: @Model.Measurement</p>
                 <p>Height: @Model.Height</p>
@@ -51,16 +51,15 @@
             </div>
 
             <div class="col-md-6">
-                <h4>Status:</h4>
-                <p>@Model.Status</p>
+                <h4>Status: @Model.Status</h4>
+                <br />
                 @if (Model.Status == "Pending")
                 {
-                    <form id="acceptForm">
+                    <form method="get" asp-controller="Offer" asp-action="Create" class="mb-3">
                         <input type="hidden" name="requestId" value="@Model.Id" />
-                        <input type="hidden" name="customerEmail" value="@Model.Email" />
-                        <input type="hidden" name="customerName" value="@Model.Name" />
-                        <button type="button" onclick="acceptRequest()" class="btn btn-success w-100">Accept Request</button>
+                        <button type="submit" class="btn btn-success w-100">Create offer</button>
                     </form>
+
                     <form id="declineForm">
                         <input type="hidden" name="requestId" value="@Model.Id" />
                         <input type="hidden" name="customerEmail" value="@Model.Email" />
@@ -75,25 +74,26 @@
 
 @section Scripts {
     <script>
-        function acceptRequest() {
-            var form = document.getElementById('acceptForm');
-            var requestId = form.querySelector('[name="requestId"]').value;
 
-            $.ajax({
-                url: '@Url.Action("AcceptRequest", "Request")',
-                type: 'POST',
-                data: { requestId: requestId },
-                success: function (response) {
+        // function acceptRequest() {
+        //     var form = document.getElementById('acceptForm');
+        //     var requestId = form.querySelector('[name="requestId"]').value;
+
+        //     $.ajax({
+        //         url: '@Url.Action("AcceptRequest", "Request")',
+        //         type: 'POST',
+        //         data: { requestId: requestId },
+        //         success: function (response) {
                     
-                    console.log(response);
-                    redirectToSendEmail(form, true); 
-                },
-                error: function (xhr, status, error) {
+        //             console.log(response);
+        //             redirectToSendEmail(form, true); 
+        //         },
+        //         error: function (xhr, status, error) {
                     
-                    console.error(xhr.responseText);
-                }
-            });
-        }
+        //             console.error(xhr.responseText);
+        //         }
+        //     });
+        // }
 
         function declineRequest() {
             var form = document.getElementById('declineForm');
