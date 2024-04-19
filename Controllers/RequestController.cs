@@ -36,13 +36,22 @@ namespace Hattfabriken.Controllers
         public IActionResult NewRequest()
         {
             var materials = _context.Materials.ToList();
-            var specialEffectsMaterials = materials.Where(materials => materials.Type ==2).ToList();
+            var specialEffectsMaterials = materials.Where(materials => materials.Type == 2).ToList();
             var specialEffectsList = _context.SpecialEffects.ToList();
             ViewBag.SpecialEffects = specialEffectsList;
             ViewBag.Materials = materials; // Send materials to the view as ViewBag
+            ViewBag.Materials = materials ?? new List<Material>(); // jw's sus-kod kan behövas se över
             RequestViewModel requestViewModel = new RequestViewModel();
+            {
+                var SelectedSpecialEffects = new List<String>();
+
+            }
             return View(requestViewModel);
         }
+
+
+
+
 
         //[HttpGet]
         //public IActionResult NewRequestSpecial()

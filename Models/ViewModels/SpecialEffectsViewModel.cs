@@ -8,7 +8,8 @@ namespace Hattfabriken.Models.ViewModels
     {
         [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Effect Name is required")]
         [Display(Name = "Effect Name")]
-        public string SpecialEffectName { get; set; }
+        
+        public string? SpecialEffectName { get; set; }
 
         [System.ComponentModel.DataAnnotations.Required(ErrorMessage = "Price is required")]
         [Display(Name = "Price")]
