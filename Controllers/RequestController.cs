@@ -53,7 +53,7 @@ namespace Hattfabriken.Controllers
                     Measurement = requestViewModel.Measurement,
                     Height = requestViewModel.Height,
                     OuterMeasurement = requestViewModel.OuterMeasurement,
-                    HatId = requestViewModel.HatId,
+                    HatType = requestViewModel.HatType,
                     Country = requestViewModel.Country,
                     Adress = requestViewModel.Adress,
                     PostalCode = requestViewModel.PostalCode,
