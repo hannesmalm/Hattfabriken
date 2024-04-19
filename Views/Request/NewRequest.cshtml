@@ -1,9 +1,6 @@
 ﻿@model Hattfabriken.Models.ViewModels.RequestViewModel
 
 
-
-
-
 @{
 
     ViewData["Title"] = "Skapa en ny förfrågan";
@@ -51,43 +48,30 @@
                                 <option value="">Choose material...</option>
                                 @foreach (var material in ViewBag.Materials)
                                 {
-                                     <!-- Lägg till villkor för att bara visa material av typen 1 -->
-                                    @if (material.Type == 1) 
-                                    {
-                                        <option value="@material.MaterialName">@material.MaterialName</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-
-                       
-                       @*  <div class="mb-3">
-                            <label class="form-label">Which Special effects do you want?</label>
-                            <select asp-for="Material" class="form-select" id="Material">
-                                <option value="">Choose material...</option>
-                                @foreach (var material in ViewBag.Materials)
-                                {
                                     <option value="@material.MaterialName">@material.MaterialName</option>
                                 }
                             </select>
-                        </div> *@
+                        </div>
+
 
                         <div class="mb-3">
                             <label class="form-label">Do you want any special effects?</label>
-                                <select asp-for="SpecialEffects" class="form-select" id="SpecialEffectsDrop">
+                            <select asp-for="SpecialEffects" class="form-select" id="SpecialEffectsDrop">
                                 <option value="">Choose Special effect...</option>
                                 @if (ViewBag.SpecialEffects != null)
                                 {
-                                    @foreach (var specialEffectsList in ViewBag.SpecialEffects)
+                                    foreach (var specialEffectsList in ViewBag.SpecialEffects)
                                     {
-
                                         <option value="@specialEffectsList.SpecialEffectName">@specialEffectsList.SpecialEffectName</option>
-
                                     }
                                 }
-
+                                else
+                                {
+                                    <option value="">No Special effects available</option>
+                                }
                             </select>
                         </div>
+
 
                         <div class="mb-3">
                             <div class="input-group">
@@ -105,17 +89,17 @@
                             <label class="form-label">Contact and Delivery</label>
 
                             <div class="mb-2">
-								<select asp-for="Country" class="form-select">
-									<option value="">Country</option>
-									<option value="Sweden">Sverige</option>
-									<option value="USA">USA</option>
-									<option value="UK">Storbrittanien</option>
-									<option value="Germany">Grekland</option>
-									<option value="Norway">Norge</option>
-									<option value="Finland">Finland</option>
-								</select>
+                                <select asp-for="Country" class="form-select">
+                                    <option value="">Country</option>
+                                    <option value="Sweden">Sverige</option>
+                                    <option value="USA">USA</option>
+                                    <option value="UK">Storbrittanien</option>
+                                    <option value="Germany">Grekland</option>
+                                    <option value="Norway">Norge</option>
+                                    <option value="Finland">Finland</option>
+                                </select>
                             </div>
-                            
+
                             <div class="mb-2">
                                 <input asp-for="Name" class="form-control" placeholder="Name" />
                             </div>
@@ -135,7 +119,7 @@
                             <div class="mb-2">
                                 <input asp-for="PhoneNumber" class="form-control" placeholder="Phonenumber" />
                             </div>
-                            
+
                         </div>
 
                         <div class="mb-3">

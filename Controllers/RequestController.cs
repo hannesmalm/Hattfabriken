@@ -74,8 +74,10 @@ namespace Hattfabriken.Controllers
                 {
                     Commentary = requestViewModel.Commentary,
                     Material = requestViewModel.Material,
+                    SpecialEffects = requestViewModel.SpecialEffects,
                     Measurement = requestViewModel.Measurement,
                     Height = requestViewModel.Height,
+                    OuterDimension = requestViewModel.OuterDimension,
                     HatId = requestViewModel.HatId,
                     Country = requestViewModel.Country,
                     Adress = requestViewModel.Adress,
