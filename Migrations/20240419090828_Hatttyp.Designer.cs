@@ -4,6 +4,7 @@ using Hattfabriken.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    partial class HatDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240419090828_Hatttyp")]
+    partial class Hatttyp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -208,56 +211,25 @@ namespace Hattfabriken.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OffertId"));
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeliveryOrPickup")
+                    b.Property<string>("CustomerMail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("CustomerName")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerTel")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EstimatedDeliveryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("HatType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HatmakerComment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Height")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Material")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<double>("MaterialCost")
                         .HasColumnType("float");
-
-                    b.Property<int>("Measurement")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PostalCode")
-                        .HasColumnType("int");
 
                     b.Property<double?>("ShippingCost")
                         .HasColumnType("float");
@@ -265,18 +237,11 @@ namespace Hattfabriken.Migrations
                     b.Property<double?>("SpecialEffectCost")
                         .HasColumnType("float");
 
-                    b.Property<string>("SpecialEffects")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double>("SpecialFabricCost")
+                        .HasColumnType("float");
 
                     b.Property<double>("TotalCost")
                         .HasColumnType("float");
-
-                    b.Property<bool>("Urgent")
-                        .HasColumnType("bit");
 
                     b.HasKey("OffertId");
 
