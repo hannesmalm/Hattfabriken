@@ -85,8 +85,9 @@ namespace Hattfabriken.Migrations
 
                     b.HasKey("HatId");
 
-                    b.ToTable("Hats");
+                    b.HasIndex("MaterialName");
 
+                    b.ToTable("Hats");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Image", b =>
@@ -299,8 +300,8 @@ namespace Hattfabriken.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("HatId")
-                        .HasColumnType("int");
+                    b.Property<string>("HatType")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Height")
                         .HasColumnType("int");
@@ -556,6 +557,17 @@ namespace Hattfabriken.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.Hat", b =>
+                {
+                    b.HasOne("Hattfabriken.Models.Material", "Material")
+                        .WithMany()
+                        .HasForeignKey("MaterialName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Material");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>

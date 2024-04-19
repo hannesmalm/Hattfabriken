@@ -14,7 +14,7 @@ namespace Hattfabriken.Controllers
         }
         public IActionResult StorageOfHats()
         {
-            var existingHats = _dbContext.Hattar
+            var existingHats = _dbContext.Hats
                 .Select(hat => new HatViewModel
                 {
                     HatId = hat.HatId,
@@ -53,7 +53,7 @@ namespace Hattfabriken.Controllers
 
                 if (material != null)
                 {
-                    Hatt newHat = new Hatt()
+                    Hat newHat = new Hat()
                     {
                         HatId = addHatViewModel.HatId,
                         HatName = addHatViewModel.HatName,
@@ -65,7 +65,7 @@ namespace Hattfabriken.Controllers
                         Quantity = addHatViewModel.Quantity,
                         Material = material  
                     };
-                    _dbContext.Hattar.Add(newHat);
+                    _dbContext.Hats.Add(newHat);
                     _dbContext.SaveChanges();
                     return RedirectToAction(nameof(StorageOfHats));
                 }
@@ -108,7 +108,7 @@ namespace Hattfabriken.Controllers
         [HttpGet]
         public IActionResult EditHat(int HatId)
         {
-			var hat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == HatId);
+			var hat = _dbContext.Hats.FirstOrDefault(h => h.HatId == HatId);
 
 			if (hat == null)
             {
@@ -143,7 +143,7 @@ namespace Hattfabriken.Controllers
             {
                 try
                 {
-                    var existingHat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == editHatViewModel.HatId);
+                    var existingHat = _dbContext.Hats.FirstOrDefault(h => h.HatId == editHatViewModel.HatId);
 
                     if (existingHat != null)
                     {
@@ -155,7 +155,7 @@ namespace Hattfabriken.Controllers
                         existingHat.OuterMeasurement = editHatViewModel.OuterMeasurement;
                         existingHat.Quantity = editHatViewModel.Quantity;
 
-                        _dbContext.Hattar.Update(existingHat);
+                        _dbContext.Hats.Update(existingHat);
                         _dbContext.SaveChanges();
                         return RedirectToAction(nameof(StorageOfHats));
                     }
@@ -173,7 +173,7 @@ namespace Hattfabriken.Controllers
         [HttpGet]
         public IActionResult DeleteHat(int HatId)
         {
-            var hat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == HatId);
+            var hat = _dbContext.Hats.FirstOrDefault(h => h.HatId == HatId);
 
             if (hat == null)
             {
@@ -185,14 +185,14 @@ namespace Hattfabriken.Controllers
         [HttpPost]
         public IActionResult DeleteHatConfirmed(int HatId)
         {
-            var hat = _dbContext.Hattar.FirstOrDefault(h => h.HatId == HatId);
+            var hat = _dbContext.Hats.FirstOrDefault(h => h.HatId == HatId);
 
             if (hat == null)
             {
                 return RedirectToAction("StorageOfHats", new { errorMessage = "Hat not found." });
             }
 
-            _dbContext.Hattar.Remove(hat);
+            _dbContext.Hats.Remove(hat);
             _dbContext.SaveChanges();
             return RedirectToAction(nameof(StorageOfHats));
 

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Hattfabriken.Migrations
 {
     /// <inheritdoc />
-    public partial class fredrik : Migration
+    public partial class Hatttyp : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -68,23 +68,6 @@ namespace Hattfabriken.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Hats",
-                columns: table => new
-                {
-                    HatId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    HatName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MaterialName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    SpecialEffects = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Hats", x => x.HatId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Images",
                 columns: table => new
                 {
@@ -139,7 +122,7 @@ namespace Hattfabriken.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HatId = table.Column<int>(type: "int", nullable: true),
+                    HatType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Measurement = table.Column<int>(type: "int", nullable: true),
                     Height = table.Column<int>(type: "int", nullable: true),
@@ -283,6 +266,31 @@ namespace Hattfabriken.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Hats",
+                columns: table => new
+                {
+                    HatId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HatName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MaterialName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    SpecialEffects = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OuterMeasurement = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Hats", x => x.HatId);
+                    table.ForeignKey(
+                        name: "FK_Hats_Materials_MaterialName",
+                        column: x => x.MaterialName,
+                        principalTable: "Materials",
+                        principalColumn: "MaterialName",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "QuantityRequests",
                 columns: table => new
                 {
@@ -358,6 +366,11 @@ namespace Hattfabriken.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Hats_MaterialName",
+                table: "Hats",
+                column: "MaterialName");
 
             migrationBuilder.CreateIndex(
                 name: "IX_QuantityRequests_MaterialName",
