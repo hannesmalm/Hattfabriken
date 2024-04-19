@@ -10,7 +10,7 @@ namespace Hattfabriken.Models
         [Key]
         public int OffertId { get; set; }
 
-        public required int HatType { get; set; }
+        public required string HatType { get; set; }
 
         public required string Name { get; set; }
 
