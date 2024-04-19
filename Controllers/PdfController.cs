@@ -28,7 +28,7 @@ namespace Hattfabriken.Controllers
             var data = new ShippingLabelData
             {
                 Name = order.Name,
-                Adress = order.Adress,
+                Adress = order.Address,
                 PostalCode = order.PostalCode,
                 Country = order.Country,
                 OrderNumber = order.Id,

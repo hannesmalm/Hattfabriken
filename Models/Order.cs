@@ -5,10 +5,7 @@ namespace Hattfabriken.Models
     public class Order
     {
         public int Id { get; set; }
-        [ForeignKey("Offer")]
-        public int? OfferId { get; set; }
-        [ForeignKey("Hatt")]
-        public int? HatId { get; set; }
+        public string HatType { get; set; }
         public string? Material { get; set; }
         public int? Measurement { get; set; }
         public int? Height { get; set; }
@@ -16,7 +13,7 @@ namespace Hattfabriken.Models
         public List<string>? SpecialEffects { get; set; }
         [ForeignKey("Image")]
         public byte[]? HatImage { get; set; }
-        public string Adress { get; set; }
+        public string Address { get; set; }
         public int PostalCode { get; set; }
         public string PhoneNumber { get; set; }
         public string Country { get; set; }

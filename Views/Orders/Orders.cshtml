@@ -3,183 +3,106 @@
 @{
     ViewData["Title"] = "Orders";
 }
-<div class="container-fluid">
-    <div class="row">
-        <!-- To-Do Column -->
-        <div id="To-Do" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <h4>To-Do</h4>
-            @foreach (var order in Model.Where(o => o.Status == "To-Do"))
-            {
-                <div id="order-@order.Id"
-                     class="card"
-                     draggable="true"
-                     ondragstart="drag(event)"
-                     data-status="@order.Status">
-                    <div class="card-body">
-                        <h5 class="card-title">Order: #@order.Id</h5>
-                        <p class="card-text">@order.Name</p>
-                        <form asp-controller="Orders" asp-action="ReadMore" method="get">
-                            <input type="hidden" name="id" value="@order.Id" />
-                            <button type="submit" class="btn btn-primary">Read More</button>
-                        </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/orders.css" />
+    <script src="~/js/orders.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- To-Do Column -->
+            <div id="To-Do" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h4>To-Do</h4>
+                @foreach (var order in Model.Where(o => o.Status == "To-Do"))
+                {
+                    <div id="order-@order.Id"
+                         class="card"
+                         draggable="true"
+                         ondragstart="drag(event)"
+                         data-status="@order.Status">
+                        <div class="card-body">
+                            <h5 class="card-title">Order: #@order.Id</h5>
+                            <p class="card-text">@order.Name</p>
+                            <form asp-controller="Orders" asp-action="ReadMore" method="get">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button type="submit" class="btn btn-primary">Read More</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            }
-        </div>
-        <!-- Otto Ongoing Column -->
-        <div id="Otto-Ongoing" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <h4>Otto Ongoing</h4>
-            @foreach (var order in Model.Where(o => o.Status == "Otto-Ongoing"))
-            {
-                <div id="order-@order.Id"
-                     class="card"
-                     draggable="true"
-                     ondragstart="drag(event)"
-                     data-status="@order.Status">
-                    <div class="card-body">
-                        <h5 class="card-title">Order: #@order.Id</h5>
-                        <p class="card-text">@order.Name</p>
-                        <form asp-controller="Orders" asp-action="ReadMore" method="get">
-                            <input type="hidden" name="id" value="@order.Id" />
-                            <button type="submit" class="btn btn-primary">Read More</button>
-                        </form>
+                }
+            </div>
+            <!-- Otto Ongoing Column -->
+            <div id="Otto-Ongoing" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h4>Otto Ongoing</h4>
+                @foreach (var order in Model.Where(o => o.Status == "Otto-Ongoing"))
+                {
+                    <div id="order-@order.Id"
+                         class="card"
+                         draggable="true"
+                         ondragstart="drag(event)"
+                         data-status="@order.Status">
+                        <div class="card-body">
+                            <h5 class="card-title">Order: #@order.Id</h5>
+                            <p class="card-text">@order.Name</p>
+                            <form asp-controller="Orders" asp-action="ReadMore" method="get">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button type="submit" class="btn btn-primary">Read More</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            }
-        </div>
-        <!-- Judith Ongoing Column -->
-        <div id="Judith-Ongoing" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <h4>Judith Ongoing</h4>
-            @foreach (var order in Model.Where(o => o.Status == "Judith-Ongoing"))
-            {
-                <div id="order-@order.Id"
-                     class="card"
-                     draggable="true"
-                     ondragstart="drag(event)"
-                     data-status="@order.Status">
-                    <div class="card-body">
-                        <h5 class="card-title">Order: #@order.Id</h5>
-                        <p class="card-text">@order.Name</p>
-                        <form asp-controller="Orders" asp-action="ReadMore" method="get">
-                            <input type="hidden" name="id" value="@order.Id" />
-                            <button type="submit" class="btn btn-primary">Read More</button>
-                        </form>
+                }
+            </div>
+            <!-- Judith Ongoing Column -->
+            <div id="Judith-Ongoing" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h4>Judith Ongoing</h4>
+                @foreach (var order in Model.Where(o => o.Status == "Judith-Ongoing"))
+                {
+                    <div id="order-@order.Id"
+                         class="card"
+                         draggable="true"
+                         ondragstart="drag(event)"
+                         data-status="@order.Status">
+                        <div class="card-body">
+                            <h5 class="card-title">Order: #@order.Id</h5>
+                            <p class="card-text">@order.Name</p>
+                            <form asp-controller="Orders" asp-action="ReadMore" method="get">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button type="submit" class="btn btn-primary">Read More</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
 
-        <!-- Completed Column -->
-        <div id="Completed" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <h4>Completed</h4>
-            @foreach (var order in Model.Where(o => o.Status == "Completed"))
-            {
-                <div id="order-@order.Id"
-                     class="card"
-                     draggable="true"
-                     ondragstart="drag(event)"
-                     data-status="@order.Status">
-                    <div class="card-body">
-                        <h5 class="card-title">Order: #@order.Id</h5>
-                        <p class="card-text">@order.Name</p>
-                        <form asp-controller="Orders" asp-action="ReadMore" method="get">
-                            <input type="hidden" name="id" value="@order.Id" />
-                            <button type="submit" class="btn btn-primary">Read More</button>
-                        </form>
+            <!-- Completed Column -->
+            <div id="Completed" class="col kanban-column" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h4>Completed</h4>
+                @foreach (var order in Model.Where(o => o.Status == "Completed"))
+                {
+                    <div id="order-@order.Id"
+                         class="card"
+                         draggable="true"
+                         ondragstart="drag(event)"
+                         data-status="@order.Status">
+                        <div class="card-body">
+                            <h5 class="card-title">Order: #@order.Id</h5>
+                            <p class="card-text">@order.Name</p>
+                            <form asp-controller="Orders" asp-action="ReadMore" method="get">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button type="submit" class="btn btn-primary">Read More</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
+
         </div>
-
-    </div>
-</div>
-
-<style>
-    .kanban-column {
-        border-right: 2px solid #dee2e6; /* En grå linje som skiljer kolumnerna åt */
-        min-height: 400px; /* Ställ in en minimumhöjd så att även tomma kolumner visar sin gräns */
-    }
-
-        /* Ta bort border från sista kolumnen eftersom den inte behöver en gräns på höger sida */
-        .kanban-column:last-child {
-            border-right: none;
-        }
-
-    .card {
-        margin-bottom: 0.5rem; /* Lägg till lite marginal mellan korten */
-    }
-
-    /* Stil för att förbättra kolumnernas utseende */
-    .kanban-column > h4 {
-        text-align: center;
-        margin-bottom: 1rem;
-    }
-
-    /* Säkerställ att hela kolumnen kan acceptera draggade objekt, inte bara befintliga kort */
-    .kanban-column {
-        padding: 1rem;
-        transition: background-color 0.3s; /* Lägg till en övergångseffekt vid dragover */
-    }
-</style>
-
-<script>
-    // Antag att orders-arrayen är deklarerad och initialiserad korrekt tidigare i koden.
-
-    function updateOrderStatus(orderId, newStatus) {
-        // Använda AJAX för att skicka en förfrågan till servern för att uppdatera orderns status
-        $.ajax({
-            url: '/Orders/UpdateStatus', // URL till action-metoden i din OrdersController
-            method: 'POST',
-            data: { id: orderId, status: newStatus },
-            success: function (response) {
-                // Hantera ett framgångsrikt svar
-                console.log('Order status updated successfully!');
-            },
-            error: function (xhr) {
-                // Hantera fel
-                console.error('Error updating order status: ' + xhr.responseText);
-            }
-        });
-    }
-
-    function allowDrop(ev) {
-        ev.preventDefault();
-        if (ev.target.classList.contains('kanban-column')) {
-            ev.target.classList.add('drag-over');
-        }
-    }
-
-    function drag(ev) {
-        ev.dataTransfer.setData("text/plain", ev.target.id);
-    }
-
-    function drop(ev) {
-        ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
-        var draggableElement = document.getElementById(data);
-        var newStatus = ev.target.id.replace('kanban-column-', ''); // Anta att kolumnens id är 'kanban-column-STATUS'
-
-        if (ev.target.classList.contains('kanban-column')) {
-            ev.target.appendChild(draggableElement);
-        } else {
-            ev.target.closest('.kanban-column').appendChild(draggableElement);
-        }
-
-        var oldStatus = draggableElement.getAttribute('data-status');
-        if (newStatus !== oldStatus) {
-            draggableElement.setAttribute('data-status', newStatus);
-            var orderId = data.split('-')[1]; // Anta att id är det andra elementet efter split
-            updateOrderStatus(orderId, newStatus);
-        }
-    }
-
-    document.querySelectorAll('.kanban-column').forEach(function (column) {
-        column.addEventListener('dragover', allowDrop);
-        column.addEventListener('drop', drop);
-        column.addEventListener('dragleave', function (ev) {
-            if (ev.target.classList.contains('kanban-column')) {
-                ev.target.classList.remove('drag-over');
-            }
-        });
-    });
-</script>
+    </div
+</body>
+</html>
