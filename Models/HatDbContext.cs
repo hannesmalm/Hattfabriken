@@ -22,14 +22,9 @@ namespace Hattfabriken.Models
         public DbSet<Offer> Offers { get; set; }
         public DbSet<QuantityRequest> QuantityRequests { get; set; }
 
+        public DbSet<SpecialEffects> SpecialEffects { get; set; }
 
 
-
-     
-
-
-
-        //SÄÄÄÄD method for initializing default materials LOOOOOOL :3
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

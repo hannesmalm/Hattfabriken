@@ -1,0 +1,28 @@
+﻿@model IEnumerable<SpecialEffects>
+
+<h1>Storage of Special Effects</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Effect Name</th>
+            <th>Price</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var specialEffect in Model)
+        {
+            <tr>
+                <td>@specialEffect.SpecialEffectName</td>
+                <td>@specialEffect.Price</td>
+                <td>
+                    <a asp-action="EditSpecialEffect" asp-route-id="@specialEffect.SpecialEffectName" class="btn btn-primary">Edit</a>
+                    <button type="button" class="btn btn-success" onclick="location.href='@Url.Action("Orders", "SpecialEffects")'">Order</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="AddSpecialEffects" asp-controller="SpecialEffects" class="btn btn-primary">Add New SpecialEffects</a>

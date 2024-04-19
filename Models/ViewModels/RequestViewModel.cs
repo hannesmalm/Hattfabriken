@@ -14,9 +14,11 @@ namespace Hattfabriken.Models.ViewModels
 
         public int? Height { get; set; }
 
+        public int? OuterMeasurement { get; set; }
+
         public string? Commentary { get; set; }
 
-        public List<string>? SelectedSpecialEffects { get; set; }
+        public string? SpecialEffects { get; set; }
 
         public string Adress { get; set; }
 

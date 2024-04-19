@@ -41,13 +41,8 @@
                 <p>Material: @Model.Material</p>
                 <p>Measurement: @Model.Measurement</p>
                 <p>Height: @Model.Height</p>
-                <p>Special Effects:</p>
-                <ul>
-                    @foreach (var specialEffect in Model.SpecialEffects)
-                    {
-                        <li>@specialEffect</li>
-                    }
-                </ul>
+                <p>Outer Measurement: @Model.OuterMeasurement</p>
+                <p>Special Effects: @Model.SpecialEffects</p>
             </div>
 
             <div class="col-md-6">

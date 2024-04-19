@@ -35,47 +35,44 @@
                             <label class="form-label">Choose a hat type:</label>
                             <select asp-for="HatId" class="form-select">
                                 <option value="">Choose a type...</option>
-                                <option value="1">Cowboy</option>
-                                <option value="2">Sheriff</option>
-                                <option value="3">Peaky Blinders</option>
+                                <option value="1">Felt hat</option>
+                                <option value="2">Panama hat</option>
+                                <option value="3">Straw hat</option>
+                                <option value="4">Cloth hat</option>
+                                <option value="5">Leather hat</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Which material do you want?</label>
-
-                            <select asp-for="Material" class="form-select">
-                                <option value="">Material...</option>
-                                <option value="Leather">Leather</option>
-                                <option value="Cloth">Cloth</option>
-                                <option value="Panama">Panama</option>
-                                <option value="Linen">Linen</option>
-                                <option value="Straw">Straw</option>
+                            <label class="form-label">Which material do you want? (Optional) </label>
+                            <select asp-for="Material" class="form-select" id="Material"> 
+                                <option value="">Choose Material...</option>
+                                @if (ViewBag.Materials != null)
+                                {
+                                    @foreach (var material in ViewBag.Materials)
+                                    {
+                                        <option value="@material.MaterialName">@material.MaterialName</option>
+                                    }
+                                }
                             </select>
                         </div>
 
                         <div class="mb-3">
-                            <p>Special effects?</p>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Feather" id="feather">
-                                <label class="form-check-label" for="feather">Feather</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="lace" id="lace">
-                                <label class="form-check-label" for="lace">Lace</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Pearls" id="pearls">
-                                <label class="form-check-label" for="pearls">Pearls</label>
-                            </div>
-
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Flower" id="flower">
-                                <label class="form-check-label" for="flower">Flower</label>
-                            </div>
+                            <label class="form-label">Do you want any special effects?</label>
+                            <select asp-for="SpecialEffects" class="form-select" id="SpecialEffectsDrop">
+                                <option value="">Choose Special effect...</option>
+                                @if (ViewBag.SpecialEffects != null)
+                                {
+                                    foreach (var specialEffectsList in ViewBag.SpecialEffects)
+                                    {
+                                        <option value="@specialEffectsList.SpecialEffectName">@specialEffectsList.SpecialEffectName</option>
+                                    }
+                                }
+                                else
+                                {
+                                    <option value="">No Special effects available</option>
+                                }
+                            </select>
                         </div>
 
                         <div class="mb-3">
@@ -84,24 +81,19 @@
                                 <input asp-for="Measurement" class="form-control" aria-label="Measurement">
                                 <span class="input-group-text">Height:</span>
                                 <input asp-for="Height" class="form-control" aria-label="Height">
+                                <span class="input-group-text">Outer Measurement:</span>
+                                <input asp-for="OuterMeasurement" class="form-control" aria-label="Outer Measurement">
                             </div>
                         </div>
 
                         <div class="mb-3">
 
-                            <label class="form-label">Contact and Delivery</label>
-
-                            <div class="mb-2">
-								<select asp-for="Country" class="form-select">
-									<option value="">Country</option>
-									<option value="Sweden">Sverige</option>
-									<option value="USA">USA</option>
-									<option value="UK">Storbrittanien</option>
-									<option value="Germany">Grekland</option>
-									<option value="Norway">Norge</option>
-									<option value="Finland">Finland</option>
-								</select>
+                            <div class="mb-3">
+                                <label class="form-label">Which country are you from?</label>
+                                <textarea asp-for="Country" class="form-control" id="country" placeholder="Write your country here..." required style="resize: none; height: 50px;"></textarea>
                             </div>
+
+                            <label class="form-label">Contact and Delivery</label>
                             
                             <div class="mb-2">
                                 <input asp-for="Name" class="form-control" placeholder="Name" />

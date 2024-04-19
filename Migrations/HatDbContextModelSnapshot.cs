@@ -354,6 +354,9 @@ namespace Hattfabriken.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("OuterMeasurement")
+                        .HasColumnType("int");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -377,6 +380,19 @@ namespace Hattfabriken.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Requests");
+                });
+
+            modelBuilder.Entity("Hattfabriken.Models.SpecialEffects", b =>
+                {
+                    b.Property<string>("SpecialEffectName")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("SpecialEffectName");
+
+                    b.ToTable("SpecialEffects");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.User", b =>

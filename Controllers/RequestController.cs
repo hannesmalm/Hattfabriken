@@ -26,8 +26,18 @@ namespace Hattfabriken.Controllers
         [HttpGet]
         public IActionResult NewRequest()
         {
-            RequestViewModel requestviewModel = new RequestViewModel();
-            return View(requestviewModel);
+            var materials = _context.Materials.ToList();
+            //var specialEffectsMaterials = materials.Where(materials => materials.Type == 2).ToList();
+            var specialEffectsList = _context.SpecialEffects.ToList();
+            ViewBag.SpecialEffects = specialEffectsList;
+            ViewBag.Materials = materials; // Send materials to the view as ViewBag
+            ViewBag.Materials = materials ?? new List<Material>(); // jw's sus-kod kan behövas se över
+            RequestViewModel requestViewModel = new RequestViewModel();
+            {
+                var SelectedSpecialEffects = new List<String>();
+
+            }
+            return View(requestViewModel);
         }
 
         [HttpPost]
@@ -39,8 +49,10 @@ namespace Hattfabriken.Controllers
                 {
                     Commentary = requestViewModel.Commentary,
                     Material = requestViewModel.Material,
+                    SpecialEffects = requestViewModel.SpecialEffects,
                     Measurement = requestViewModel.Measurement,
                     Height = requestViewModel.Height,
+                    OuterMeasurement = requestViewModel.OuterMeasurement,
                     HatId = requestViewModel.HatId,
                     Country = requestViewModel.Country,
                     Adress = requestViewModel.Adress,
@@ -68,14 +80,14 @@ namespace Hattfabriken.Controllers
                     Console.WriteLine(image.Data);
                 }
 
-                if (requestViewModel.SelectedSpecialEffects != null && requestViewModel.SelectedSpecialEffects.Any())
-                {
-                    request.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffects);
-                }
-                else
-                {
-                    request.SpecialEffects = new List<string>(); 
-                }
+                //if (requestViewModel.SelectedSpecialEffects != null && requestViewModel.SelectedSpecialEffects.Any())
+                //{
+                //    request.SpecialEffects = new List<string>(requestViewModel.SelectedSpecialEffects);
+                //}
+                //else
+                //{
+                //    request.SpecialEffects = new List<string>(); 
+                //}
 
                 _context.Add(request);
                 await _context.SaveChangesAsync();

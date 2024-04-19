@@ -17,11 +17,14 @@ namespace Hattfabriken.Models
 
         public int? Measurement { get; set; }
 
+        public int? OuterMeasurement { get; set; }
+
         public int? Height { get; set; }
 
         public string? Commentary { get; set; }
 
-        public List<string>? SpecialEffects { get; set; }
+        [ForeignKey("SpecialEffects")]
+        public string? SpecialEffects { get; set; }
 
         public string Adress { get; set; }
 
