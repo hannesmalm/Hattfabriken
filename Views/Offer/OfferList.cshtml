@@ -1,0 +1,58 @@
+﻿@model List<Offer>
+
+<h1>Offers</h1>
+
+<style>
+    #offerTable tbody tr:hover {
+        background-color: lightgray;
+        cursor: pointer;
+    }
+</style>
+
+<table class="table" id="offerTable">
+    <thead>
+        <tr>
+            <th>Date Created</th>
+            <th>Offer ID</th>
+            <th>Customer Name</th>
+            <th>Customer Email</th>
+            <th>Customer Phone</th>
+            <th>Total Cost</th>
+            <th>Estimated Delivery Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var offer in Model)
+        {
+            <tr data-href="@Url.Action("OfferDetails", "Offer", new { offerId = offer.OffertId })">
+                <td>
+                    <p>@offer.DateCreated.ToString("yyyy-MM-dd")</p>
+                </td>
+                <td>
+                    <p>@offer.OffertId</p>
+                </td>
+                <td>
+                    <p>@offer.Name</p>
+                </td>
+                <td>
+                    <p>@offer.Email</p>
+                </td>
+                <td>
+                    <p>@offer.PhoneNumber</p>
+                </td>
+                <td>
+                    <p>@offer.TotalCost</p>
+                </td>
+                <td>
+                    <p>@offer.EstimatedDeliveryDate.ToString("yyyy-MM-dd")</p>
+                </td>
+                <td>
+                    <button class="btn btn-danger" >Offer Declined</button>
+
+                    <button class="btn btn-success" >Offer Accepted</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

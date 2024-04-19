@@ -55,9 +55,9 @@
                 <br />
                 @if (Model.Status == "Pending")
                 {
-                    <form method="post" asp-controller="Request" asp-action="AcceptRequest" class="mb-3">
+                    <form method="get" asp-controller="Offer" asp-action="Create" class="mb-3">
                         <input type="hidden" name="requestId" value="@Model.Id" />
-                        <button type="submit" class="btn btn-success w-100">Accept Request</button>
+                        <button type="submit" class="btn btn-success w-100">Create offer</button>
                     </form>
 
                     <form id="declineForm">

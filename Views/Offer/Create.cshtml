@@ -1,26 +1,67 @@
 ﻿@model Hattfabriken.Models.Viewmodels.OfferViewModel
 
-<h1>Create Offer</h1>
-
+<form asp-controller="Offer" asp-action="Create" method="post" enctype="multipart/form-data">
 <div class="row">
-    <div class="col-md-6">
-        @{
-            var request = ViewBag.request as Request;
-        }
+        <div class="col-md-6">
+            @{
+                var request = ViewBag.request as Request;
 
-        @if (request != null)
-        {
-            <h5 class="mb-4">REQUEST</h5>
+                if (request != null && request.Id != null)
+                {
+                    <input type="hidden" name="requestId" value="@request.Id" />
+                }
+            }
 
+            @if (request != null)
+            {
+                <h5 class="mb-4">Request</h5>
+
+                <p>ID: @request?.Id</p>
+            }
+            
             <div>
-                <p>ID: @request.Id</p>
-                <p>Name: @request.Name</p>
-                <p>Address: @request.Adress</p>
-                <p>Postal Code: @request.PostalCode</p>
-                <p>Country: @request.Country</p>
-                <p>Email: @request.Email</p>
-                <p>Phone Number: @request.PhoneNumber</p>
-                <p>Client's Message: @request.Commentary</p>
+                <div class="form-group">
+                    <label asp-for="Name">Name:</label>
+                    <input asp-for="Name" class="form-control" value="@request?.Name" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Address">Address:</label>
+                    <input asp-for="Address" class="form-control" value="@request?.Adress" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PostalCode">PostalCode:</label>
+                    <input asp-for="PostalCode" class="form-control" value="@request?.PostalCode" />
+                    <span asp-validation-for="PostalCode" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Country">Country:</label>
+                    <input asp-for="Country" class="form-control" value="@request?.Country" />
+                    <span asp-validation-for="Country" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Email">Email:</label>
+                    <input asp-for="Email" class="form-control" value="@request?.Email" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="PhoneNumber">PhoneNumber:</label>
+                    <input asp-for="PhoneNumber" class="form-control" value="@request?.PhoneNumber" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <br />
+                @if (request != null)
+                {
+                    <h5>Message from customer:</h5>
+                    <p>@request.Commentary</p>
+                }
             </div>
 
             @if (request != null && request.RequestImage != null)
@@ -32,74 +73,170 @@
             <hr>
 
             <div>
+
                 <p>Hat-ID: @request.HatType</p>
                 <p>Material: @request.Material</p>
                 <p>Measurement: @request.Measurement</p>
                 <p>Height: @request.Height</p>
+
+                <label class="form-label">Choose a hat type:</label>
+                <select asp-for="HatType" class="form-select" value="@request?.HatId">
+                    <option value="">Choose</option>
+                    <option value="Cowboy">Cowboy</option>
+                    <option value="Sheriff">Sheriff</option>
+                    <option value="Peaky Blinders">Peaky Blinders</option>
+                </select>
+                <span asp-validation-for="HatType" class="text-danger"></span>
+                
+                <label class="form-label">Material:</label>
+                <select asp-for="Material" class="form-select" value="@request?.Material">
+                    <option value="">Choose</option>
+                    <option value="Leather">Leather</option>
+                    <option value="Cloth">Cloth</option>
+                    <option value="Panama">Panama</option>
+                    <option value="Linen">Linen</option>
+                    <option value="Straw">Straw</option>
+                </select>
+                <span asp-validation-for="Material" class="text-danger"></span>
+
+                <div class="form-group">
+                    <label asp-for="Measurement">Measurement:</label>
+                    <input asp-for="Measurement" class="form-control" value="@request?.Measurement" />
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Height">Height:</label>
+                    <input asp-for="Height" class="form-control" value="@request?.Height" />
+                    <span asp-validation-for="Height" class="text-danger"></span>
+                </div>
+
+
                 <p>Special Effects:</p>
                 <ul>
-                    @foreach (var specialEffect in @request.SpecialEffects)
+                    @if (request != null && request.SpecialEffects != null)
                     {
-                        <li>@specialEffect</li>
+                        @foreach (var specialEffect in request.SpecialEffects)
+                        {
+                            <li>@specialEffect</li>
+                        }
                     }
+
+                    <div class="mb-3">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Feather" id="feather">
+                            <label class="form-check-label" for="feather">Feather</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="lace" id="lace">
+                            <label class="form-check-label" for="lace">Lace</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Pearls" id="pearls">
+                            <label class="form-check-label" for="pearls">Pearls</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Flower" id="flower">
+                            <label class="form-check-label" for="flower">Flower</label>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="DeliveryOrPickup" value="Pick up at workshop" checked="@((request?.DeliveryOrPickup == "Pick up at workshop"))" asp-for="DeliveryOrPickup" onchange="UpdateTotalPrice()" />
+                            <label class="form-check-label" for="pickupRadio">Pick up at workshop</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="DeliveryOrPickup" value="Home delivery" checked="@((request?.DeliveryOrPickup == "Home delivery"))" asp-for="DeliveryOrPickup" onchange="UpdateTotalPrice()" />
+                            <label class="form-check-label" for="deliveryRadio">Home delivery</label>
+                        </div>
+                        <span asp-validation-for="DeliveryOrPickup" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check form-switch mb-3">
+                        <input class="form-check-input" type="checkbox" name="Urgent" value="@((request?.Urgent ?? false).ToString().ToLower())" asp-for="Urgent" onchange="UpdateTotalPrice()" />
+                        <label class="form-check-label" for="Urgent">Urgent request (+20% total price)</label>
+                    </div>
+
                 </ul>
             </div>
-        }
+        </div>
     </div>
+
     <div class="col-md-6">
-        <form asp-controller="Offer" asp-action="Create" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label asp-for="CustomerName">Costumer name:</label>
-                <input asp-for="CustomerName" class="form-control" value="@request?.Name" />
-            </div>
-            <div class="form-group">
-                <label asp-for="CustomerMail">Costumer mail:</label>
-                <input asp-for="CustomerMail" class="form-control" value="@request?.Email" />
-            </div>
-            <div class="form-group">
-                <label asp-for="CustomerTel">Costumer phone number:</label>
-                <input asp-for="CustomerMail" class="form-control" value="@request?.PhoneNumber" />
-            </div>
+
+            <h5 class="mb-4">Offer</h5>
+
             <div class="form-group">
                 <label asp-for="MaterialCost">Material cost:</label>
                 <input asp-for="MaterialCost" class="form-control" onchange="UpdateTotalPrice()" />
+            <span asp-validation-for="MaterialCost" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SpecialEffectCost">Special effect fabric cost:</label>
+                <label asp-for="SpecialEffectCost">Special effect cost:</label>
                 <input asp-for="SpecialEffectCost" class="form-control" onchange="UpdateTotalPrice()" />
+            <span asp-validation-for="SpecialEffectCost" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SpecialFabricCost">Special fabric cost:</label>
-                <input asp-for="SpecialFabricCost" class="form-control" onchange="UpdateTotalPrice()" />
+                <label asp-for="ShippingCost">Shipping Cost:</label>
+                <input id="ShippingCost" asp-for="ShippingCost" class="form-control" onchange="UpdateTotalPrice()" />
+            <span asp-validation-for="ShippingCost" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ShippingCost">Shipping cost:</label>
-                <input asp-for="ShippingCost" class="form-control" onchange="UpdateTotalPrice()" />
-            </div>
-            <div class="form-group">
-                <label asp-for="EstimatedDeliveryDate">Estimated delivery date:</label>
-                <input asp-for="EstimatedDeliveryDate" class="form-control"/>
+                <label asp-for="EstimatedDeliveryDate ">Estimated delivery date:</label>
+                <input asp-for="EstimatedDeliveryDate" class="form-control" value="DateTime.Today" />
+            <span asp-validation-for="EstimatedDeliveryDate" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="TotalCost">Total Cost:</label>
                 <input asp-for="TotalCost" class="form-control" readonly />
+            <span asp-validation-for="TotalCost" class="text-danger"></span>
             </div>
 
-            <button type="submit" class="btn btn-primary" onclick="openOutlook()">Send In</button>
+        <div class="mb-3">
+            <label class="form-label">Hatmaker commentary</label>
+            <textarea asp-for="HatmakerComment" class="form-control" id="hatmakerComment" style="resize: none; height: 200px;"></textarea>
+            <span asp-validation-for="HatmakerComment" class="text-danger"></span>
+        </div>
+
+            <button type="submit" class="btn btn-primary" onclick="openOutlook()">Send offer</button>
         </form>
     </div>
 </div>
 
 <script>
+
     function UpdateTotalPrice() {
+
         var materialCost = parseFloat(document.getElementById("MaterialCost").value) || 0;
-        var specialEffectCost = parseFloat(document.getElementById("SpecialeffectCost").value) || 0;
-        var specialFabricCost = parseFloat(document.getElementById("SpecialFabricCost").value) || 0;
+        var specialEffectCost = parseFloat(document.getElementById("SpecialEffectCost").value) || 0;
+        var shippingCostField = document.getElementById("ShippingCost");
         var shippingCost = parseFloat(document.getElementById("ShippingCost").value) || 0;
 
-        var totalCost = materialCost + specialEffectCost + specialFabricCost + shippingCost;
+        var deliveryOrPickup = document.querySelector('input[name="DeliveryOrPickup"]:checked').value;
+        
+        if (deliveryOrPickup === "Pick up at workshop") {
+            shippingCost = 0;
+            shippingCostField.readOnly = true; // Lås fältet
+            shippingCostField.value = ""; // Töm fältet
+        } else {
+            shippingCostField.readOnly = false; // Lås upp fältet om inte "Home delivery" är valt
+        }
 
-        document.getElementById("TotalCost").value = totalCost.toFixed(2);
+        var urgent = document.getElementById("Urgent").checked || false; // Ändra från value till checked för en checkbox
+
+        var totalCost = materialCost + specialEffectCost + shippingCost;
+
+        // Lägg till 20% på totalCost om urgent är true
+        if (urgent) {
+            totalCost *= 1.2;
+        }
+
+        document.getElementById("TotalCost").value = parseFloat(totalCost.toFixed(2));
     }
+
 </script>

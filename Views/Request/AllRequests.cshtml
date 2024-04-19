@@ -1,7 +1,6 @@
 ﻿@model List<Request>
 
-<p>All requests</p>
-
+<h1>Requests</h1>
 
 <style>
     #requestTable tbody tr:hover {
@@ -10,14 +9,38 @@
     }
 </style>
 
+<div style="display: inline-block; margin-right: 10px;">
+    <label for="filterStatus">Filter by Status:</label>
+    <select id="filterStatus">
+        <option value="all">All</option>
+        <option value="pending" selected>Pending</option>
+        <option value="accepted">Accepted</option>
+        <option value="declined">Declined</option>
+    </select>
+</div>
+
+<div style="display: inline-block;">
+    <label for="sortType">Sort by:</label>
+    <select id="sortType">
+        <option value="id" >Id</option>
+        <option value="dateNewest">Date (Newest)</option>
+        <option value="dateOldest">Date (Oldest)</option>
+        <option value="status">Status</option>
+        <option value="urgent">Urgent</option>
+    </select>
+</div>
+
+
 <table class="table" id="requestTable">
     <thead>
         <tr>
-            <th>Date</th>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Phone.Nr</th>
-            <th>Status</th>
+            <th>Date</th>     @* 0 *@
+            <th>Id</th>       @* 1 *@
+            <th>Name</th>     @* 2 *@
+            <th>Email</th>    @* 3 *@
+            <th>Phone.Nr</th> @* 4 *@
+            <th>Status</th>   @* 5 *@
+            <th>Urgent</th>   @* 6 *@
         </tr>
     </thead>
     <tbody>
@@ -32,6 +55,9 @@
                 </td>
                 <td>
                     <p>@request.Name</p>
+                </td>
+                <td>
+                    <p>@request.Email</p>
                 </td>
                 <td>
                     <p>@request.PhoneNumber</p>
@@ -49,13 +75,28 @@
                             statusColorClass = "text-danger";
                             break;
                         default:
-                            statusColorClass = ""; 
+                            statusColorClass = "";
                             break;
                     }
                 }
 
                 <td>
                     <p class="@statusColorClass">@request.Status</p>
+                </td>
+                <td style="text-align: center;">
+                    @if (request.Urgent)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z" />
+                        </svg>
+                        <span class="hidden" data-urgent="true"></span>
+                    }
+                    else
+                    {
+                        <p></p>
+                        <span class="hidden" data-urgent="false"></span>
+                    }
                 </td>
             </tr>
         }
@@ -79,4 +120,122 @@
             }
         });
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var table = document.getElementById("requestTable");
+        var filterStatus = document.getElementById("filterStatus");
+        var sortType = document.getElementById("sortType");
+
+        // Funktion för att filtrera listan
+        function filterList() {
+            var selectedStatus = filterStatus.value;
+            var rows = table.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+
+            for (var i = 0; i < rows.length; i++) {
+                var rowStatus = rows[i].getElementsByTagName("td")[5].innerText.trim().toLowerCase();
+
+                if (selectedStatus === "all" || rowStatus === selectedStatus) {
+                    rows[i].style.display = "";
+                } else {
+                    rows[i].style.display = "none";
+                }
+            }
+        }
+
+        // Funktion för att sortera listan
+        function sortList() {
+            var tbody = table.getElementsByTagName("tbody")[0];
+            var rows = Array.from(tbody.getElementsByTagName("tr"));
+
+            var sortBy = sortType.value;
+
+            rows.sort(function (a, b) {
+                var valueA, valueB;
+
+                switch (sortBy) {
+                    case "id":
+                        valueA = parseInt(a.getElementsByTagName("td")[1].innerText.trim());
+                        valueB = parseInt(b.getElementsByTagName("td")[1].innerText.trim());
+                        break;
+                    case "dateNewest":
+                        valueA = new Date(a.getElementsByTagName("td")[0].innerText);
+                        valueB = new Date(b.getElementsByTagName("td")[0].innerText);
+                        break;
+                    case "dateOldest":
+                        valueA = new Date(b.getElementsByTagName("td")[0].innerText);
+                        valueB = new Date(a.getElementsByTagName("td")[0].innerText);
+                        break;
+                    case "status":
+                        valueA = getStatusOrder(a.getElementsByTagName("td")[5].innerText.trim().toLowerCase());
+                        valueB = getStatusOrder(b.getElementsByTagName("td")[5].innerText.trim().toLowerCase());
+                        break;
+                    case "urgent":
+                        valueA = getUrgentOrder(a.getElementsByTagName("td")[6].querySelector("span").getAttribute("data-urgent") === "true");
+                        valueB = getUrgentOrder(b.getElementsByTagName("td")[6].querySelector("span").getAttribute("data-urgent") === "true");
+                        if (valueA !== valueB) {
+                            return valueB - valueA;
+                        }
+                        break;
+                }
+
+                if (valueA < valueB) {
+                    return -1;
+                }
+                if (valueA > valueB) {
+                    return 1;
+                }
+                return 0;
+            });
+
+            tbody.innerHTML = "";
+            rows.forEach(function (row) {
+                tbody.appendChild(row);
+            });
+        }
+
+        function getUrgentOrder(urgent) {
+            return urgent ? 1 : 0;
+        }
+
+        function getStatusOrder(status) {
+            switch (status) {
+                case "pending":
+                    return 1;
+                case "accepted":
+                    return 2;
+                case "declined":
+                    return 3;
+                default:
+                    return 0;
+            }
+        }
+
+        // Anropa filter- och sorteringsfunktionerna när sidan laddas
+        filterList();
+        sortList();
+
+        // Lyssna på ändringar i filter-dropdownen och sort-dropdownen
+        filterStatus.addEventListener("change", function () {
+            filterList();
+            sortList();
+        });
+
+        sortType.addEventListener("change", sortList);
+
+        // Klickhantering för att navigera till detaljer vid klick på raden
+        table.addEventListener("click", function (event) {
+            var target = event.target;
+            while (target && target !== table) {
+                if (target.tagName === "TR") {
+                    var href = target.getAttribute("data-href");
+                    if (href) {
+                        window.location.href = href;
+                    }
+                    return;
+                }
+                target = target.parentNode;
+            }
+        });
+    });
+
 </script>

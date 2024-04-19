@@ -4,6 +4,7 @@ using Hattfabriken.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    partial class HatDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240419084945_BigDickMigration")]
+    partial class BigDickMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +53,7 @@ namespace Hattfabriken.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Hattfabriken.Models.Hat", b =>
+            modelBuilder.Entity("Hattfabriken.Models.Hatt", b =>
                 {
                     b.Property<int>("HatId")
                         .ValueGeneratedOnAdd()
@@ -68,15 +71,9 @@ namespace Hattfabriken.Migrations
 
                     b.Property<string>("MaterialName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("OuterMeasurement")
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.Property<string>("SpecialEffects")
@@ -85,9 +82,7 @@ namespace Hattfabriken.Migrations
 
                     b.HasKey("HatId");
 
-                    b.HasIndex("MaterialName");
-
-                    b.ToTable("Hats");
+                    b.ToTable("Hattar");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Image", b =>
@@ -208,75 +203,37 @@ namespace Hattfabriken.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OffertId"));
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("EstimeratLeveransdatum")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeliveryOrPickup")
+                    b.Property<double?>("FraktKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<string>("KundMail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("KundNamn")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EstimatedDeliveryDate")
+                    b.Property<string>("KundTel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("MaterialKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("SkapadDatum")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("HatType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HatmakerComment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Height")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Material")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("MaterialCost")
+                    b.Property<double?>("SpecialeffektKostnad")
                         .HasColumnType("float");
 
-                    b.Property<int>("Measurement")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PostalCode")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("ShippingCost")
+                    b.Property<double>("SpecialtygKostnad")
                         .HasColumnType("float");
 
-                    b.Property<double?>("SpecialEffectCost")
+                    b.Property<double>("TotalKostnad")
                         .HasColumnType("float");
-
-                    b.Property<string>("SpecialEffects")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("TotalCost")
-                        .HasColumnType("float");
-
-                    b.Property<bool>("Urgent")
-                        .HasColumnType("bit");
 
                     b.HasKey("OffertId");
 
@@ -338,8 +295,8 @@ namespace Hattfabriken.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("HatType")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("HatId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Height")
                         .HasColumnType("int");
@@ -595,17 +552,6 @@ namespace Hattfabriken.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Hattfabriken.Models.Hat", b =>
-                {
-                    b.HasOne("Hattfabriken.Models.Material", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Material");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
