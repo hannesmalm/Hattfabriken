@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Hattfabriken.Migrations
 {
     /// <inheritdoc />
-    public partial class Hatttyp : Migration
+    public partial class aantons : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -100,20 +100,60 @@ namespace Hattfabriken.Migrations
                 {
                     OffertId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CustomerMail = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CustomerTel = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HatType = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostalCode = table.Column<int>(type: "int", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     MaterialCost = table.Column<double>(type: "float", nullable: false),
                     SpecialEffectCost = table.Column<double>(type: "float", nullable: true),
-                    SpecialFabricCost = table.Column<double>(type: "float", nullable: false),
                     ShippingCost = table.Column<double>(type: "float", nullable: true),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EstimatedDeliveryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TotalCost = table.Column<double>(type: "float", nullable: false)
+                    TotalCost = table.Column<double>(type: "float", nullable: false),
+                    Material = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Measurement = table.Column<int>(type: "int", nullable: false),
+                    Height = table.Column<int>(type: "int", nullable: false),
+                    HatmakerComment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SpecialEffects = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DeliveryOrPickup = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Urgent = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Offers", x => x.OffertId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HatType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Measurement = table.Column<int>(type: "int", nullable: true),
+                    Height = table.Column<int>(type: "int", nullable: true),
+                    Commentary = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SpecialEffects = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    HatImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostalCode = table.Column<int>(type: "int", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Maker = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Delivery = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -125,6 +165,7 @@ namespace Hattfabriken.Migrations
                     HatType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Material = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Measurement = table.Column<int>(type: "int", nullable: true),
+                    OuterMeasurement = table.Column<int>(type: "int", nullable: true),
                     Height = table.Column<int>(type: "int", nullable: true),
                     Commentary = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SpecialEffects = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -143,6 +184,18 @@ namespace Hattfabriken.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Requests", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SpecialEffects",
+                columns: table => new
+                {
+                    SpecialEffectName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SpecialEffects", x => x.SpecialEffectName);
                 });
 
             migrationBuilder.CreateTable(
@@ -328,6 +381,22 @@ namespace Hattfabriken.Migrations
                     { "Straw", 800, "StrawSwag@icloud.com", 14 }
                 });
 
+            migrationBuilder.InsertData(
+                table: "Orders",
+                columns: new[] { "Id", "Address", "Commentary", "Country", "Date", "Delivery", "Email", "HatImage", "HatType", "Height", "Maker", "Material", "Measurement", "Name", "PhoneNumber", "PostalCode", "SpecialEffects", "Status" },
+                values: new object[,]
+                {
+                    { 1, "Köpmansgatan 10", "Beställningen brådskar.", "Sverige", new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "kund@example.com", null, null, 10, "Otto", "Leather", 58, "Kund Namnsson", "0701234567", 12345, "[\"Waterproof\"]", "To-Do" },
+                    { 2, "Handelsgatan 20", "Extra storlek behövs.", "Sverige", new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "annan.kund@example.com", null, null, 8, "Judith", "Straw", 60, "Annan Kundsson", "0707654321", 23456, "[\"Sunproof\"]", "Judith Ongoing" },
+                    { 3, "Blommans väg 3", "Behöver för sommarsäsongen.", "Sverige", new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "sommar@example.com", null, null, 9, "Greta", "Cotton", 57, "Sommar Svensson", "0712345678", 34567, "[\"Lightweight\"]", "To-Do" },
+                    { 4, "Vintergatan 45", "Vinterdesign önskas.", "Sverige", new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "vinter@example.com", null, null, 12, "Hugo", "Wool", 59, "Vinter Vintersson", "0723456789", 45678, "[\"Insulated\"]", "To-Do" },
+                    { 5, "Glamourgatan 12", "För speciell gala.", "Sverige", new DateTime(2024, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "gala@example.com", null, null, 7, "Freja", "Silk", 56, "Gala Galesson", "0734567890", 56789, "[\"Shiny\"]", "Completed" },
+                    { 6, "Snabbvägen 30", "Snabb leverans krävs.", "Sverige", new DateTime(2024, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "snabb@example.com", null, null, 10, "Otto", "Felt", 55, "Snabb Snabbsson", "0745678901", 67890, "[\"Stiff\"]", "To-Do" },
+                    { 7, "Retrogatan 56", "Retrostil önskas.", "Sverige", new DateTime(2024, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "retro@example.com", null, null, 11, "Judith", "Leather", 61, "Retro Retrosson", "0756789012", 78901, "[\"Vintage\"]", "Completed" },
+                    { 8, "Solgatan 78", "Lätt och luftig för sommarbruk.", "Sverige", new DateTime(2024, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "solig@example.com", null, null, 9, "Greta", "Straw", 58, "Solig Solsson", "0767890123", 89012, "[\"Breathable\"]", "Completed" },
+                    { 9, "Fiskevägen 89", "Vattenavvisande för fiske.", "Sverige", new DateTime(2024, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "fiskare@example.com", null, null, 8, "Hugo", "Polyester", 62, "Fiskare Fiskarsson", "0778901234", 90123, "[\"Waterproof\"]", "Completed" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -409,10 +478,16 @@ namespace Hattfabriken.Migrations
                 name: "Offers");
 
             migrationBuilder.DropTable(
+                name: "Orders");
+
+            migrationBuilder.DropTable(
                 name: "QuantityRequests");
 
             migrationBuilder.DropTable(
                 name: "Requests");
+
+            migrationBuilder.DropTable(
+                name: "SpecialEffects");
 
             migrationBuilder.DropTable(
                 name: "Warehouses");

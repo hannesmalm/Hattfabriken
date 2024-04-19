@@ -38,7 +38,9 @@ namespace Hattfabriken.Models
                 .WithMany()                            // Material can have many QuantityRequests
                 .HasForeignKey(q => q.MaterialName)   // Foreign key property
                 .HasPrincipalKey(m => m.MaterialName); // Principal key property
-
+            modelBuilder.Entity<SpecialEffects>()
+                .Property(m => m.Price)
+                .HasColumnType("decimal(18, 2)");
             // Call the seeding method
             SeedMaterials(modelBuilder);
             SeedOrders(modelBuilder);

@@ -85,7 +85,6 @@ namespace Hattfabriken.Migrations
 
                     b.HasKey("HatId");
 
-
                     b.HasIndex("MaterialName");
 
                     b.ToTable("Hats");
@@ -284,6 +283,249 @@ namespace Hattfabriken.Migrations
                     b.ToTable("Offers");
                 });
 
+            modelBuilder.Entity("Hattfabriken.Models.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Commentary")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Delivery")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("HatImage")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("HatType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Maker")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Material")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Measurement")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PostalCode")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SpecialEffects")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "Köpmansgatan 10",
+                            Commentary = "Beställningen brådskar.",
+                            Country = "Sverige",
+                            Date = new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Delivery = true,
+                            Email = "kund@example.com",
+                            Height = 10,
+                            Maker = "Otto",
+                            Material = "Leather",
+                            Measurement = 58,
+                            Name = "Kund Namnsson",
+                            PhoneNumber = "0701234567",
+                            PostalCode = 12345,
+                            SpecialEffects = "[\"Waterproof\"]",
+                            Status = "To-Do"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Address = "Handelsgatan 20",
+                            Commentary = "Extra storlek behövs.",
+                            Country = "Sverige",
+                            Date = new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Delivery = false,
+                            Email = "annan.kund@example.com",
+                            Height = 8,
+                            Maker = "Judith",
+                            Material = "Straw",
+                            Measurement = 60,
+                            Name = "Annan Kundsson",
+                            PhoneNumber = "0707654321",
+                            PostalCode = 23456,
+                            SpecialEffects = "[\"Sunproof\"]",
+                            Status = "Judith Ongoing"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Address = "Blommans väg 3",
+                            Commentary = "Behöver för sommarsäsongen.",
+                            Country = "Sverige",
+                            Date = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Delivery = true,
+                            Email = "sommar@example.com",
+                            Height = 9,
+                            Maker = "Greta",
+                            Material = "Cotton",
+                            Measurement = 57,
+                            Name = "Sommar Svensson",
+                            PhoneNumber = "0712345678",
+                            PostalCode = 34567,
+                            SpecialEffects = "[\"Lightweight\"]",
+                            Status = "To-Do"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Address = "Vintergatan 45",
+                            Commentary = "Vinterdesign önskas.",
+                            Country = "Sverige",
+                            Date = new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Delivery = false,
+                            Email = "vinter@example.com",
+                            Height = 12,
+                            Maker = "Hugo",
+                            Material = "Wool",
+                            Measurement = 59,
+                            Name = "Vinter Vintersson",
+                            PhoneNumber = "0723456789",
+                            PostalCode = 45678,
+                            SpecialEffects = "[\"Insulated\"]",
+                            Status = "To-Do"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Address = "Glamourgatan 12",
+                            Commentary = "För speciell gala.",
+                            Country = "Sverige",
+                            Date = new DateTime(2024, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Delivery = true,
+                            Email = "gala@example.com",
+                            Height = 7,
+                            Maker = "Freja",
+                            Material = "Silk",
+                            Measurement = 56,
+                            Name = "Gala Galesson",
+                            PhoneNumber = "0734567890",
+                            PostalCode = 56789,
+                            SpecialEffects = "[\"Shiny\"]",
+                            Status = "Completed"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Address = "Snabbvägen 30",
+                            Commentary = "Snabb leverans krävs.",
+                            Country = "Sverige",
+                            Date = new DateTime(2024, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Delivery = true,
+                            Email = "snabb@example.com",
+                            Height = 10,
+                            Maker = "Otto",
+                            Material = "Felt",
+                            Measurement = 55,
+                            Name = "Snabb Snabbsson",
+                            PhoneNumber = "0745678901",
+                            PostalCode = 67890,
+                            SpecialEffects = "[\"Stiff\"]",
+                            Status = "To-Do"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Address = "Retrogatan 56",
+                            Commentary = "Retrostil önskas.",
+                            Country = "Sverige",
+                            Date = new DateTime(2024, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Delivery = false,
+                            Email = "retro@example.com",
+                            Height = 11,
+                            Maker = "Judith",
+                            Material = "Leather",
+                            Measurement = 61,
+                            Name = "Retro Retrosson",
+                            PhoneNumber = "0756789012",
+                            PostalCode = 78901,
+                            SpecialEffects = "[\"Vintage\"]",
+                            Status = "Completed"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Address = "Solgatan 78",
+                            Commentary = "Lätt och luftig för sommarbruk.",
+                            Country = "Sverige",
+                            Date = new DateTime(2024, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Delivery = true,
+                            Email = "solig@example.com",
+                            Height = 9,
+                            Maker = "Greta",
+                            Material = "Straw",
+                            Measurement = 58,
+                            Name = "Solig Solsson",
+                            PhoneNumber = "0767890123",
+                            PostalCode = 89012,
+                            SpecialEffects = "[\"Breathable\"]",
+                            Status = "Completed"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Address = "Fiskevägen 89",
+                            Commentary = "Vattenavvisande för fiske.",
+                            Country = "Sverige",
+                            Date = new DateTime(2024, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Delivery = false,
+                            Email = "fiskare@example.com",
+                            Height = 8,
+                            Maker = "Hugo",
+                            Material = "Polyester",
+                            Measurement = 62,
+                            Name = "Fiskare Fiskarsson",
+                            PhoneNumber = "0778901234",
+                            PostalCode = 90123,
+                            SpecialEffects = "[\"Waterproof\"]",
+                            Status = "Completed"
+                        });
+                });
 
             modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
                 {
@@ -390,7 +632,7 @@ namespace Hattfabriken.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18, 2)");
 
                     b.HasKey("SpecialEffectName");
 
