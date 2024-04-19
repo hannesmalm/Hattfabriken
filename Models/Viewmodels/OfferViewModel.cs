@@ -25,7 +25,7 @@ namespace Hattfabriken.Models.Viewmodels
         public string Country { get; set; }
 
         [Required(ErrorMessage = "Hat type is required")]
-        public int HatType { get; set; }
+        public string HatType { get; set; }
 
         [Required(ErrorMessage = "Material is required")]
         public string Material { get; set; }
