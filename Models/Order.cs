@@ -5,25 +5,25 @@ namespace Hattfabriken.Models
     public class Order
     {
         public int Id { get; set; }
-        [ForeignKey("Request")]
-        public int? RequestId { get; set; }
-        [ForeignKey("Hat")]
-        public int? HatId { get; set; }
+        public string HatType { get; set; }
+
         public string? Material { get; set; }
         public int? Measurement { get; set; }
         public int? Height { get; set; }
         public string? Commentary { get; set; }
         public List<string>? SpecialEffects { get; set; }
-        public string Adress { get; set; }
+        [ForeignKey("Image")]
+        public byte[]? HatImage { get; set; }
+        public string Address { get; set; }
         public int PostalCode { get; set; }
         public string PhoneNumber { get; set; }
         public string Country { get; set; }
         [ForeignKey("Customer")]
         public string Email { get; set; }
         public string Name { get; set; }
-        public string Status { get; set; } = "Pending";
+        public string Status { get; set; } = "To do";
         public DateTime Date { get; set; }
-        public bool Invoice { get; set; }
-        public bool Waybill { get; set; }
+        public string Maker { get; set; }
+        public bool Delivery { get; set; }
     }
 }

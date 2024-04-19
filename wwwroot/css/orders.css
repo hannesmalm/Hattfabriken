@@ -1,0 +1,22 @@
+﻿.kanban-column {
+    border-right: 2px solid #dee2e6;
+    min-height: 400px;
+}
+
+.kanban-column:last-child {
+   border-right: none;
+}
+
+.card {
+    margin-bottom: 0.5rem;
+}
+
+.kanban-column > h4 {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.kanban-column {
+    padding: 1rem;
+    transition: background-color 0.3s;
+}
