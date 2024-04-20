@@ -12,7 +12,7 @@ namespace Hattfabriken.Models
 
 
 
-        public DbSet <Hat> Hats {  get; set; }
+        public DbSet<Hat> Hats { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
         public DbSet<Request> Requests { get; set; }
@@ -44,6 +44,7 @@ namespace Hattfabriken.Models
             // Call the seeding method
             SeedMaterials(modelBuilder);
             SeedOrders(modelBuilder);
+            SeedUsers(modelBuilder);
         }
 
         private void SeedMaterials(ModelBuilder modelBuilder)
@@ -239,34 +240,34 @@ namespace Hattfabriken.Models
                 }
             );
         }
+        private void SeedUsers(ModelBuilder modelBuilder)
+        {
+            var userAdmin1 = new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = "otto@hattfabriken.com",
+                NormalizedUserName = "OTTO@HATTFABRIKEN.COM",
+                Email = "otto@hattfabriken.com",
+                NormalizedEmail = "OTTO@HATTFABRIKEN.COM",
+                EmailConfirmed = true
+            };
 
-        //// Seed admin accounts with hashed passwords
-        //PasswordHasher<IdentityUser> passwordHasher = new PasswordHasher<IdentityUser>();
+            var userAdmin2 = new User
+            {
+                Id = Guid.NewGuid().ToString(),
+                UserName = "judith@hattfabriken.com",
+                NormalizedUserName = "JUDITH@HATTFABRIKEN.COM",
+                Email = "judith@hattfabriken.com",
+                NormalizedEmail = "JUDITH@HATTFABRIKEN.COM",
+                EmailConfirmed = true
+            };
 
-        //Microsoft.EntityFrameworkCore.Metadata.Builders.DataBuilder<IdentityUser> dataBuilder = modelBuilder.Entity<IdentityUser>().HasData(
-        //    new IdentityUser
-        //    {
-        //        Id = Guid.NewGuid().ToString(), // Generate a unique ID
-        //        UserName = "admin1@example.com",
-        //        NormalizedUserName = "ADMIN1@EXAMPLE.COM",
-        //        Email = "admin1@example.com",
-        //        NormalizedEmail = "ADMIN1@EXAMPLE.COM",
-        //        EmailConfirmed = true,
-        //        PasswordHash = passwordHasher.HashPassword(null, "Hej123!") // Hash the password
-        //    },
-        //    new IdentityUser
-        //    {
-        //        Id = Guid.NewGuid().ToString(), // Generate a unique ID
-        //        UserName = "admin2@example.com",
-        //        NormalizedUserName = "ADMIN2@EXAMPLE.COM",
-        //        Email = "admin2@example.com",
-        //        NormalizedEmail = "ADMIN2@EXAMPLE.COM",
-        //        EmailConfirmed = true,
-        //        PasswordHash = passwordHasher.HashPassword(null, "Hej123!") // Hash the password
-        //    }
+            PasswordHasher<IdentityUser> passwordHasher = new PasswordHasher<IdentityUser>();
+            userAdmin1.PasswordHash = passwordHasher.HashPassword(userAdmin1, "Hej123!");
+            userAdmin2.PasswordHash = passwordHasher.HashPassword(userAdmin2, "Hej123!");
 
-        //    );
+            modelBuilder.Entity<User>().HasData(userAdmin1, userAdmin2);
+        }
     }
-
 }
 
