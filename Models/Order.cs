@@ -10,9 +10,12 @@ namespace Hattfabriken.Models
         public int? Measurement { get; set; }
         public int? Height { get; set; }
         public string? Commentary { get; set; }
-        public List<string>? SpecialEffects { get; set; }
+        public string? SpecialEffects { get; set; }
         [ForeignKey("Image")]
         public byte[]? HatImage { get; set; }
+        public double MaterialCost { get; set; }
+        public double? SpecialEffectCost { get; set; }
+        public double? ShippingCost { get; set; }
         public string Address { get; set; }
         public int PostalCode { get; set; }
         public string PhoneNumber { get; set; }
