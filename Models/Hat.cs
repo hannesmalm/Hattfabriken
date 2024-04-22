@@ -20,7 +20,7 @@ namespace Hattfabriken.Models
 
         [Required(ErrorMessage = "Please enter a price")]
         public int Price { get; set; }
-        public string SpecialEffects { get; set; }
+        public string? SpecialEffects { get; set; }
 
         [Required(ErrorMessage = "Please enter an outer measurement")]
         public int OuterMeasurement {  get; set; }

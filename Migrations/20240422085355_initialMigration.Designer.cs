@@ -4,6 +4,7 @@ using Hattfabriken.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    partial class HatDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240422085355_initialMigration")]
+    partial class initialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,6 +83,7 @@ namespace Hattfabriken.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("SpecialEffects")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("HatId");
@@ -706,33 +710,33 @@ namespace Hattfabriken.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2b6b8470-f906-4e5d-8b1e-ff49786b6e28",
+                            Id = "09300a50-1893-4a15-9501-3cff548a223b",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8a53cc1c-f2be-4272-b41e-0c297605465f",
+                            ConcurrencyStamp = "72da1334-c48a-44dd-b18f-67648fcab67b",
                             Email = "otto@hattfabriken.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "OTTO@HATTFABRIKEN.COM",
                             NormalizedUserName = "OTTO@HATTFABRIKEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPBXdpiWxCCtcqT6mGHXuWIRvqGTt8Lr6zcEZdp6WRTP7HIn8K9wRpuqHFGmGUuTPw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEI4KXsn6uFL3L4NSFaMgYunsak9YgvpdfY3KV7dPvxG/Eb0zRzqb+T4MO2gXRZCBHQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d6c9985a-c705-473f-94f9-52d6fe66be25",
+                            SecurityStamp = "c6970dcb-8585-44ba-ae58-5a37b91d316f",
                             TwoFactorEnabled = false,
                             UserName = "otto@hattfabriken.com"
                         },
                         new
                         {
-                            Id = "a36abcfe-b62a-4358-8745-5bf2b4b751ec",
+                            Id = "4beab734-7cfb-48b2-b20b-13ce7d4499e6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2292a838-9325-4117-a472-fd431579ae05",
+                            ConcurrencyStamp = "d79b0b78-7de2-49a6-b682-15005bc7ddee",
                             Email = "judith@hattfabriken.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "JUDITH@HATTFABRIKEN.COM",
                             NormalizedUserName = "JUDITH@HATTFABRIKEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEG8K9/V+ESH0Id9DEEjvHSq7NuzElLjIa2+5R7wyrY8n8xxIMNRQ7XIOoPA9CxO8vQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC+OyStyXcpn9kbxAagqbBDgHrHTVVsylTysrsGFqgdiHc4k2Ymas+KU2h2LArrpWg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d62f708a-b9a4-4cff-9b02-685c648c972d",
+                            SecurityStamp = "7b6439bb-dc99-4f4f-a17b-dd9b88f047ff",
                             TwoFactorEnabled = false,
                             UserName = "judith@hattfabriken.com"
                         });

@@ -34,8 +34,21 @@
     </div>
 
     <div class="form-group">
-        <label for="specialEffects">Special effects:</label>
-        <input type="text" id="specialEffects" name="SpecialEffects" class="form-control" />
+        <label class="form-label">Special effects:</label>
+        <select asp-for="SpecialEffects" class="form-select" id="SpecialEffectsDrop">
+            <option value="">Choose Special effect...</option>
+            @if (ViewBag.SpecialEffects != null)
+            {
+                foreach (var specialEffectsList in ViewBag.SpecialEffects)
+                {
+                    <option value="@specialEffectsList.SpecialEffectName">@specialEffectsList.SpecialEffectName</option>
+                }
+            }
+            else
+            {
+                <option value="">No Special effects available</option>
+            }
+        </select>
     </div>
     <div class="form-group">
         <label for="measurement">Outer measurement:</label>

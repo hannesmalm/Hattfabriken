@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SkiaSharp;
 
 namespace Hattfabriken.Controllers
 {
@@ -33,12 +34,20 @@ namespace Hattfabriken.Controllers
         [HttpGet]
         public IActionResult AddHat()
         {
+            var specialEffectsList = _dbContext.SpecialEffects.ToList();
+            ViewBag.SpecialEffects = specialEffectsList;
+
             var materials = _dbContext.Materials.ToList();
             ViewBag.Materials = materials;
 
             Console.WriteLine("Material:" + materials);
 
             AddHatViewModel addHatViewModel = new AddHatViewModel();
+
+            {
+                var SelectedSpecialEffects = new List<String>();
+
+            }
             return View("~/Views/Lager/AddHat.cshtml", addHatViewModel);
         }
 
@@ -74,6 +83,9 @@ namespace Hattfabriken.Controllers
                     ModelState.AddModelError(string.Empty, "The selected material does not exist.");
                 }
             }
+
+            var specialEffectsList = _dbContext.SpecialEffects.ToList();
+            ViewBag.SpecialEffects = specialEffectsList;
 
             var materials = _dbContext.Materials.ToList();
             ViewBag.Materials = materials;
@@ -117,6 +129,8 @@ namespace Hattfabriken.Controllers
 
             //var materials = _dbContext.Materials.Select(m => m.MaterialName).ToList();
             //ViewBag.Materials = materials;
+            var specialEffectsList = _dbContext.SpecialEffects.ToList();
+            ViewBag.SpecialEffects = specialEffectsList;
 
             var materials = _dbContext.Materials.ToList();
             ViewBag.Materials = materials;
@@ -133,6 +147,11 @@ namespace Hattfabriken.Controllers
                 Quantity = hat.Quantity,
             };
 
+            {
+                var SelectedSpecialEffects = new List<String>();
+
+            }
+
             return View("~/Views/Lager/EditHat.cshtml", editHatViewModel);
         }
 
@@ -143,6 +162,7 @@ namespace Hattfabriken.Controllers
             {
                 try
                 {
+
                     var existingHat = _dbContext.Hats.FirstOrDefault(h => h.HatId == editHatViewModel.HatId);
 
                     if (existingHat != null)
@@ -167,6 +187,8 @@ namespace Hattfabriken.Controllers
                 }
 
             }
+            var specialEffectsList = _dbContext.SpecialEffects.ToList();
+            ViewBag.SpecialEffects = specialEffectsList;
             return View("~/Views/Lager/EditHat.cshtml", editHatViewModel);
         }
 
