@@ -37,6 +37,37 @@ namespace Hattfabriken.Controllers
             byte[] pdf = _pdfService.GenerateShippingLabel(data);
             var contentDispositionHeader = new System.Net.Mime.ContentDisposition
             {
+                FileName = "Invoice.pdf",
+                Inline = true  // False = prompt the user for downloading; True = try to open in web browser.
+            };
+            Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
+            return File(pdf, "application/pdf");
+        }
+
+        [HttpPost]
+        public IActionResult CreateInvoicePdf(int orderId)
+        {
+            Order order = _context.Orders.FirstOrDefault(o => o.Id == orderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var data = new InvoiceData
+            {
+                CustomerName = order.Name,
+                CustomerAddress = order.Address,
+                CustomerPostalCode = order.PostalCode,
+                CustomerCountry = order.Country,
+                OrderNumber = order.Id,
+                MaterialCost = order.MaterialCost,
+                SpecialEffectCost = order.SpecialEffectCost,
+                ShippingCost = order.ShippingCost,
+            };
+
+            byte[] pdf = _pdfService.GenerateInvoice(data);
+            var contentDispositionHeader = new System.Net.Mime.ContentDisposition
+            {
                 FileName = "TestDokument.pdf",
                 Inline = true  // False = prompt the user for downloading; True = try to open in web browser.
             };
