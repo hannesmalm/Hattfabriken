@@ -55,13 +55,15 @@ namespace Hattfabriken.Controllers
                     {
                         HatId = addHatViewModel.HatId,
                         HatName = addHatViewModel.HatName,
+                        HatType = addHatViewModel.HatType,
                         MaterialName = addHatViewModel.MaterialName,
                         OuterMeasurement = addHatViewModel.OuterMeasurement,
                         Description = addHatViewModel.Description,
-                        Price = addHatViewModel.Price,
                         SpecialEffects = addHatViewModel.SpecialEffects,
                         Quantity = addHatViewModel.Quantity,
-                        Material = material  
+                        Material = material,
+                        SpecialEffectCost = addHatViewModel.SpecialEffectCost,
+                        MaterialCost = addHatViewModel.MaterialCost,
                     };
                     if (addHatViewModel.HatImage != null && addHatViewModel.HatImage.Length > 0)
                     {
@@ -112,12 +114,14 @@ namespace Hattfabriken.Controllers
             {
                 HatId = hat.HatId,
                 HatName = hat.HatName,
+                HatType = hat.HatType,
                 MaterialName = hat.MaterialName,
                 Description = hat.Description,
-                Price = hat.Price,
                 SpecialEffects = hat.SpecialEffects,
                 OuterMeasurement = hat.OuterMeasurement,
                 Quantity = hat.Quantity,
+                SpecialEffectCost = hat.SpecialEffectCost,
+                MaterialCost = hat.MaterialCost,
             };
 
             {
@@ -141,12 +145,14 @@ namespace Hattfabriken.Controllers
                     if (existingHat != null)
                     {
                         existingHat.HatName = editHatViewModel.HatName;
+                        existingHat.HatType = editHatViewModel.HatType;
                         existingHat.MaterialName = editHatViewModel.MaterialName;
                         existingHat.Description = editHatViewModel.Description;
-                        existingHat.Price = editHatViewModel.Price;
                         existingHat.SpecialEffects = editHatViewModel.SpecialEffects;
                         existingHat.OuterMeasurement = editHatViewModel.OuterMeasurement;
                         existingHat.Quantity = editHatViewModel.Quantity;
+                        existingHat.MaterialCost = editHatViewModel.MaterialCost;
+                        existingHat.SpecialEffectCost = editHatViewModel.SpecialEffectCost;
 
                         if (editHatViewModel.HatImage != null && editHatViewModel.HatImage.Length > 0)
                         {
