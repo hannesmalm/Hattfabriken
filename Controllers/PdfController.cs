@@ -69,7 +69,7 @@ namespace Hattfabriken.Controllers
             byte[] pdf = _pdfService.GenerateInvoice(data);
             var contentDispositionHeader = new System.Net.Mime.ContentDisposition
             {
-                FileName = "TestDokument.pdf",
+                FileName = "Invoice.pdf",
                 Inline = true  // False = prompt the user for downloading; True = try to open in web browser.
             };
             Response.Headers.Add("Content-Disposition", contentDispositionHeader.ToString());
