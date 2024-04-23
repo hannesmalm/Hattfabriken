@@ -24,35 +24,31 @@ namespace Hattfabriken.Controllers
         }
 
         [HttpGet]
-        public IActionResult NewRequest()
-        {
-            var materials = _context.Materials.ToList();
-            //var specialEffectsMaterials = materials.Where(materials => materials.Type == 2).ToList();
-            var specialEffectsList = _context.SpecialEffects.ToList();
-            ViewBag.SpecialEffects = specialEffectsList;
-            ViewBag.Materials = materials; // Send materials to the view as ViewBag
-            ViewBag.Materials = materials ?? new List<Material>(); // jw's sus-kod kan behövas se över
-            RequestViewModel requestViewModel = new RequestViewModel();
-            {
-                var SelectedSpecialEffects = new List<String>();
-
-            }
-            return View(requestViewModel);
-        }
-
-        [HttpGet]
-        public IActionResult NewRequest(string hatType, string material, int outerMeasurement)
-        {
+        public IActionResult NewRequest(string? hatType, string? material, int? outerMeasurement, string? specialEffect)
+        {   
             var materials = _context.Materials.ToList();
             var specialEffectsList = _context.SpecialEffects.ToList();
             ViewBag.SpecialEffects = specialEffectsList;
             ViewBag.Materials = materials;
-            var requestViewModel = new RequestViewModel
+
+            RequestViewModel requestViewModel;
+
+            if(hatType != null || material != null || outerMeasurement != null) { 
+           
+                requestViewModel = new RequestViewModel
+                {
+                    HatType = hatType,
+                    Material = material,
+                    OuterMeasurement = outerMeasurement,
+                    SpecialEffects = specialEffect,
+                    Commentary = "Hat in stock."
+
+                };
+            }
+            else
             {
-                HatType = hatType,
-                Material = material,
-                OuterMeasurement = outerMeasurement
-            };
+                requestViewModel = new RequestViewModel();
+            }
             return View(requestViewModel);
         }
 
