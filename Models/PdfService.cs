@@ -15,110 +15,99 @@ namespace Hattfabriken.Models
 
             return document.GeneratePdf();
         }
-        //public byte[] GenerateInvoice(InvoiceData data)
-        //{
-        //    IContainer CellStyle(IContainer container) => container
-        //        .DefaultTextStyle(x => x.FontSize(12))
-        //        .Padding(10)
-        //        .Border(1)
-        //        .BorderColor("CCCCCC");
+        public byte[] GenerateInvoice(InvoiceData data)
+        {
+            return GenerateDocument(document =>
+            {
+                document.Page(page =>
+                {
+                    page.Margin(1, Unit.Centimetre);
+                    page.Size(PageSizes.A4);
 
-        //    return GenerateDocument(document =>
-        //    {
-        //        document.Page(page =>
-        //        {
-        //            page.Margin(50);
-        //            page.Size(PageSizes.A4);
-        //            page.DefaultTextStyle(x => x.FontSize(12));
+                    page.Header()
+                        .BorderHorizontal(1)
+                        .Height(50) // Increase the height if necessary to fit content
+                        .Row(row =>
+                        {
+                            row.RelativeColumn(1).Column(column =>
+                            {
+                                column.Item()
+                                      .AlignLeft()
+                                      .Height(50)  // Set height of the container that will hold the image
+                                      .Width(50)   // Set width of the container
+                                      .Image(data.CompanyLogoPath); // Path to the image file
+                            });
 
-        //            // Header med företagsinformation och logotyp
-        //            page.Header().Height(100).Column(column =>
-        //            {
-        //                column.Item().Row(row =>
-        //                {
-        //                    row.RelativeItem().Image(data.CompanyLogoPath, ImageScaling.FitHeight);
-        //                    row.ConstantItem(250).Text(text =>
-        //                    {
-        //                        text.DefaultTextStyle(x => x.FontSize(10));
-        //                        text.Line(data.CompanyName);
-        //                        text.Line(data.CompanyAddress);
-        //                        text.Line("Telefon: " + data.CompanyPhone);
-        //                        text.Line("E-post: " + data.CompanyEmail);
-        //                    });
-        //                });
-        //            });
+                            row.RelativeColumn(3).Column(column => // Use more space for text
+                            {
+                                column.Item().Text("Invoice").Bold().FontSize(30).FontColor(Colors.Black);
+                            });
+                        });
 
-        //            // Faktura titel och datum
-        //            page.Header().Height(50).PaddingTop(30).AlignCenter().Text($"FAKTURA - #{data.InvoiceNumber}").FontSize(20);
+                    page.Content()
+                        .BorderHorizontal(1)
+                        .Column(column =>
+                        {
+                            column.Spacing(15);
 
-        //            // Kundinformation
-        //            page.Header().Height(60).PaddingTop(10).Column(column =>
-        //            {
-        //                column.Item().Text(text =>
-        //                {
-        //                    text.DefaultTextStyle(x => x.FontSize(12));
-        //                    text.Line("Fakturerad till:");
-        //                    text.Line(data.CustomerName);
-        //                    text.Line(data.CustomerAddress);
-        //                });
-        //            });
+                            column.Item()
+                            .BorderHorizontal(1)
+                            .Row(row =>
+                            {
+                                row.Spacing(20);
+                                row.RelativeItem().Column(c =>
+                                {
+                                    c.Item().Text("From:").Bold().FontSize(14);
+                                    c.Item().Text($"{data.CompanyName}");
+                                    c.Item().Text($"{data.CompanyAddress}");
+                                    c.Item().Text($"{data.CompanyCountry}");
+                                    c.Item().Text($"Email: {data.CompanyEmail}");
+                                    c.Item().Text($"Phone: {data.CompanyPhone}");
+                                });
 
-        //            // Tabell för fakturaobjekt
-        //            page.Content().Table(table =>
-        //            {
-        //                // Kolumnrubriker
-        //                table.ColumnsDefinition(columns =>
-        //                {
-        //                    columns.ConstantColumn(50);
-        //                    columns.RelativeColumn(1);
-        //                    columns.RelativeColumn(1);
-        //                    columns.RelativeColumn(1);
-        //                    columns.RelativeColumn(1);
-        //                });
+                                row.RelativeItem().Column(c =>
+                                {
+                                    c.Item().Text("To:").Bold().FontSize(14);
+                                    c.Item().Text($"{data.CustomerName}");
+                                    c.Item().Text($"{data.CustomerAddress}, {data.CustomerPostalCode}");
+                                    c.Item().Text($"{data.CustomerCountry}");
+                                });
+                            });
 
-        //                // Header-rad
-        //                table.Header(header =>
-        //                {
-        //                    header.Cell().Element(CellStyle).Text("#");
-        //                    header.Cell().Element(CellStyle).Text("Beskrivning");
-        //                    header.Cell().Element(CellStyle).Text("Antal");
-        //                    header.Cell().Element(CellStyle).Text("Pris/st");
-        //                    header.Cell().Element(CellStyle).Text("Summa");
-        //                });
+                            // Include financial details
+                            column.Item().Row(row =>
+                            {
+                                row.Spacing(20);
+                                row.RelativeItem().Column(c =>
+                                {
+                                    if (data.InvoiceNumber.HasValue)
+                                        c.Item().Text($"Invoice Number: {data.InvoiceNumber.Value}").LineHeight(2).Bold().FontSize(12);
+                                    c.Item().Text($"Order Number: #{data.OrderNumber}").LineHeight(2).Bold().FontSize(12);
+                                    c.Item().Text($"Due Date: {data.DueDate.ToShortDateString()}").LineHeight(2).Bold().FontSize(12);
+                                    c.Item().PaddingTop(30);
+                                    c.Item().Text("Material Costs: " + data.MaterialCost.ToString("0.00") + "kr").LineHeight(2).Bold().FontSize(12);
+                                    // Special Effect Costs (if applicable)
+                                    if (data.SpecialEffectCost.HasValue)
+                                        c.Item().Text("Special Effect Costs: " + data.SpecialEffectCost.Value.ToString("0.00") + "kr").LineHeight(2).Bold().FontSize(12);
 
-        //                // Data-rader
-        //                int i = 1;
-        //                foreach (var item in data.Items)
-        //                {
-        //                    table.Row(row =>
-        //                    {
-        //                        row.Cell().Element(CellStyle).Text(i++.ToString());
-        //                        row.Cell().Element(CellStyle).Text(item.Description);
-        //                        row.Cell().Element(CellStyle).Text(item.Quantity.ToString());
-        //                        row.Cell().Element(CellStyle).Text(item.UnitPrice.ToString("C2"));
-        //                        row.Cell().Element(CellStyle).Text(item.TotalPrice.ToString("C2"));
-        //                    });
-        //                }
+                                    // Shipping Costs
+                                    c.Item().Text("Shipping Costs: " + data.ShippingCost.ToString("0.00") + "kr").LineHeight(2).Bold().FontSize(12);
 
-        //                // Totalrad
-        //                table.Footer(footer =>
-        //                {
-        //                    footer.Cell().Element(CellStyle).AlignRight().Text("Totalt: ").Span(4); // Spans över fyra kolumner
-        //                    footer.Cell().Element(CellStyle).Text(data.TotalAmount.ToString("C2"));
-        //                });
+                                    // Total Amount - Make it stand out
+                                    c.Item().Padding(5) // Add padding around the text for emphasis
+                                       .Border(1) // Add a border around the text
+                                       .BorderColor(Colors.Black) // Set the color of the border
+                                       .Text("Total Amount: " + data.TotalAmount.ToString("0.00") + "kr")
+                                       .LineHeight(2)
+                                       .Bold()
+                                       .FontSize(14); // Increase the font size to make it more prominent
+                                });
+                            });
+                        });
+                });
+            });
+        }
 
-        //            });
-
-        //            // Footer med sidnummer
-        //            page.Footer().Height(50).AlignCenter().Text(x =>
-        //            {
-        //                x.CurrentPageNumber();
-        //                x.Span(" av ");
-        //                x.TotalPages();
-        //            });
-        //        });
-        //    }, data);
-        //}
 
         public byte[] GenerateShippingLabel(ShippingLabelData data)
         {

@@ -62,7 +62,8 @@ namespace Hattfabriken.Controllers
                 OrderNumber = order.Id,
                 MaterialCost = order.MaterialCost,
                 SpecialEffectCost = order.SpecialEffectCost,
-                ShippingCost = order.ShippingCost,
+                ShippingCost = order.ShippingCost ?? 0,
+                TotalAmount = order.MaterialCost + (order.SpecialEffectCost ?? 0) + (order.ShippingCost ?? 0),
             };
 
             byte[] pdf = _pdfService.GenerateInvoice(data);
