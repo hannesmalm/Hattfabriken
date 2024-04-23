@@ -1,4 +1,6 @@
-﻿namespace Hattfabriken.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Hattfabriken.Models
 
 {
     public class AddHatViewModel
@@ -11,5 +13,6 @@
         public string? SpecialEffects { get; set; }
         public int OuterMeasurement { get; set; }
         public int Quantity { get; set; }
+        public IFormFile? HatImage { get; set; }
     }
 }

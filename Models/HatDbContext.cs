@@ -10,8 +10,6 @@ namespace Hattfabriken.Models
     {
         public HatDbContext(DbContextOptions<HatDbContext> options) : base(options) { }
 
-
-
         public DbSet<Hat> Hats { get; set; }
         public DbSet<Material> Materials { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }

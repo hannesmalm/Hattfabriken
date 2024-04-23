@@ -25,6 +25,9 @@ namespace Hattfabriken.Models
         [Required(ErrorMessage = "Please enter an outer measurement")]
         public int OuterMeasurement {  get; set; }
         [Required(ErrorMessage = "Please enter a quantity")] 
-        public int Quantity { get; set;}
+        public int Quantity { get; set; }
+
+        [ForeignKey("Image")]
+        public byte[]? HatImage { get; set; }
     }
 }
