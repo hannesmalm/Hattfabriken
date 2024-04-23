@@ -18,7 +18,7 @@
         public double TotalAmount { get; set; }
         public double MaterialCost { get; set; }
         public double? SpecialEffectCost { get; set; }
-        public double? ShippingCost { get; set; }
+        public double ShippingCost { get; set; }
         public InvoiceData()
         {
             CompanyName = "The Hat Factory";
@@ -26,9 +26,8 @@
             CompanyCountry = "Sweden";
             CompanyEmail = "Otto@hattfabriken.com";
             CompanyPhone = "010-1234567";
-            CompanyLogoPath = "lib\\KG9DESawSZG8K495cQrqwQ.png";
+            CompanyLogoPath = "wwwroot\\lib\\Images\\logoClearNoText.png";
             DueDate = DateTime.Today.AddDays(30);
-            TotalAmount = MaterialCost + (SpecialEffectCost ?? 0) + (ShippingCost ?? 0);
         }
     }
 }

@@ -12,7 +12,10 @@
         <!-- Visa övrig orderinformation här -->
     </div>
     <div>
-        <button class="btn btn-primary" onclick="printQuote()">Print Quote</button>
+        <form method="post" asp-action="CreateInvoicePdf" asp-controller="Pdf">
+            <input type="hidden" name="orderId" value="@Model.Id" />
+            <button type="submit" class="btn btn-primary">Print Invoice</button>
+        </form>
         <form method="post" asp-action="CreateShippingLabelPdf" asp-controller="Pdf">
             <input type="hidden" name="orderId" value="@Model.Id" />
             <button type="submit" class="btn btn-primary">Print Shipping Label</button>
