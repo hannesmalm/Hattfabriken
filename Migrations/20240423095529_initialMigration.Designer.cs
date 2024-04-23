@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    [Migration("20240419111807_aantons")]
-    partial class aantons
+    [Migration("20240423095529_initialMigration")]
+    partial class initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -65,6 +65,9 @@ namespace Hattfabriken.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("HatImage")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("HatName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -83,7 +86,6 @@ namespace Hattfabriken.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("SpecialEffects")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("HatId");
@@ -233,8 +235,9 @@ namespace Hattfabriken.Migrations
                     b.Property<DateTime>("EstimatedDeliveryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("HatType")
-                        .HasColumnType("int");
+                    b.Property<string>("HatType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("HatmakerComment")
                         .HasColumnType("nvarchar(max)");
@@ -393,7 +396,7 @@ namespace Hattfabriken.Migrations
                             PhoneNumber = "0707654321",
                             PostalCode = 23456,
                             SpecialEffects = "[\"Sunproof\"]",
-                            Status = "Judith Ongoing"
+                            Status = "Judith-Ongoing"
                         },
                         new
                         {
@@ -705,6 +708,40 @@ namespace Hattfabriken.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "7934db77-bba9-4327-802a-051098152fef",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "eb25dca9-937b-4791-bf79-ff0a9a8ed756",
+                            Email = "otto@hattfabriken.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "OTTO@HATTFABRIKEN.COM",
+                            NormalizedUserName = "OTTO@HATTFABRIKEN.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGDRladxV9M0wPcIZVQZlrOn7JtrRu/lSg/RREMshRHV28HaM+0rtPNbcRo9S+p3bA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "98a51838-579d-4b2a-b1b4-76ea58b71849",
+                            TwoFactorEnabled = false,
+                            UserName = "otto@hattfabriken.com"
+                        },
+                        new
+                        {
+                            Id = "87eb65b7-2e8e-4bd5-9e16-9e223de331d0",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "3bef128b-c57d-4b3e-8070-a9e4d95ea2df",
+                            Email = "judith@hattfabriken.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "JUDITH@HATTFABRIKEN.COM",
+                            NormalizedUserName = "JUDITH@HATTFABRIKEN.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAENdcFvAvWnD8r4VnDp9cYTza7I8zii/c/KAqa5bGfIGdCE19xSbDtIQP3+Y+Ghyrjg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "4492a1ad-cf15-422f-a632-5001bd7217ea",
+                            TwoFactorEnabled = false,
+                            UserName = "judith@hattfabriken.com"
+                        });
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Warehouse", b =>

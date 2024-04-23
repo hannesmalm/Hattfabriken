@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Hattfabriken.Migrations
 {
     /// <inheritdoc />
-    public partial class aantons : Migration
+    public partial class initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -100,7 +100,7 @@ namespace Hattfabriken.Migrations
                 {
                     OffertId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    HatType = table.Column<int>(type: "int", nullable: false),
+                    HatType = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -328,9 +328,10 @@ namespace Hattfabriken.Migrations
                     MaterialName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    SpecialEffects = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SpecialEffects = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OuterMeasurement = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    HatImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -365,6 +366,15 @@ namespace Hattfabriken.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "7934db77-bba9-4327-802a-051098152fef", 0, "eb25dca9-937b-4791-bf79-ff0a9a8ed756", "otto@hattfabriken.com", true, false, null, "OTTO@HATTFABRIKEN.COM", "OTTO@HATTFABRIKEN.COM", "AQAAAAIAAYagAAAAEGDRladxV9M0wPcIZVQZlrOn7JtrRu/lSg/RREMshRHV28HaM+0rtPNbcRo9S+p3bA==", null, false, "98a51838-579d-4b2a-b1b4-76ea58b71849", false, "otto@hattfabriken.com" },
+                    { "87eb65b7-2e8e-4bd5-9e16-9e223de331d0", 0, "3bef128b-c57d-4b3e-8070-a9e4d95ea2df", "judith@hattfabriken.com", true, false, null, "JUDITH@HATTFABRIKEN.COM", "JUDITH@HATTFABRIKEN.COM", "AQAAAAIAAYagAAAAENdcFvAvWnD8r4VnDp9cYTza7I8zii/c/KAqa5bGfIGdCE19xSbDtIQP3+Y+Ghyrjg==", null, false, "4492a1ad-cf15-422f-a632-5001bd7217ea", false, "judith@hattfabriken.com" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Materials",
                 columns: new[] { "MaterialName", "MaterialQuantity", "MaterialSupplier", "Price" },
                 values: new object[,]
@@ -387,7 +397,7 @@ namespace Hattfabriken.Migrations
                 values: new object[,]
                 {
                     { 1, "Köpmansgatan 10", "Beställningen brådskar.", "Sverige", new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "kund@example.com", null, null, 10, "Otto", "Leather", 58, "Kund Namnsson", "0701234567", 12345, "[\"Waterproof\"]", "To-Do" },
-                    { 2, "Handelsgatan 20", "Extra storlek behövs.", "Sverige", new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "annan.kund@example.com", null, null, 8, "Judith", "Straw", 60, "Annan Kundsson", "0707654321", 23456, "[\"Sunproof\"]", "Judith Ongoing" },
+                    { 2, "Handelsgatan 20", "Extra storlek behövs.", "Sverige", new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "annan.kund@example.com", null, null, 8, "Judith", "Straw", 60, "Annan Kundsson", "0707654321", 23456, "[\"Sunproof\"]", "Judith-Ongoing" },
                     { 3, "Blommans väg 3", "Behöver för sommarsäsongen.", "Sverige", new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "sommar@example.com", null, null, 9, "Greta", "Cotton", 57, "Sommar Svensson", "0712345678", 34567, "[\"Lightweight\"]", "To-Do" },
                     { 4, "Vintergatan 45", "Vinterdesign önskas.", "Sverige", new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "vinter@example.com", null, null, 12, "Hugo", "Wool", 59, "Vinter Vintersson", "0723456789", 45678, "[\"Insulated\"]", "To-Do" },
                     { 5, "Glamourgatan 12", "För speciell gala.", "Sverige", new DateTime(2024, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "gala@example.com", null, null, 7, "Freja", "Silk", 56, "Gala Galesson", "0734567890", 56789, "[\"Shiny\"]", "Completed" },
