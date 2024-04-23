@@ -69,6 +69,12 @@ namespace Hattfabriken.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("HatType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("MaterialCost")
+                        .HasColumnType("float");
+
                     b.Property<string>("MaterialName")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -76,11 +82,11 @@ namespace Hattfabriken.Migrations
                     b.Property<int>("OuterMeasurement")
                         .HasColumnType("int");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
+
+                    b.Property<double?>("SpecialEffectCost")
+                        .HasColumnType("float");
 
                     b.Property<string>("SpecialEffects")
                         .HasColumnType("nvarchar(max)");
@@ -331,6 +337,9 @@ namespace Hattfabriken.Migrations
                     b.Property<string>("Material")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double>("MaterialCost")
+                        .HasColumnType("float");
+
                     b.Property<int?>("Measurement")
                         .HasColumnType("int");
 
@@ -344,6 +353,12 @@ namespace Hattfabriken.Migrations
 
                     b.Property<int>("PostalCode")
                         .HasColumnType("int");
+
+                    b.Property<double?>("ShippingCost")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("SpecialEffectCost")
+                        .HasColumnType("float");
 
                     b.Property<string>("SpecialEffects")
                         .HasColumnType("nvarchar(max)");
@@ -369,11 +384,12 @@ namespace Hattfabriken.Migrations
                             Height = 10,
                             Maker = "Otto",
                             Material = "Leather",
+                            MaterialCost = 0.0,
                             Measurement = 58,
                             Name = "Kund Namnsson",
                             PhoneNumber = "0701234567",
                             PostalCode = 12345,
-                            SpecialEffects = "[\"Waterproof\"]",
+                            SpecialEffects = "Waterproof",
                             Status = "To-Do"
                         },
                         new
@@ -388,11 +404,12 @@ namespace Hattfabriken.Migrations
                             Height = 8,
                             Maker = "Judith",
                             Material = "Straw",
+                            MaterialCost = 0.0,
                             Measurement = 60,
                             Name = "Annan Kundsson",
                             PhoneNumber = "0707654321",
                             PostalCode = 23456,
-                            SpecialEffects = "[\"Sunproof\"]",
+                            SpecialEffects = "Sunproof",
                             Status = "Judith-Ongoing"
                         },
                         new
@@ -407,11 +424,12 @@ namespace Hattfabriken.Migrations
                             Height = 9,
                             Maker = "Greta",
                             Material = "Cotton",
+                            MaterialCost = 0.0,
                             Measurement = 57,
                             Name = "Sommar Svensson",
                             PhoneNumber = "0712345678",
                             PostalCode = 34567,
-                            SpecialEffects = "[\"Lightweight\"]",
+                            SpecialEffects = "Pärlor",
                             Status = "To-Do"
                         },
                         new
@@ -426,11 +444,12 @@ namespace Hattfabriken.Migrations
                             Height = 12,
                             Maker = "Hugo",
                             Material = "Wool",
+                            MaterialCost = 0.0,
                             Measurement = 59,
                             Name = "Vinter Vintersson",
                             PhoneNumber = "0723456789",
                             PostalCode = 45678,
-                            SpecialEffects = "[\"Insulated\"]",
+                            SpecialEffects = "Insulated",
                             Status = "To-Do"
                         },
                         new
@@ -445,11 +464,12 @@ namespace Hattfabriken.Migrations
                             Height = 7,
                             Maker = "Freja",
                             Material = "Silk",
+                            MaterialCost = 0.0,
                             Measurement = 56,
                             Name = "Gala Galesson",
                             PhoneNumber = "0734567890",
                             PostalCode = 56789,
-                            SpecialEffects = "[\"Shiny\"]",
+                            SpecialEffects = "Shiny",
                             Status = "Completed"
                         },
                         new
@@ -464,11 +484,12 @@ namespace Hattfabriken.Migrations
                             Height = 10,
                             Maker = "Otto",
                             Material = "Felt",
+                            MaterialCost = 0.0,
                             Measurement = 55,
                             Name = "Snabb Snabbsson",
                             PhoneNumber = "0745678901",
                             PostalCode = 67890,
-                            SpecialEffects = "[\"Stiff\"]",
+                            SpecialEffects = "Stiff",
                             Status = "To-Do"
                         },
                         new
@@ -483,11 +504,12 @@ namespace Hattfabriken.Migrations
                             Height = 11,
                             Maker = "Judith",
                             Material = "Leather",
+                            MaterialCost = 0.0,
                             Measurement = 61,
                             Name = "Retro Retrosson",
                             PhoneNumber = "0756789012",
                             PostalCode = 78901,
-                            SpecialEffects = "[\"Vintage\"]",
+                            SpecialEffects = "Vintage",
                             Status = "Completed"
                         },
                         new
@@ -502,11 +524,12 @@ namespace Hattfabriken.Migrations
                             Height = 9,
                             Maker = "Greta",
                             Material = "Straw",
+                            MaterialCost = 0.0,
                             Measurement = 58,
                             Name = "Solig Solsson",
                             PhoneNumber = "0767890123",
                             PostalCode = 89012,
-                            SpecialEffects = "[\"Breathable\"]",
+                            SpecialEffects = "Breathable",
                             Status = "Completed"
                         },
                         new
@@ -521,11 +544,12 @@ namespace Hattfabriken.Migrations
                             Height = 8,
                             Maker = "Hugo",
                             Material = "Polyester",
+                            MaterialCost = 0.0,
                             Measurement = 62,
                             Name = "Fiskare Fiskarsson",
                             PhoneNumber = "0778901234",
                             PostalCode = 90123,
-                            SpecialEffects = "[\"Waterproof\"]",
+                            SpecialEffects = "Waterproof",
                             Status = "Completed"
                         });
                 });
@@ -709,33 +733,33 @@ namespace Hattfabriken.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7934db77-bba9-4327-802a-051098152fef",
+                            Id = "bb2de007-c123-4095-a6f9-d934ed7251b5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "eb25dca9-937b-4791-bf79-ff0a9a8ed756",
+                            ConcurrencyStamp = "262aeaea-104a-423c-a766-6824645c2b9c",
                             Email = "otto@hattfabriken.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "OTTO@HATTFABRIKEN.COM",
                             NormalizedUserName = "OTTO@HATTFABRIKEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGDRladxV9M0wPcIZVQZlrOn7JtrRu/lSg/RREMshRHV28HaM+0rtPNbcRo9S+p3bA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMPVnQ4MB/ivDuZfc+j/dXvM1zbs1TJA4uFBhgqBlfTnqn0i/t0ffJPNeAU4TplKNQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "98a51838-579d-4b2a-b1b4-76ea58b71849",
+                            SecurityStamp = "c602adb3-981d-4efb-9f8f-3ece0748ec31",
                             TwoFactorEnabled = false,
                             UserName = "otto@hattfabriken.com"
                         },
                         new
                         {
-                            Id = "87eb65b7-2e8e-4bd5-9e16-9e223de331d0",
+                            Id = "5685be58-91a7-4a2c-88a4-48c5fde7449d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3bef128b-c57d-4b3e-8070-a9e4d95ea2df",
+                            ConcurrencyStamp = "1e5ddee4-d237-47c8-84a4-f6bcd00446f6",
                             Email = "judith@hattfabriken.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "JUDITH@HATTFABRIKEN.COM",
                             NormalizedUserName = "JUDITH@HATTFABRIKEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENdcFvAvWnD8r4VnDp9cYTza7I8zii/c/KAqa5bGfIGdCE19xSbDtIQP3+Y+Ghyrjg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGXuiAeohp1RTe75daE04YxXxX1SAuzko23V+1j4VNZvTOENfNw+rBLqTwxC10GLnw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4492a1ad-cf15-422f-a632-5001bd7217ea",
+                            SecurityStamp = "06f40ced-5ea3-4ef6-a173-1debd262c923",
                             TwoFactorEnabled = false,
                             UserName = "judith@hattfabriken.com"
                         });

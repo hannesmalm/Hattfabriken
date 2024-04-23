@@ -17,11 +17,12 @@
                     }
                     <div class="card-body text-center">
                         <h5 class="card-title">@hat.HatName</h5>
+                        <p class="card-title">Hat type: @hat.HatType</p>
                         <p class="card-text">@hat.Description</p>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Material: @hat.MaterialName</li>
                             <li class="list-group-item">Outer measurement: @hat.OuterMeasurement</li>
-                            <li class="list-group-item">Price: @hat.Price</li>
+                            <li class="list-group-item">Price: @((hat.MaterialCost + hat.SpecialEffectCost)) kr</li>
                             <li class="list-group-item">Special effects: @hat.SpecialEffects</li>
                         </ul>
                         <div class="text-center mt-3">

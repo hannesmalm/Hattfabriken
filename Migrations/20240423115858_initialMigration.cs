@@ -140,6 +140,9 @@ namespace Hattfabriken.Migrations
                     Commentary = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SpecialEffects = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     HatImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    MaterialCost = table.Column<double>(type: "float", nullable: false),
+                    SpecialEffectCost = table.Column<double>(type: "float", nullable: true),
+                    ShippingCost = table.Column<double>(type: "float", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PostalCode = table.Column<int>(type: "int", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -325,13 +328,15 @@ namespace Hattfabriken.Migrations
                     HatId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     HatName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HatType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MaterialName = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
                     SpecialEffects = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OuterMeasurement = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    HatImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
+                    HatImage = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
+                    MaterialCost = table.Column<double>(type: "float", nullable: false),
+                    SpecialEffectCost = table.Column<double>(type: "float", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -370,8 +375,8 @@ namespace Hattfabriken.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "7934db77-bba9-4327-802a-051098152fef", 0, "eb25dca9-937b-4791-bf79-ff0a9a8ed756", "otto@hattfabriken.com", true, false, null, "OTTO@HATTFABRIKEN.COM", "OTTO@HATTFABRIKEN.COM", "AQAAAAIAAYagAAAAEGDRladxV9M0wPcIZVQZlrOn7JtrRu/lSg/RREMshRHV28HaM+0rtPNbcRo9S+p3bA==", null, false, "98a51838-579d-4b2a-b1b4-76ea58b71849", false, "otto@hattfabriken.com" },
-                    { "87eb65b7-2e8e-4bd5-9e16-9e223de331d0", 0, "3bef128b-c57d-4b3e-8070-a9e4d95ea2df", "judith@hattfabriken.com", true, false, null, "JUDITH@HATTFABRIKEN.COM", "JUDITH@HATTFABRIKEN.COM", "AQAAAAIAAYagAAAAENdcFvAvWnD8r4VnDp9cYTza7I8zii/c/KAqa5bGfIGdCE19xSbDtIQP3+Y+Ghyrjg==", null, false, "4492a1ad-cf15-422f-a632-5001bd7217ea", false, "judith@hattfabriken.com" }
+                    { "5685be58-91a7-4a2c-88a4-48c5fde7449d", 0, "1e5ddee4-d237-47c8-84a4-f6bcd00446f6", "judith@hattfabriken.com", true, false, null, "JUDITH@HATTFABRIKEN.COM", "JUDITH@HATTFABRIKEN.COM", "AQAAAAIAAYagAAAAEGXuiAeohp1RTe75daE04YxXxX1SAuzko23V+1j4VNZvTOENfNw+rBLqTwxC10GLnw==", null, false, "06f40ced-5ea3-4ef6-a173-1debd262c923", false, "judith@hattfabriken.com" },
+                    { "bb2de007-c123-4095-a6f9-d934ed7251b5", 0, "262aeaea-104a-423c-a766-6824645c2b9c", "otto@hattfabriken.com", true, false, null, "OTTO@HATTFABRIKEN.COM", "OTTO@HATTFABRIKEN.COM", "AQAAAAIAAYagAAAAEMPVnQ4MB/ivDuZfc+j/dXvM1zbs1TJA4uFBhgqBlfTnqn0i/t0ffJPNeAU4TplKNQ==", null, false, "c602adb3-981d-4efb-9f8f-3ece0748ec31", false, "otto@hattfabriken.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -393,18 +398,18 @@ namespace Hattfabriken.Migrations
 
             migrationBuilder.InsertData(
                 table: "Orders",
-                columns: new[] { "Id", "Address", "Commentary", "Country", "Date", "Delivery", "Email", "HatImage", "HatType", "Height", "Maker", "Material", "Measurement", "Name", "PhoneNumber", "PostalCode", "SpecialEffects", "Status" },
+                columns: new[] { "Id", "Address", "Commentary", "Country", "Date", "Delivery", "Email", "HatImage", "HatType", "Height", "Maker", "Material", "MaterialCost", "Measurement", "Name", "PhoneNumber", "PostalCode", "ShippingCost", "SpecialEffectCost", "SpecialEffects", "Status" },
                 values: new object[,]
                 {
-                    { 1, "Köpmansgatan 10", "Beställningen brådskar.", "Sverige", new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "kund@example.com", null, null, 10, "Otto", "Leather", 58, "Kund Namnsson", "0701234567", 12345, "[\"Waterproof\"]", "To-Do" },
-                    { 2, "Handelsgatan 20", "Extra storlek behövs.", "Sverige", new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "annan.kund@example.com", null, null, 8, "Judith", "Straw", 60, "Annan Kundsson", "0707654321", 23456, "[\"Sunproof\"]", "Judith-Ongoing" },
-                    { 3, "Blommans väg 3", "Behöver för sommarsäsongen.", "Sverige", new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "sommar@example.com", null, null, 9, "Greta", "Cotton", 57, "Sommar Svensson", "0712345678", 34567, "[\"Lightweight\"]", "To-Do" },
-                    { 4, "Vintergatan 45", "Vinterdesign önskas.", "Sverige", new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "vinter@example.com", null, null, 12, "Hugo", "Wool", 59, "Vinter Vintersson", "0723456789", 45678, "[\"Insulated\"]", "To-Do" },
-                    { 5, "Glamourgatan 12", "För speciell gala.", "Sverige", new DateTime(2024, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "gala@example.com", null, null, 7, "Freja", "Silk", 56, "Gala Galesson", "0734567890", 56789, "[\"Shiny\"]", "Completed" },
-                    { 6, "Snabbvägen 30", "Snabb leverans krävs.", "Sverige", new DateTime(2024, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "snabb@example.com", null, null, 10, "Otto", "Felt", 55, "Snabb Snabbsson", "0745678901", 67890, "[\"Stiff\"]", "To-Do" },
-                    { 7, "Retrogatan 56", "Retrostil önskas.", "Sverige", new DateTime(2024, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "retro@example.com", null, null, 11, "Judith", "Leather", 61, "Retro Retrosson", "0756789012", 78901, "[\"Vintage\"]", "Completed" },
-                    { 8, "Solgatan 78", "Lätt och luftig för sommarbruk.", "Sverige", new DateTime(2024, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "solig@example.com", null, null, 9, "Greta", "Straw", 58, "Solig Solsson", "0767890123", 89012, "[\"Breathable\"]", "Completed" },
-                    { 9, "Fiskevägen 89", "Vattenavvisande för fiske.", "Sverige", new DateTime(2024, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "fiskare@example.com", null, null, 8, "Hugo", "Polyester", 62, "Fiskare Fiskarsson", "0778901234", 90123, "[\"Waterproof\"]", "Completed" }
+                    { 1, "Köpmansgatan 10", "Beställningen brådskar.", "Sverige", new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "kund@example.com", null, null, 10, "Otto", "Leather", 0.0, 58, "Kund Namnsson", "0701234567", 12345, null, null, "Waterproof", "To-Do" },
+                    { 2, "Handelsgatan 20", "Extra storlek behövs.", "Sverige", new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "annan.kund@example.com", null, null, 8, "Judith", "Straw", 0.0, 60, "Annan Kundsson", "0707654321", 23456, null, null, "Sunproof", "Judith-Ongoing" },
+                    { 3, "Blommans väg 3", "Behöver för sommarsäsongen.", "Sverige", new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "sommar@example.com", null, null, 9, "Greta", "Cotton", 0.0, 57, "Sommar Svensson", "0712345678", 34567, null, null, "Pärlor", "To-Do" },
+                    { 4, "Vintergatan 45", "Vinterdesign önskas.", "Sverige", new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "vinter@example.com", null, null, 12, "Hugo", "Wool", 0.0, 59, "Vinter Vintersson", "0723456789", 45678, null, null, "Insulated", "To-Do" },
+                    { 5, "Glamourgatan 12", "För speciell gala.", "Sverige", new DateTime(2024, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "gala@example.com", null, null, 7, "Freja", "Silk", 0.0, 56, "Gala Galesson", "0734567890", 56789, null, null, "Shiny", "Completed" },
+                    { 6, "Snabbvägen 30", "Snabb leverans krävs.", "Sverige", new DateTime(2024, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "snabb@example.com", null, null, 10, "Otto", "Felt", 0.0, 55, "Snabb Snabbsson", "0745678901", 67890, null, null, "Stiff", "To-Do" },
+                    { 7, "Retrogatan 56", "Retrostil önskas.", "Sverige", new DateTime(2024, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "retro@example.com", null, null, 11, "Judith", "Leather", 0.0, 61, "Retro Retrosson", "0756789012", 78901, null, null, "Vintage", "Completed" },
+                    { 8, "Solgatan 78", "Lätt och luftig för sommarbruk.", "Sverige", new DateTime(2024, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), true, "solig@example.com", null, null, 9, "Greta", "Straw", 0.0, 58, "Solig Solsson", "0767890123", 89012, null, null, "Breathable", "Completed" },
+                    { 9, "Fiskevägen 89", "Vattenavvisande för fiske.", "Sverige", new DateTime(2024, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "fiskare@example.com", null, null, 8, "Hugo", "Polyester", 0.0, 62, "Fiskare Fiskarsson", "0778901234", 90123, null, null, "Waterproof", "Completed" }
                 });
 
             migrationBuilder.CreateIndex(

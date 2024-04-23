@@ -7,6 +7,17 @@
         <input asp-for="HatName" class="form-control" />
         <span asp-validation-for="HatName" class="text-danger"></span>
     </div>
+    <div class="mb-3">
+        <label class="form-label">Choose a hat type:</label>
+        <select asp-for="HatType" class="form-select">
+            <option value="">Choose a type...</option>
+            <option value="Felt hat">Felt hat</option>
+            <option value="Panama hat">Panama hat</option>
+            <option value="Straw hat">Straw hat</option>
+            <option value="Cloth hat">Cloth hat</option>
+            <option value="Leather hat">Leather hat</option>
+        </select>
+    </div>
     <div class="form-group">
         <label for="material">Material:</label>
         <select id="material" name="MaterialName" class="form-control">
@@ -26,11 +37,6 @@
         <label asp-for="Description">Description:</label>
         <input asp-for="Description" class="form-control" />
         <span asp-validation-for="Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-    <label asp-for="Price">Price:</label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -59,6 +65,16 @@
         <label asp-for="Quantity">Quantity:</label>
         <input asp-for="Quantity" class="form-control" />
         <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MaterialCost">Material cost:</label>
+        <input asp-for="MaterialCost" class="form-control" />
+        <span asp-validation-for="MaterialCost" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SpecialEffectCost">Special effect cost:</label>
+        <input asp-for="SpecialEffectCost" class="form-control" />
+        <span asp-validation-for="SpecialEffectCost" class="text-danger"></span>
     </div>
     <div class="form-group mt-4">
         <h6>Add picture</h6>

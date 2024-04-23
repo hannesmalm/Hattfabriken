@@ -40,6 +40,22 @@ namespace Hattfabriken.Controllers
             return View(requestViewModel);
         }
 
+        [HttpGet]
+        public IActionResult NewRequest(string hatType, string material, int outerMeasurement)
+        {
+            var materials = _context.Materials.ToList();
+            var specialEffectsList = _context.SpecialEffects.ToList();
+            ViewBag.SpecialEffects = specialEffectsList;
+            ViewBag.Materials = materials;
+            var requestViewModel = new RequestViewModel
+            {
+                HatType = hatType,
+                Material = material,
+                OuterMeasurement = outerMeasurement
+            };
+            return View(requestViewModel);
+        }
+
         [HttpPost]
         public async Task<IActionResult> NewRequest(RequestViewModel requestViewModel)
         {
