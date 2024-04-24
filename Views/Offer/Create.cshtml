@@ -9,7 +9,7 @@
 
                 if (request != null && request.Id != null)
                 {
-                    <input type="hidden" name="requestId" value="@request.Id" />
+                        <input type="hidden" name="requestId" value="@request.Id" />
                 }
             }
 
@@ -73,14 +73,7 @@
             }
             <hr>
 
-            <div>
-
-                @if (request != null)
-                {
-                    <p>Requested hat:</p>
-                    <p>Hat Type: @request.HatType</p>
-                    <p>Material: @request.Material</p>
-                }
+            <div
                 
                 <div class="mb-3">
                     <label class="form-label">Choose a hat type:</label>
@@ -97,7 +90,7 @@
                 <span asp-validation-for="HatType" class="text-danger"></span>
 
                 <div class="mb-3">
-                    <label class="form-label">Which material do you want? (Optional) </label>
+                    <label class="form-label">Material:</label>
                     <select asp-for="Material" class="form-select" id="materialDropdown">
                         <option value="">Choose Material...</option>
                         @if (ViewBag.Materials != null)
@@ -135,7 +128,7 @@
                         }
                     </select>
                 </div>
-
+                
                     <div class="mb-3">
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="DeliveryOrPickup" value="Pick up at workshop" checked="@((request?.DeliveryOrPickup == "Pick up at workshop"))" asp-for="DeliveryOrPickup" onchange="UpdateTotalPrice()" />
@@ -209,51 +202,47 @@
 
 <script>
 
-    var requestSpecialEffects = "@ViewBag.request.SpecialEffects"; // Läser in special effects från ViewBag
-    var dropdown = document.getElementById("specialEffectDropdown");
+    window.onload = function () {
+        UpdateTotalPrice();
+    };
 
-    // Loopa igenom alla alternativ i dropdown-listan
-    for (var i = 0; i < dropdown.options.length; i++)
-    {
-        // Om special effect matchar värdet för det aktuella alternativet
-        if (dropdown.options[i].value === requestSpecialEffects)
-        {
-            // Sätt det aktuella alternativet som valt
-            dropdown.selectedIndex = i;
-            // Bryt loopen eftersom vi har hittat det matchande alternativet
-            break;
+    var request = @Html.Raw(ViewBag.request == null ? "null" : System.Text.Json.JsonSerializer.Serialize(ViewBag.request));
+    if (request && request !== "null") {
+        var requestSpecialEffects = request.SpecialEffects;
+        var requestHatType = request.HatType;
+        var requestMaterial = request.Material;
+
+        // Fyll i special effect dropdown om data finns
+        if (requestSpecialEffects) {
+            var specialEffectDropdown = document.getElementById("specialEffectDropdown");
+            for (var i = 0; i < specialEffectDropdown.options.length; i++) {
+                if (specialEffectDropdown.options[i].value === requestSpecialEffects) {
+                    specialEffectDropdown.selectedIndex = i;
+                    break;
+                }
+            }
         }
-    }
 
-    var requestHatType = "@ViewBag.request.HatType"; // Läser in hat type från ViewBag
-    var hatTypeDropdown = document.getElementById("hatTypeDropdown");
-
-    // Loopa igenom alla alternativ i hat type dropdown-listan
-    for (var i = 0; i < hatTypeDropdown.options.length; i++)
-    {
-        // Om hat type matchar värdet för det aktuella alternativet
-        if (hatTypeDropdown.options[i].value === requestHatType)
-        {
-            // Sätt det aktuella alternativet som valt
-            hatTypeDropdown.selectedIndex = i;
-            // Bryt loopen eftersom vi har hittat det matchande alternativet
-            break;
+        // Fyll i hat type dropdown om data finns
+        if (requestHatType) {
+            var hatTypeDropdown = document.getElementById("hatTypeDropdown");
+            for (var i = 0; i < hatTypeDropdown.options.length; i++) {
+                if (hatTypeDropdown.options[i].value === requestHatType) {
+                    hatTypeDropdown.selectedIndex = i;
+                    break;
+                }
+            }
         }
-    }
 
-    var requestMaterial = "@ViewBag.request.Material"; // Läser in material från ViewBag
-    var materialDropdown = document.getElementById("materialDropdown");
-
-    // Loopa igenom alla alternativ i material dropdown-listan
-    for (var j = 0; j < materialDropdown.options.length; j++)
-    {
-        // Om material matchar värdet för det aktuella alternativet
-        if (materialDropdown.options[j].value === requestMaterial)
-        {
-            // Sätt det aktuella alternativet som valt
-            materialDropdown.selectedIndex = j;
-            // Bryt loopen eftersom vi har hittat det matchande alternativet
-            break;
+        // Fyll i material dropdown om data finns
+        if (requestMaterial) {
+            var materialDropdown = document.getElementById("materialDropdown");
+            for (var j = 0; j < materialDropdown.options.length; j++) {
+                if (materialDropdown.options[j].value === requestMaterial) {
+                    materialDropdown.selectedIndex = j;
+                    break;
+                }
+            }
         }
     }
 
