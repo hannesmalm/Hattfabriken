@@ -4,6 +4,7 @@ using Hattfabriken.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    partial class HatDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240417092555_testar ")]
+    partial class testar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,7 +53,7 @@ namespace Hattfabriken.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("Hattfabriken.Models.Hat", b =>
+            modelBuilder.Entity("Hattfabriken.Models.Hatt", b =>
                 {
                     b.Property<int>("HatId")
                         .ValueGeneratedOnAdd()
@@ -62,40 +65,24 @@ namespace Hattfabriken.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("HatImage")
-                        .HasColumnType("varbinary(max)");
-
                     b.Property<string>("HatName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("HatType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("MaterialCost")
-                        .HasColumnType("float");
-
                     b.Property<string>("MaterialName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OuterMeasurement")
+                    b.Property<int>("Price")
                         .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("SpecialEffectCost")
-                        .HasColumnType("float");
 
                     b.Property<string>("SpecialEffects")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("HatId");
 
-                    b.HasIndex("MaterialName");
-
-                    b.ToTable("Hats");
+                    b.ToTable("Hattar");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Image", b =>
@@ -121,10 +108,6 @@ namespace Hattfabriken.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("MaterialHsCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("MaterialQuantity")
                         .HasColumnType("int");
 
@@ -143,7 +126,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Leather",
-                            MaterialHsCode = "4202 91 80 10",
                             MaterialQuantity = 1000,
                             MaterialSupplier = "Leather@gmail.com",
                             Price = 45
@@ -151,7 +133,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Straw",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 800,
                             MaterialSupplier = "StrawSwag@icloud.com",
                             Price = 14
@@ -159,7 +140,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Cloth",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 2200,
                             MaterialSupplier = "ClothCircus@hotmail.com",
                             Price = 13
@@ -167,7 +147,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Snakeskin",
-                            MaterialHsCode = "4202 91 80 10",
                             MaterialQuantity = 400,
                             MaterialSupplier = "SnakeKiller@icloud.com",
                             Price = 84
@@ -175,7 +154,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Felt",
-                            MaterialHsCode = "4202 91 80 10",
                             MaterialQuantity = 600,
                             MaterialSupplier = "FeltFear@icloud.com",
                             Price = 14
@@ -183,7 +161,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Panama",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 900,
                             MaterialSupplier = "PanamaSwag@icloud.com",
                             Price = 16
@@ -191,7 +168,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Cotton",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 200,
                             MaterialSupplier = "CottonCorner@icloud.com",
                             Price = 16
@@ -199,7 +175,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Linen",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 300,
                             MaterialSupplier = "GrischLaidback@icloud.com",
                             Price = 28
@@ -207,7 +182,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Satin",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 1000,
                             MaterialSupplier = "SatinSwag@icloud.com",
                             Price = 12
@@ -215,7 +189,6 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             MaterialName = "Polyester",
-                            MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 2900,
                             MaterialSupplier = "PolyesterChina@icloud.com",
                             Price = 11
@@ -230,342 +203,41 @@ namespace Hattfabriken.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OffertId"));
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DateCreated")
+                    b.Property<DateTime>("EstimeratLeveransdatum")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeliveryOrPickup")
+                    b.Property<double?>("FraktKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<string>("KundMail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("KundNamn")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("EstimatedDeliveryDate")
+                    b.Property<string>("KundTel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("MaterialKostnad")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("SkapadDatum")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("HatType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HatmakerComment")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Height")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Material")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("MaterialCost")
+                    b.Property<double?>("SpecialeffektKostnad")
                         .HasColumnType("float");
 
-                    b.Property<int>("Measurement")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PostalCode")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("ShippingCost")
+                    b.Property<double>("SpecialtygKostnad")
                         .HasColumnType("float");
 
-                    b.Property<double?>("SpecialEffectCost")
+                    b.Property<double>("TotalKostnad")
                         .HasColumnType("float");
-
-                    b.Property<string>("SpecialEffects")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("TotalCost")
-                        .HasColumnType("float");
-
-                    b.Property<bool>("Urgent")
-                        .HasColumnType("bit");
 
                     b.HasKey("OffertId");
 
                     b.ToTable("Offers");
-                });
-
-            modelBuilder.Entity("Hattfabriken.Models.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Commentary")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Delivery")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("HatImage")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("HatType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Height")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Maker")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Material")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("MaterialCost")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("Measurement")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PostalCode")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("ShippingCost")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("SpecialEffectCost")
-                        .HasColumnType("float");
-
-                    b.Property<string>("SpecialEffects")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "Köpmansgatan 10",
-                            Commentary = "Beställningen brådskar.",
-                            Country = "Sverige",
-                            Date = new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Delivery = true,
-                            Email = "kund@example.com",
-                            Height = 10,
-                            Maker = "Otto",
-                            Material = "Leather",
-                            MaterialCost = 0.0,
-                            Measurement = 58,
-                            Name = "Kund Namnsson",
-                            PhoneNumber = "0701234567",
-                            PostalCode = 12345,
-                            SpecialEffects = "Waterproof",
-                            Status = "To-Do"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "Handelsgatan 20",
-                            Commentary = "Extra storlek behövs.",
-                            Country = "Sverige",
-                            Date = new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Delivery = false,
-                            Email = "annan.kund@example.com",
-                            Height = 8,
-                            Maker = "Judith",
-                            Material = "Straw",
-                            MaterialCost = 0.0,
-                            Measurement = 60,
-                            Name = "Annan Kundsson",
-                            PhoneNumber = "0707654321",
-                            PostalCode = 23456,
-                            SpecialEffects = "Sunproof",
-                            Status = "Judith-Ongoing"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Address = "Blommans väg 3",
-                            Commentary = "Behöver för sommarsäsongen.",
-                            Country = "Sverige",
-                            Date = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Delivery = true,
-                            Email = "sommar@example.com",
-                            Height = 9,
-                            Maker = "Greta",
-                            Material = "Cotton",
-                            MaterialCost = 0.0,
-                            Measurement = 57,
-                            Name = "Sommar Svensson",
-                            PhoneNumber = "0712345678",
-                            PostalCode = 34567,
-                            SpecialEffects = "Pärlor",
-                            Status = "To-Do"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Address = "Vintergatan 45",
-                            Commentary = "Vinterdesign önskas.",
-                            Country = "Sverige",
-                            Date = new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Delivery = false,
-                            Email = "vinter@example.com",
-                            Height = 12,
-                            Maker = "Hugo",
-                            Material = "Wool",
-                            MaterialCost = 0.0,
-                            Measurement = 59,
-                            Name = "Vinter Vintersson",
-                            PhoneNumber = "0723456789",
-                            PostalCode = 45678,
-                            SpecialEffects = "Insulated",
-                            Status = "To-Do"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Address = "Glamourgatan 12",
-                            Commentary = "För speciell gala.",
-                            Country = "Sverige",
-                            Date = new DateTime(2024, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Delivery = true,
-                            Email = "gala@example.com",
-                            Height = 7,
-                            Maker = "Freja",
-                            Material = "Silk",
-                            MaterialCost = 0.0,
-                            Measurement = 56,
-                            Name = "Gala Galesson",
-                            PhoneNumber = "0734567890",
-                            PostalCode = 56789,
-                            SpecialEffects = "Shiny",
-                            Status = "Completed"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Address = "Snabbvägen 30",
-                            Commentary = "Snabb leverans krävs.",
-                            Country = "Sverige",
-                            Date = new DateTime(2024, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Delivery = true,
-                            Email = "snabb@example.com",
-                            Height = 10,
-                            Maker = "Otto",
-                            Material = "Felt",
-                            MaterialCost = 0.0,
-                            Measurement = 55,
-                            Name = "Snabb Snabbsson",
-                            PhoneNumber = "0745678901",
-                            PostalCode = 67890,
-                            SpecialEffects = "Stiff",
-                            Status = "To-Do"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Address = "Retrogatan 56",
-                            Commentary = "Retrostil önskas.",
-                            Country = "Sverige",
-                            Date = new DateTime(2024, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Delivery = false,
-                            Email = "retro@example.com",
-                            Height = 11,
-                            Maker = "Judith",
-                            Material = "Leather",
-                            MaterialCost = 0.0,
-                            Measurement = 61,
-                            Name = "Retro Retrosson",
-                            PhoneNumber = "0756789012",
-                            PostalCode = 78901,
-                            SpecialEffects = "Vintage",
-                            Status = "Completed"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Address = "Solgatan 78",
-                            Commentary = "Lätt och luftig för sommarbruk.",
-                            Country = "Sverige",
-                            Date = new DateTime(2024, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Delivery = true,
-                            Email = "solig@example.com",
-                            Height = 9,
-                            Maker = "Greta",
-                            Material = "Straw",
-                            MaterialCost = 0.0,
-                            Measurement = 58,
-                            Name = "Solig Solsson",
-                            PhoneNumber = "0767890123",
-                            PostalCode = 89012,
-                            SpecialEffects = "Breathable",
-                            Status = "Completed"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Address = "Fiskevägen 89",
-                            Commentary = "Vattenavvisande för fiske.",
-                            Country = "Sverige",
-                            Date = new DateTime(2024, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Delivery = false,
-                            Email = "fiskare@example.com",
-                            Height = 8,
-                            Maker = "Hugo",
-                            Material = "Polyester",
-                            MaterialCost = 0.0,
-                            Measurement = 62,
-                            Name = "Fiskare Fiskarsson",
-                            PhoneNumber = "0778901234",
-                            PostalCode = 90123,
-                            SpecialEffects = "Waterproof",
-                            Status = "Completed"
-                        });
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
@@ -623,8 +295,8 @@ namespace Hattfabriken.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("HatType")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("HatId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("Height")
                         .HasColumnType("int");
@@ -638,9 +310,6 @@ namespace Hattfabriken.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("OuterMeasurement")
-                        .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -665,19 +334,6 @@ namespace Hattfabriken.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Requests");
-                });
-
-            modelBuilder.Entity("Hattfabriken.Models.SpecialEffects", b =>
-                {
-                    b.Property<string>("SpecialEffectName")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 2)");
-
-                    b.HasKey("SpecialEffectName");
-
-                    b.ToTable("SpecialEffects");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.User", b =>
@@ -743,40 +399,6 @@ namespace Hattfabriken.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "bb2de007-c123-4095-a6f9-d934ed7251b5",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "262aeaea-104a-423c-a766-6824645c2b9c",
-                            Email = "otto@hattfabriken.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "OTTO@HATTFABRIKEN.COM",
-                            NormalizedUserName = "OTTO@HATTFABRIKEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMPVnQ4MB/ivDuZfc+j/dXvM1zbs1TJA4uFBhgqBlfTnqn0i/t0ffJPNeAU4TplKNQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "c602adb3-981d-4efb-9f8f-3ece0748ec31",
-                            TwoFactorEnabled = false,
-                            UserName = "otto@hattfabriken.com"
-                        },
-                        new
-                        {
-                            Id = "5685be58-91a7-4a2c-88a4-48c5fde7449d",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "1e5ddee4-d237-47c8-84a4-f6bcd00446f6",
-                            Email = "judith@hattfabriken.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "JUDITH@HATTFABRIKEN.COM",
-                            NormalizedUserName = "JUDITH@HATTFABRIKEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGXuiAeohp1RTe75daE04YxXxX1SAuzko23V+1j4VNZvTOENfNw+rBLqTwxC10GLnw==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "06f40ced-5ea3-4ef6-a173-1debd262c923",
-                            TwoFactorEnabled = false,
-                            UserName = "judith@hattfabriken.com"
-                        });
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Warehouse", b =>
@@ -930,17 +552,6 @@ namespace Hattfabriken.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("Hattfabriken.Models.Hat", b =>
-                {
-                    b.HasOne("Hattfabriken.Models.Material", "Material")
-                        .WithMany()
-                        .HasForeignKey("MaterialName")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Material");
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.QuantityRequest", b =>
