@@ -25,6 +25,13 @@ namespace Hattfabriken.Controllers
         {
             OfferViewModel model = new OfferViewModel();
 
+            var materials = _context.Materials.ToList();
+            ViewBag.Materials = materials;
+
+            var specialEffectList = _context.SpecialEffects.ToList();
+            ViewBag.SpecialEffects = specialEffectList;
+            
+
             Request request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
 
             if (request != null)
@@ -63,22 +70,15 @@ namespace Hattfabriken.Controllers
                     TotalCost = model.TotalCost,
                     HatType = model.HatType,
                     Material = model.Material,
+                    SpecialEffect = model.SpecialEffect,
                     Measurement = model.Measurement,
+                    OuterMeasurement = model.OuterMeasurement,
                     Height = model.Height,
                     HatmakerComment = model.HatmakerComment,
                     Status = model.Status,
                     DeliveryOrPickup = model.DeliveryOrPickup,
                     Urgent = model.Urgent
                 };
-
-                if (model.SpecialEffects != null && model.SpecialEffects.Any())
-                {
-                    newOffer.SpecialEffects = new List<string>(model.SpecialEffects);
-                }
-                else
-                {
-                    newOffer.SpecialEffects = new List<string>(); // Tom lista om ingen special effekt är vald
-                }
 
                 _context.Offers.Add(newOffer);
                 await _context.SaveChangesAsync();

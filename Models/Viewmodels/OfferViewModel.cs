@@ -30,7 +30,7 @@ namespace Hattfabriken.Models.Viewmodels
         [Required(ErrorMessage = "Material is required")]
         public string Material { get; set; }
 
-        public List<string>? SpecialEffects { get; set; }
+        public string? SpecialEffect { get; set; }
 
         public string? HatmakerComment { get; set; }
 
@@ -50,6 +50,8 @@ namespace Hattfabriken.Models.Viewmodels
         public double TotalCost { get; set; }
 
         public int Measurement { get; set; }
+
+        public int OuterMeasurement { get; set; }
 
         public int Height { get; set; }
 

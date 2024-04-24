@@ -1,5 +1,6 @@
 ﻿@model Hattfabriken.Models.Viewmodels.OfferViewModel
 
+
 <form asp-controller="Offer" asp-action="Create" method="post" enctype="multipart/form-data">
 <div class="row">
         <div class="col-md-6">
@@ -74,75 +75,73 @@
 
             <div>
 
-                Requested hat:
-                <p>Hat Type: @request.HatType</p>
-                <p>Material: @request.Material</p>
-                <p>Measurement: @request.Measurement</p>
-                <p>Height: @request.Height</p>
-
-                <label class="form-label">Choose a hat type:</label>
-                <select asp-for="HatType" class="form-select" value="@request?.HatType">
-                    <option value="">Choose</option>
-                    <option value="Cowboy">Cowboy</option>
-                    <option value="Sheriff">Sheriff</option>
-                    <option value="Peaky Blinders">Peaky Blinders</option>
-                </select>
-                <span asp-validation-for="HatType" class="text-danger"></span>
+                @if (request != null)
+                {
+                    <p>Requested hat:</p>
+                    <p>Hat Type: @request.HatType</p>
+                    <p>Material: @request.Material</p>
+                }
                 
-                <label class="form-label">Material:</label>
-                <select asp-for="Material" class="form-select" value="@request?.Material">
-                    <option value="">Choose</option>
-                    <option value="Leather">Leather</option>
-                    <option value="Cloth">Cloth</option>
-                    <option value="Panama">Panama</option>
-                    <option value="Linen">Linen</option>
-                    <option value="Straw">Straw</option>
-                </select>
+                
+
+                <div class="mb-3">
+                    <label class="form-label">Choose a hat type:</label>
+                    <select asp-for="HatType" class="form-select">
+                        <option value="">Choose a type...</option>
+                        <option value="Felt hat">Felt hat</option>
+                        <option value="Panama">Panama hat</option>
+                        <option value="Straw hat">Straw hat</option>
+                        <option value="Cloth hat">Cloth hat</option>
+                        <option value="Leather hat">Leather hat</option>
+                    </select>
+                </div>
+
+                <span asp-validation-for="HatType" class="text-danger"></span>
+
+                <div class="mb-3">
+                    <label class="form-label">Which material do you want? (Optional) </label>
+                    <select asp-for="Material" class="form-select" id="Material">
+                        <option value="">Choose Material...</option>
+                        @if (ViewBag.Materials != null)
+                        {
+                            @foreach (var material in ViewBag.Materials)
+                            {
+                                <option value="@material.MaterialName">@material.MaterialName</option>
+                            }
+                        }
+                    </select>
+                </div>
+
                 <span asp-validation-for="Material" class="text-danger"></span>
 
-                <div class="form-group">
-                    <label asp-for="Measurement">Measurement:</label>
-                    <input asp-for="Measurement" class="form-control" value="@request?.Measurement" />
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Height">Height:</label>
-                    <input asp-for="Height" class="form-control" value="@request?.Height" />
-                    <span asp-validation-for="Height" class="text-danger"></span>
-                </div>
-
-
-                <p>Special Effects:</p>
-                <ul>
-                    @if (request != null && request.SpecialEffects != null)
-                    {
-                        @foreach (var specialEffect in request.SpecialEffects)
-                        {
-                            <li>@specialEffect</li>
-                        }
-                    }
-
-                    <div class="mb-3">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Feather" id="feather">
-                            <label class="form-check-label" for="feather">Feather</label>
-                        </div>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="lace" id="lace">
-                            <label class="form-check-label" for="lace">Lace</label>
-                        </div>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Pearls" id="pearls">
-                            <label class="form-check-label" for="pearls">Pearls</label>
-                        </div>
-
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" name="SelectedSpecialEffekter" value="Flower" id="flower">
-                            <label class="form-check-label" for="flower">Flower</label>
-                        </div>
+                <div class="mb-3">
+                    <div class="input-group">
+                        <span class="input-group-text">Measurement:</span>
+                        <input asp-for="Measurement" class="form-control" aria-label="Measurement" value="@request.Measurement">
+                        <span class="input-group-text">Height:</span>
+                        <input asp-for="Height" class="form-control" aria-label="Height" value="@request.Height">
+                        <span class="input-group-text">Outer Measurement:</span>
+                        <input asp-for="OuterMeasurement" class="form-control" aria-label="Outer Measurement" value="@request.OuterMeasurement">
                     </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Special effect</label>
+                    <select asp-for="SpecialEffect" class="form-select" id="SpecialEffectDrop">
+                        <option value="">Choose Special effect...</option>
+                        @if (ViewBag.SpecialEffect != null)
+                        {
+                            foreach (var specialEffectsList in ViewBag.SpecialEffects)
+                            {
+                                <option value="@specialEffectsList.SpecialEffectName">@specialEffectsList.SpecialEffectName</option>
+                            }
+                        }
+                        else
+                        {
+                            <option value="">No Special effects available</option>
+                        }
+                    </select>
+                </div>
 
                     <div class="mb-3">
                         <div class="form-check">
@@ -158,7 +157,7 @@
                     </div>
 
                     <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" name="Urgent" value="@((request?.Urgent ?? false).ToString().ToLower())" asp-for="Urgent" onchange="UpdateTotalPrice()" />
+                        <input class="form-check-input" type="checkbox" name="Urgent" checked="@request.Urgent" asp-for="Urgent" onchange="UpdateTotalPrice()" />
                         <label class="form-check-label" for="Urgent">Urgent request (+20% total price)</label>
                     </div>
 
@@ -183,19 +182,25 @@
             </div>
             <div class="form-group">
                 <label asp-for="ShippingCost">Shipping Cost:</label>
-                <input id="ShippingCost" asp-for="ShippingCost" class="form-control" onchange="UpdateTotalPrice()" />
-            <span asp-validation-for="ShippingCost" class="text-danger"></span>
+                <select id="ShippingCost" asp-for="ShippingCost" class="form-control" onchange="UpdateTotalPrice()">
+                    <option value="0">Cost</option>
+                    <option value="50">Domestic (50)</option>
+                    <option value="100">Within EU (100)</option>
+                    <option value="200">Outside EU (200)</option>
+                </select>
+            </div>
+                <span asp-validation-for="ShippingCost" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EstimatedDeliveryDate ">Estimated delivery date:</label>
                 <input asp-for="EstimatedDeliveryDate" class="form-control" value="DateTime.Today" />
-            <span asp-validation-for="EstimatedDeliveryDate" class="text-danger"></span>
+                <span asp-validation-for="EstimatedDeliveryDate" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="TotalCost">Total Cost:</label>
                 <input asp-for="TotalCost" class="form-control" readonly />
-            <span asp-validation-for="TotalCost" class="text-danger"></span>
+                <span asp-validation-for="TotalCost" class="text-danger"></span>
             </div>
 
         <div class="mb-3">
@@ -222,10 +227,10 @@
         
         if (deliveryOrPickup === "Pick up at workshop") {
             shippingCost = 0;
-            shippingCostField.readOnly = true; // Lås fältet
+            shippingCostField.disabled = true; // Lås fältet
             shippingCostField.value = ""; // Töm fältet
         } else {
-            shippingCostField.readOnly = false; // Lås upp fältet om inte "Home delivery" är valt
+            shippingCostField.disabled = false; // Lås upp fältet om inte "Home delivery" är valt
         }
 
         var urgent = document.getElementById("Urgent").checked || false; // Ändra från value till checked för en checkbox
