@@ -82,11 +82,9 @@
                     <p>Material: @request.Material</p>
                 }
                 
-                
-
                 <div class="mb-3">
                     <label class="form-label">Choose a hat type:</label>
-                    <select asp-for="HatType" class="form-select">
+                    <select asp-for="HatType" class="form-select" id="hatTypeDropdown"> 
                         <option value="">Choose a type...</option>
                         <option value="Felt hat">Felt hat</option>
                         <option value="Panama">Panama hat</option>
@@ -100,7 +98,7 @@
 
                 <div class="mb-3">
                     <label class="form-label">Which material do you want? (Optional) </label>
-                    <select asp-for="Material" class="form-select" id="Material">
+                    <select asp-for="Material" class="form-select" id="materialDropdown">
                         <option value="">Choose Material...</option>
                         @if (ViewBag.Materials != null)
                         {
@@ -117,28 +115,23 @@
                 <div class="mb-3">
                     <div class="input-group">
                         <span class="input-group-text">Measurement:</span>
-                        <input asp-for="Measurement" class="form-control" aria-label="Measurement" value="@request.Measurement">
+                        <input asp-for="Measurement" class="form-control" aria-label="Measurement" value="@request?.Measurement">
                         <span class="input-group-text">Height:</span>
-                        <input asp-for="Height" class="form-control" aria-label="Height" value="@request.Height">
+                        <input asp-for="Height" class="form-control" aria-label="Height" value="@request?.Height">
                         <span class="input-group-text">Outer Measurement:</span>
-                        <input asp-for="OuterMeasurement" class="form-control" aria-label="Outer Measurement" value="@request.OuterMeasurement">
+                        <input asp-for="OuterMeasurement" class="form-control" aria-label="Outer Measurement" value="@request?.OuterMeasurement">
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Special effect</label>
-                    <select asp-for="SpecialEffect" class="form-select" id="SpecialEffectDrop">
+                    <select id="specialEffectDropdown" class="form-control">
                         <option value="">Choose Special effect...</option>
-                        @if (ViewBag.SpecialEffect != null)
+                        @foreach (var specialEffect in ViewBag.SpecialEffects)
                         {
-                            foreach (var specialEffectsList in ViewBag.SpecialEffects)
-                            {
-                                <option value="@specialEffectsList.SpecialEffectName">@specialEffectsList.SpecialEffectName</option>
-                            }
-                        }
-                        else
-                        {
-                            <option value="">No Special effects available</option>
+                            <option value="@specialEffect.SpecialEffectName">
+                                @specialEffect.SpecialEffectName
+                            </option>
                         }
                     </select>
                 </div>
@@ -157,7 +150,7 @@
                     </div>
 
                     <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" name="Urgent" checked="@request.Urgent" asp-for="Urgent" onchange="UpdateTotalPrice()" />
+                        <input class="form-check-input" type="checkbox" name="Urgent" checked="@request?.Urgent" asp-for="Urgent" onchange="UpdateTotalPrice()" />
                         <label class="form-check-label" for="Urgent">Urgent request (+20% total price)</label>
                     </div>
 
@@ -209,12 +202,60 @@
             <span asp-validation-for="HatmakerComment" class="text-danger"></span>
         </div>
 
-            <button type="submit" class="btn btn-primary" onclick="openOutlook()">Send offer</button>
+            <button type="submit" class="btn btn-primary" >Send offer</button>
         </form>
     </div>
 </div>
 
 <script>
+
+    var requestSpecialEffects = "@ViewBag.request.SpecialEffects"; // Läser in special effects från ViewBag
+    var dropdown = document.getElementById("specialEffectDropdown");
+
+    // Loopa igenom alla alternativ i dropdown-listan
+    for (var i = 0; i < dropdown.options.length; i++)
+    {
+        // Om special effect matchar värdet för det aktuella alternativet
+        if (dropdown.options[i].value === requestSpecialEffects)
+        {
+            // Sätt det aktuella alternativet som valt
+            dropdown.selectedIndex = i;
+            // Bryt loopen eftersom vi har hittat det matchande alternativet
+            break;
+        }
+    }
+
+    var requestHatType = "@ViewBag.request.HatType"; // Läser in hat type från ViewBag
+    var hatTypeDropdown = document.getElementById("hatTypeDropdown");
+
+    // Loopa igenom alla alternativ i hat type dropdown-listan
+    for (var i = 0; i < hatTypeDropdown.options.length; i++)
+    {
+        // Om hat type matchar värdet för det aktuella alternativet
+        if (hatTypeDropdown.options[i].value === requestHatType)
+        {
+            // Sätt det aktuella alternativet som valt
+            hatTypeDropdown.selectedIndex = i;
+            // Bryt loopen eftersom vi har hittat det matchande alternativet
+            break;
+        }
+    }
+
+    var requestMaterial = "@ViewBag.request.Material"; // Läser in material från ViewBag
+    var materialDropdown = document.getElementById("materialDropdown");
+
+    // Loopa igenom alla alternativ i material dropdown-listan
+    for (var j = 0; j < materialDropdown.options.length; j++)
+    {
+        // Om material matchar värdet för det aktuella alternativet
+        if (materialDropdown.options[j].value === requestMaterial)
+        {
+            // Sätt det aktuella alternativet som valt
+            materialDropdown.selectedIndex = j;
+            // Bryt loopen eftersom vi har hittat det matchande alternativet
+            break;
+        }
+    }
 
     function UpdateTotalPrice() {
 

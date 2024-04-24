@@ -27,10 +27,20 @@ namespace Hattfabriken.Controllers
 
             var materials = _context.Materials.ToList();
             ViewBag.Materials = materials;
+            Console.WriteLine("Materials:");
+            foreach (var material in materials)
+            {
+                Console.WriteLine(material.MaterialName); // Antag att Name är egenskapen du vill skriva ut
+            }
 
             var specialEffectList = _context.SpecialEffects.ToList();
             ViewBag.SpecialEffects = specialEffectList;
-            
+            Console.WriteLine("Special Effects:");
+            foreach (var specialEffect in specialEffectList)
+            {
+                Console.WriteLine(specialEffect.SpecialEffectName); // Antag att Name är egenskapen du vill skriva ut
+            }
+
 
             Request request = _context.Requests.SingleOrDefault(r => r.Id == requestId);
 
