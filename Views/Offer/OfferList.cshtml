@@ -48,9 +48,14 @@
                     <p>@offer.EstimatedDeliveryDate.ToString("yyyy-MM-dd")</p>
                 </td>
                 <td>
-                    <button class="btn btn-danger" >Offer Declined</button>
 
-                    <button class="btn btn-success" >Offer Accepted</button>
+                    <form method="get" asp-controller="Order" asp-action="Add">
+                        <input type="hidden" name="offerId" value="@offer.OffertId" />
+                        <button type="submit" class="btn btn-success">Offer Accepted</button>
+                    </form>
+
+                    <button class="btn btn-danger">Offer Declined</button>
+
                 </td>
             </tr>
         }

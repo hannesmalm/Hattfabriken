@@ -27,5 +27,6 @@ namespace Hattfabriken.Models
         public DateTime Date { get; set; }
         public string Maker { get; set; }
         public bool Delivery { get; set; }
+        public bool Urgent { get; set; }
     }
 }

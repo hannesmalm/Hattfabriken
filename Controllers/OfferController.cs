@@ -86,7 +86,7 @@ namespace Hattfabriken.Controllers
                     Height = model.Height,
                     HatmakerComment = model.HatmakerComment,
                     Status = model.Status,
-                    DeliveryOrPickup = model.DeliveryOrPickup,
+                    Delivery = model.Delivery,
                     Urgent = model.Urgent
                 };
 
