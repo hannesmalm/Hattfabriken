@@ -7,76 +7,73 @@
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-3">
-              @if (!User.Identity.IsAuthenticated)
-               {
-                <a asp-controller="Request" asp-action="NewRequest" class="btn btn-success w-100 shadow">Create order request</a>
-               }
+            <div class="col-12 text-center">
+                <img src="~/lib/Images/OttoAndJudith.png" alt="Otto and Judith" class="img-fluid rounded">
+                <div class="description mt-5 p-3 bg-light rounded shadow">
+                <h2 class="text-center mb-4">Welcome to Hattfabriken</h2>
+                <p class="text-center">Where dreams take shape under the watchful eye of master milliner, Otto Ottosson. Tucked away on a charming cobblestone street, this artisanal atelier is a haven for those seeking bespoke headwear that transcends the ordinary.</p>
+                <p class="text-center">Otto Ottosson, a name synonymous with innovation and artistry, is the driving force behind Hattfabriken's legacy. With a passion for craftsmanship instilled by generations past, Otto infuses each creation with a touch of his unparalleled skill and boundless imagination.</p>
+                <p class="text-center">At Hattfabriken, the journey begins with a conversation. Customers are invited to share their vision with Otto, whose keen eye and expert guidance transform ideas into exquisite reality. From the delicate flutter of a feather to the curve of a brim, every detail is meticulously considered and meticulously crafted.</p>
+                <p class="text-center">In the bustling workshop of Hattfabriken, Otto's presence is felt in every stitch and fold. Here, artisans work tirelessly to bring his vision to life, their hands moving with precision born of years of dedication and practice. Amidst the rhythmic hum of sewing machines and the scent of freshly steamed felt, a symphony of creativity unfolds.</p>
+                <p class="text-center">As customers don their custom-made creations, they carry with them not just a hat, but a piece of Otto's legacy—a testament to his unwavering commitment to excellence. And as they venture into the world, adorned with their bespoke headwear, they do so with confidence, knowing that they wear not just a hat, but a masterpiece crafted by the skilled hands and boundless imagination of Otto Ottosson.</p>
+            </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-4">
+
+                    <a asp-controller="Request" asp-action="NewRequest" class="btn btn-primary btn-lg w-100 mt-4 shadow">Create A Hat Request</a>
             </div>
         </div>
     </div>
-</body>
 
-<div id="hatList" class="row mt-5">
-    @if (Model != null && Model.Any())
-    {
-        foreach (var hat in Model)
+    <div id="hatList" class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center font-weight-bold">Hats in Stock - Ready to Ship!</h2>
+                <p class="text-center">Browse our selection of readily available hats, crafted with care and ready for immediate dispatch.</p>
+            </div>
+        </div>
+        @if (Model != null && Model.Any())
         {
-            <div class="col">
-                <div class="card mx-auto mb-4 shadow" style="width: 240px;">
-                    <!-- Visa bilden om det finns -->
-                    @if (hat.HatImage != null)
-                    {
-                        <img class="img roundes-circle m-4" style="aspect-ratio: 1/1; object-fit: cover;"
-                             src="data:image/jpeg;base64,@Convert.ToBase64String(hat.HatImage)" alt="Hat Picture" />
-                    }
-                    <div class="card-body text-center">
-                        <h5 class="card-title">@hat.HatName</h5>
-                        <p class="card-title">Hat type: @hat.HatType</p>
-                        <p class="card-text">@hat.Description</p>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Material: @hat.MaterialName</li>
-                            <li class="list-group-item">Outer measurement: @hat.OuterMeasurement</li>
-                            <li class="list-group-item">Price: @((hat.MaterialCost + hat.SpecialEffectCost)) kr</li>
-                            <li class="list-group-item">Special effects: @hat.SpecialEffects</li>
-                        </ul>
-                        <div class="text-center mt-3">
-                                @if (!User.Identity.IsAuthenticated)
-                                {
-                                <form asp-controller="Request" asp-action="NewRequest" method="get">
-                                    <input type="hidden" name="hatType" value="@hat.HatType" />
-                                    <input type="hidden" name="material" value="@hat.MaterialName" />
-                                    <input type="hidden" name="outerMeasurement" value="@hat.OuterMeasurement" />
-                                    <input type="hidden" name="specialEffect" value="@hat.SpecialEffects" />
-                                    <button type="submit" class="btn btn-success w-100 shadow">Order</button>
-                                </form>
+            <div class="row">
+                <!-- Responsive grid for hats -->
+                @foreach (var hat in Model)
+                {
+                    <div class="col-sm-12 col-md-6 col-lg-4 mb-4">
+                        <!-- Grid layout for each hat -->
+                        <div class="card mx-auto shadow" style="width: 350px;">
+                            @if (hat.HatImage != null)
+                            {
+                                <img class="card-img-top img-fluid"
+                                     src="data:image/jpeg;base64,@Convert.ToBase64String(hat.HatImage)" alt="Hat Picture" />
                             }
+                            <div class="card-body">
+                                <h5 class="card-title">@hat.HatName</h5>
+                                <p class="card-title">Type: @hat.HatType</p>
+                                <p class="card-text">@hat.Description</p>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Material: @hat.MaterialName</li>
+                                    <li class="list-group-item">Outer Measurement: @hat.OuterMeasurement</li>
+                                    <li class="list-group-item">Price: @((hat.MaterialCost + hat.SpecialEffectCost)) kr</li>
+                                    <li class="list-group-item">Special Effects: @hat.SpecialEffects</li>
+                                </ul>
+                                    <form asp-controller="Request" asp-action="NewRequest" method="get">
+                                        <input type="hidden" name="hatType" value="@hat.HatType" />
+                                        <input type="hidden" name="material" value="@hat.MaterialName" />
+                                        <input type="hidden" name="outerMeasurement" value="@hat.OuterMeasurement" />
+                                        <input type="hidden" name="specialEffect" value="@hat.SpecialEffects" />
+                                        <button type="submit" class="btn btn-primary btn-block mt-3 shadow">Order</button>
+                                    </form>
+                            </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         }
-    }
-    else
-    {
-        <p>No hats in stock</p>
-    }
-</div>
-
-<div class="row justify-content-center">
-    <a asp-controller="Admin" asp-action="Index" class="btn btn-primary">Go to Admin Page</a>
-</div>
-
-
-<div>
-    <a asp-controller="Account" asp-action="CreateAccount">Create account</a>
-</div>
-
-<div class="row justify-content-center">
-    <a asp-controller="Email" asp-action="SendAnEmail">Send an email</a>
-</div>
-
-<a asp-controller="Pdf" asp-action="CreateShippingLabelPdf" class="btn btn-info w-100 shadow mt-3">Generate Shipping Lable</a>
-
-
-       
+        else
+        {
+            <p class="text-center">No hats in stock.</p>
+        }
+    </div>
+</body>
