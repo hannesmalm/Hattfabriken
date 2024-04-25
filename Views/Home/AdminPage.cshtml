@@ -15,69 +15,81 @@
 </head>
 <body>
     <div class="container mt-5">
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-sm">
-                    <div id="Material" class="mb-4">
-                        <div class="card mx-auto shadow" style="width: 240px;">
-                            <div class="card-body text-center" style="height: 200px;">
-                                <h1 class="card-title" style="font-size: 20px;">Material</h1>
-                                <div class="text-center">
-                                    <a href="@(Url.Action("StorageOfMaterials", "Material"))" class="btn btn-success mb-2">Material Warehouse</a>
-                                    <a asp-controller="SpecialEffects" asp-action="Index" class="btn btn-success">Special Effects</a> 
-                                </div>
+        <div class="row">
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div id="OrderRequests">
+                    <div class="card mx-auto shadow" style="width: 240px;">
+                        <div class="card-body text-center" style="height: 200px;">
+                            <h1 class="card-title" style="font-size: 20px;">Requests</h1>
+                            <div class="text-center">
+                                <a href="@(Url.Action("AllRequests", "Request"))" class="btn btn-success mb-2">View Requests</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm">
-                    <div id="Stock" class="mb-4">
-                        <div class="card mx-auto shadow" style="width: 240px;">
-                            <div class="card-body text-center" style="height: 200px;">
-                                <h1 class="card-title" style="font-size: 20px;">Stock</h1>
-                                <div class="text-center">
-                                    <a href="@(Url.Action("StorageOfHats", "Hat"))" class="btn btn-success mb-2">View hats in stock</a>
-                                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div id="Orders">
+                    <div class="card mx-auto shadow" style="width: 240px;">
+                        <div class="card-body text-center" style="height: 200px;">
+                            <h5 class="card-title" style="font-size: 20px;">Offers</h5>
+                            <div class="text-center">
+                                <a href="@(Url.Action("Create", "Offer"))" class="btn btn-success mb-2">Create Offer</a>
+                                <a asp-controller="Offer" asp-action="OfferList" class="btn btn-success mb-2">View Offers</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm">
-                    <div id="OrderRequests" class="mb-4">
-                        <div class="card mx-auto shadow" style="width: 240px;">
-                            <div class="card-body text-center" style="height: 200px;">
-                                <h1 class="card-title" style="font-size: 20px;">Order requests</h1>
-                                <div class="text-center">
-                                    <a href="@(Url.Action("AllRequests", "Request"))" class="btn btn-success mb-2">View Requests</a>
-                                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div id="Orders">
+                    <div class="card mx-auto shadow" style="width: 240px;">
+                        <div class="card-body text-center" style="height: 200px;">
+                            <h5 class="card-title" style="font-size: 20px;">Orders</h5>
+                            <div class="text-center">
+                                <a asp-controller="Orders" asp-action="Orders" class="btn btn-success mb-2">View Orders</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm">
-                    <div id="Orders" class="mb-4">
-                        <div class="card mx-auto shadow" style="width: 240px;">
-                            <div class="card-body text-center" style="height: 200px;">
-                                <h5 class="card-title" style="font-size: 20px;">Orders</h5>
-                                <div class="text-center">
-                                    <a href="@(Url.Action("Create", "Offer"))" class="btn btn-success mb-2">Create Offer</a>
-                                    <a asp-controller="Offer" asp-action="OfferList" class="btn btn-success mb-2">View Offers</a>
-                                    <a asp-controller="Orders" asp-action="Orders" class="btn btn-success mb-2">View Orders</a>
-                                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div id="Stock">
+                    <div class="card mx-auto shadow" style="width: 240px;">
+                        <div class="card-body text-center" style="height: 200px;">
+                            <h1 class="card-title" style="font-size: 20px;">Stock</h1>
+                            <div class="text-center">
+                                <a href="@(Url.Action("StorageOfHats", "Hat"))" class="btn btn-success mb-2">View hats in stock</a>
+                            </div>
+                            <div class="text-center">
+                                <a asp-controller="Hat" asp-action="AddHat" class="btn btn-success mb-2">Add Hat</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm">
-                    <div id="Account" class="mb-4">
-                        <div class="card mx-auto shadow" style="width: 240px;">
-                            <div class="card-body text-center" style="height: 200px;">
-                                <h5 class="card-title" style="font-size: 20px;">Account</h5>
-                                <div class="text-center">
-                                    <a href="@(Url.Action("ChangePassword", "Account"))" class="btn btn-success mb-2">Change password</a>
-                                    <a href="@(Url.Action("CreateAccount", "Account"))" class="btn btn-success mb-2">Create account</a>
-                                    <!-- <a asp-controller="Account" asp-action="DeleteAccount" class="btn btn-danger mb-2">Delete account</a> -->
-                                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div id="Material">
+                    <div class="card mx-auto shadow" style="width: 240px;">
+                        <div class="card-body text-center" style="height: 200px;">
+                            <h1 class="card-title" style="font-size: 20px;">Material</h1>
+                            <div class="text-center">
+                                <a href="@(Url.Action("StorageOfMaterials", "Material"))" class="btn btn-success mb-2">Material Warehouse</a>
+                                <a asp-controller="SpecialEffects" asp-action="Index" class="btn btn-success">Special Effects</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div id="Account">
+                    <div class="card mx-auto shadow" style="width: 240px;">
+                        <div class="card-body text-center" style="height: 200px;">
+                            <h5 class="card-title" style="font-size: 20px;">Account</h5>
+                            <div class="text-center">
+                                <a href="@(Url.Action("ChangePassword", "Account"))" class="btn btn-success mb-2">Change password</a>
+                                <a href="@(Url.Action("CreateAccount", "Account"))" class="btn btn-success mb-2">Create account</a>
+                                <!-- <a asp-controller="Account" asp-action="DeleteAccount" class="btn btn-danger mb-2">Delete account</a> -->
                             </div>
                         </div>
                     </div>
@@ -89,4 +101,5 @@
     @* <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script> *@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+</html>
 </html>
