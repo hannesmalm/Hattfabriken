@@ -19,6 +19,7 @@
             <th>Customer Phone</th>
             <th>Total Cost</th>
             <th>Estimated Delivery Date</th>
+            <th>Status</th>
             <th></th>
         </tr>
     </thead>
@@ -48,9 +49,25 @@
                     <p>@offer.EstimatedDeliveryDate.ToString("yyyy-MM-dd")</p>
                 </td>
                 <td>
-                    <button class="btn btn-danger" >Offer Declined</button>
+                    <p>@offer.Status</p>
+                </td>
 
-                    <button class="btn btn-success" >Offer Accepted</button>
+                <td>
+                    @if (offer.Status == "Offer sent")
+                    {
+                      <form method="post" asp-controller="Orders" asp-action="Add">
+                          <input type="hidden" name="offerId" value="@offer.OffertId" />
+                          <button type="submit" class="btn btn-success">Offer Accepted</button>
+                      </form>
+
+                        <form method="post" asp-controller="Offer" asp-action="OfferDeclined">
+                            <input type="hidden" name="offerId" value="@offer.OffertId"/>
+                            <button type="submit" class="btn btn-danger" >Offer Declined</button>
+                        </form>
+                    }
+                    
+                   
+
                 </td>
             </tr>
         }

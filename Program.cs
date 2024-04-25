@@ -22,6 +22,7 @@ builder.Services.AddIdentity<User, IdentityRole>()
     .AddDefaultTokenProviders();
 builder.Services.AddScoped<PdfService>();
 builder.Services.AddScoped<RequestController>();
+builder.Services.AddScoped<OfferController>();
 
 
 

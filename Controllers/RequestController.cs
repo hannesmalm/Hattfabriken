@@ -73,7 +73,7 @@ namespace Hattfabriken.Controllers
                     PhoneNumber = requestViewModel.PhoneNumber,
                     Name = requestViewModel.Name,
                     Date = DateTime.Now,
-                    DeliveryOrPickup = requestViewModel.DeliveryOrPickup,
+                    Delivery = requestViewModel.Delivery,
                     Urgent = requestViewModel.Urgent
                 };
 

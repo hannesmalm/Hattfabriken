@@ -55,10 +55,12 @@ namespace Hattfabriken.Models
 
         public string Status { get; set; } = "Offer sent";
 
-        public string DeliveryOrPickup { get; set; }
+        public bool Delivery { get; set; }
 
         public bool Urgent { get; set; }
 
+        [ForeignKey("Image")]
+        public byte[]? HatImage { get; set; }
     }
 }
 

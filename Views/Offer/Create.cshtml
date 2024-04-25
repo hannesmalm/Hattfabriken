@@ -110,39 +110,44 @@ else
                                     {
                                         @foreach (var material in ViewBag.Materials)
                                         {
-                                            <option value="@material.MaterialName">@material.MaterialName</option>
+                                            <option value="@material.MaterialName">
+                                                @material.MaterialName
+                                            </option>
                                         }
                                     }
                                 </select>
+                                <span asp-validation-for="Material" class="text-danger"></span>
                             </div>
-                            <span asp-validation-for="Material" class="text-danger"></span>
+                           
 
                             <div class="mb-3">
                                 <label class="form-label">Special effect</label>
-                                <select id="specialEffectDropdown" class="form-control">
-                                    <option value="">Choose Special effect...</option>
-                                    @foreach (var specialEffect in ViewBag.SpecialEffects)
+                                <select asp-for=SpecialEffect id="specialEffectDropdown" class="form-control">
+                                    <option value="">Special effect</option>
+                                    @if (ViewBag.SpecialEffects != null )
                                     {
-                                        <option value="@specialEffect.SpecialEffectName">
-                                            @specialEffect.SpecialEffectName
-                                        </option>
+                                        @foreach (var specialEffect in ViewBag.SpecialEffects)
+                                        {
+                                            <option value="@specialEffect.SpecialEffectName">
+                                                @specialEffect.SpecialEffectName
+                                            </option>
+                                        }
                                     }
                                 </select>
                                 <span asp-validation-for="SpecialEffect" class="text-danger"></span>
-
                             </div>
 
                             <div class="mb-3">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="DeliveryOrPickup" value="Pick up at workshop" checked="@((request?.DeliveryOrPickup == "Pick up at workshop"))" asp-for="DeliveryOrPickup" onchange="UpdateTotalPrice()" />
+                                    <input class="form-check-input" type="radio" name="Delivery" value="false" checked="@((request?.Delivery == false ))" asp-for="Delivery" onchange="UpdateTotalPrice()" />
                                     <label class="form-check-label" for="pickupRadio">Pick up at workshop</label>
                                 </div>
 
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="DeliveryOrPickup" value="Home delivery" checked="@((request?.DeliveryOrPickup == "Home delivery"))" asp-for="DeliveryOrPickup" onchange="UpdateTotalPrice()" />
+                                    <input class="form-check-input" type="radio" name="Delivery" value="true" checked="@((request?.Delivery == true ))" asp-for="Delivery" onchange="UpdateTotalPrice()" />
                                     <label class="form-check-label" for="deliveryRadio">Home delivery</label>
                                 </div>
-                                <span asp-validation-for="DeliveryOrPickup" class="text-danger"></span>
+                                <span asp-validation-for="Delivery" class="text-danger"></span>
                             </div>
 
                             <div class="form-check form-switch mb-3">
@@ -158,12 +163,6 @@ else
                         </div>
 
                         <h5 class="mb-4">Offer</h5>
-
-                        <div class="form-group">
-                            <label asp-for="MaterialCost">Material cost:</label>
-                            <input asp-for="MaterialCost" class="form-control" onchange="UpdateTotalPrice()" />
-                            <span asp-validation-for="MaterialCost" class="text-danger"></span>
-                        </div>
 
                         <div class="form-group">
                             <label asp-for="MaterialCost">Material cost:</label>
@@ -260,9 +259,9 @@ else
         var shippingCostField = document.getElementById("ShippingCost");
         var shippingCost = parseFloat(document.getElementById("ShippingCost").value) || 0;
 
-        var deliveryOrPickup = document.querySelector('input[name="DeliveryOrPickup"]:checked').value;
+        var isDelivery = document.querySelector('input[name="Delivery"]:checked').value;
         
-        if (deliveryOrPickup === "Pick up at workshop") {
+        if (isDelivery === "false") {
             shippingCost = 0;
             shippingCostField.disabled = true;
             shippingCostField.value = "";

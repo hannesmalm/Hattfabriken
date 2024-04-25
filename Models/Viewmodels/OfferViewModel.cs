@@ -57,7 +57,7 @@ namespace Hattfabriken.Models.Viewmodels
 
         public string Status { get; set; } = "Offer sent";
 
-        public string DeliveryOrPickup { get; set; }
+        public bool Delivery { get; set; }
 
         public bool Urgent { get; set; }
     }

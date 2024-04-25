@@ -86,7 +86,7 @@ namespace Hattfabriken.Controllers
                     Height = model.Height,
                     HatmakerComment = model.HatmakerComment,
                     Status = model.Status,
-                    DeliveryOrPickup = model.DeliveryOrPickup,
+                    Delivery = model.Delivery,
                     Urgent = model.Urgent
                 };
 
@@ -117,6 +117,30 @@ namespace Hattfabriken.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        public void OfferAccepted(int offerId)
+        {
+            Offer offer = _context.Offers.FirstOrDefault(o => o.OffertId == offerId);
+
+            offer.Status = "Accepted";
+
+            _context.Offers.Update(offer);
+            _context.SaveChangesAsync();
+        }
+
+        [HttpPost]
+        public RedirectToActionResult OfferDeclined(int offerId)
+        {
+            Offer offer = _context.Offers.FirstOrDefault(o => o.OffertId == offerId);
+
+            offer.Status = "Declined";
+
+            _context.Offers.Update(offer);
+            _context.SaveChangesAsync();
+
+            return RedirectToAction("OfferList", "Offer");
         }
 
         public IActionResult OfferList()
