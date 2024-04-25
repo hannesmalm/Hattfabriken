@@ -23,9 +23,9 @@ namespace Hattfabriken.Models
         [ForeignKey("Customer")]
         public string Email { get; set; }
         public string Name { get; set; }
-        public string Status { get; set; } = "To do";
+        public string Status { get; set; } = "To-Do";
         public DateTime Date { get; set; }
-        public string Maker { get; set; }
+        public string? Maker { get; set; }
         public bool Delivery { get; set; }
         public bool Urgent { get; set; }
     }

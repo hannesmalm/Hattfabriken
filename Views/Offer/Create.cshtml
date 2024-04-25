@@ -110,26 +110,31 @@ else
                                     {
                                         @foreach (var material in ViewBag.Materials)
                                         {
-                                            <option value="@material.MaterialName">@material.MaterialName</option>
+                                            <option value="@material.MaterialName">
+                                                @material.MaterialName
+                                            </option>
                                         }
                                     }
                                 </select>
+                                <span asp-validation-for="Material" class="text-danger"></span>
                             </div>
-                            <span asp-validation-for="Material" class="text-danger"></span>
+                           
 
                             <div class="mb-3">
                                 <label class="form-label">Special effect</label>
-                                <select id="specialEffectDropdown" class="form-control">
-                                    <option value="">Choose Special effect...</option>
-                                    @foreach (var specialEffect in ViewBag.SpecialEffects)
+                                <select asp-for=SpecialEffect id="specialEffectDropdown" class="form-control">
+                                    <option value="">Special effect</option>
+                                    @if (ViewBag.SpecialEffects != null )
                                     {
-                                        <option value="@specialEffect.SpecialEffectName">
-                                            @specialEffect.SpecialEffectName
-                                        </option>
+                                        @foreach (var specialEffect in ViewBag.SpecialEffects)
+                                        {
+                                            <option value="@specialEffect.SpecialEffectName">
+                                                @specialEffect.SpecialEffectName
+                                            </option>
+                                        }
                                     }
                                 </select>
                                 <span asp-validation-for="SpecialEffect" class="text-danger"></span>
-
                             </div>
 
                             <div class="mb-3">

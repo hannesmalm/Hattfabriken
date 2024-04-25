@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Hattfabriken.Models;
-using System.Linq;
-using System.Threading.Tasks;
 using Hattfabriken.Models.Interfaces;
 
 namespace Hattfabriken.Controllers
@@ -11,11 +9,13 @@ namespace Hattfabriken.Controllers
     {
         private readonly HatDbContext _context;
         private readonly IImageService _imageService;
+        private readonly OfferController _offerController;
 
-        public OrdersController(HatDbContext context , ImageService imageservice)
+        public OrdersController(HatDbContext context , IImageService imageService, OfferController offerController)
         {
             _context = context;
-            _imageService = imageservice;
+            _imageService = imageService;
+            _offerController = offerController;
         }
 
         public async Task<IActionResult> Orders()
@@ -24,8 +24,11 @@ namespace Hattfabriken.Controllers
             return View(orders);
         }
 
-        public void Add(Offer offer)
+        [HttpPost]
+        public async Task<IActionResult> Add(int offerId)
         {
+            Offer offer = await _context.Offers.FirstOrDefaultAsync(o => o.OffertId == offerId);
+
             Order newOrder = new Order()
             {
                 HatType = offer.HatType,
@@ -50,7 +53,11 @@ namespace Hattfabriken.Controllers
             };
 
             _context.Orders.Add(newOrder);
-            _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
+
+            _offerController.OfferAccepted(offerId);
+
+            return RedirectToAction("OfferList", "Offer");
         }
 
         [HttpPost]
