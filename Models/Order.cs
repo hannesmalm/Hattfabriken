@@ -24,8 +24,10 @@ namespace Hattfabriken.Models
         public string Email { get; set; }
         public string Name { get; set; }
         public string Status { get; set; } = "To do";
-        public DateTime Date { get; set; }
+        public DateTime EstimatedDate { get; set; }
         public string Maker { get; set; }
         public bool Delivery { get; set; }
+        public bool Urgent { get; set; }
+
     }
 }
