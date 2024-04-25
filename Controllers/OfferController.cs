@@ -131,7 +131,7 @@ namespace Hattfabriken.Controllers
         }
 
         [HttpPost]
-        public void OfferDeclined(int offerId)
+        public RedirectToActionResult OfferDeclined(int offerId)
         {
             Offer offer = _context.Offers.FirstOrDefault(o => o.OffertId == offerId);
 
@@ -139,6 +139,8 @@ namespace Hattfabriken.Controllers
 
             _context.Offers.Update(offer);
             _context.SaveChangesAsync();
+
+            return RedirectToAction("OfferList", "Offer");
         }
 
         public IActionResult OfferList()
