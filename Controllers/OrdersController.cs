@@ -47,7 +47,7 @@ namespace Hattfabriken.Controllers
                 Country = offer.Country,
                 Email = offer.Email,
                 Name = offer.Name,
-                Date = offer.EstimatedDeliveryDate,
+                EstimatedDate = offer.EstimatedDeliveryDate,
                 Delivery = offer.Delivery,
                 Urgent = offer.Urgent
             };

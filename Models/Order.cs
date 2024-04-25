@@ -11,6 +11,7 @@ namespace Hattfabriken.Models
         public int? Height { get; set; }
         public string? Commentary { get; set; }
         public string? SpecialEffects { get; set; }
+
         [ForeignKey("Image")]
         public byte[]? HatImage { get; set; }
         public double MaterialCost { get; set; }
@@ -20,13 +21,15 @@ namespace Hattfabriken.Models
         public int PostalCode { get; set; }
         public string PhoneNumber { get; set; }
         public string Country { get; set; }
+
         [ForeignKey("Customer")]
         public string Email { get; set; }
         public string Name { get; set; }
         public string Status { get; set; } = "To-Do";
-        public DateTime Date { get; set; }
+        public DateTime EstimatedDate { get; set; }
         public string? Maker { get; set; }
         public bool Delivery { get; set; }
         public bool Urgent { get; set; }
+
     }
 }
