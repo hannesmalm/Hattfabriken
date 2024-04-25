@@ -48,16 +48,16 @@ namespace Hattfabriken.Models
         private void SeedMaterials(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Material>().HasData(
-                new Material { MaterialName = "Leather", MaterialQuantity = 1000, MaterialSupplier = "Leather@gmail.com", Price = 45 },
-                new Material { MaterialName = "Straw", MaterialQuantity = 800, MaterialSupplier = "StrawSwag@icloud.com", Price = 14 },
-                new Material { MaterialName = "Cloth", MaterialQuantity = 2200, MaterialSupplier = "ClothCircus@hotmail.com", Price = 13 },
-                new Material { MaterialName = "Snakeskin", MaterialQuantity = 400, MaterialSupplier = "SnakeKiller@icloud.com", Price = 84 },
-                new Material { MaterialName = "Felt", MaterialQuantity = 600, MaterialSupplier = "FeltFear@icloud.com", Price = 14 },
-                new Material { MaterialName = "Panama", MaterialQuantity = 900, MaterialSupplier = "PanamaSwag@icloud.com", Price = 16 },
-                new Material { MaterialName = "Cotton", MaterialQuantity = 200, MaterialSupplier = "CottonCorner@icloud.com", Price = 16 },
-                new Material { MaterialName = "Linen", MaterialQuantity = 300, MaterialSupplier = "GrischLaidback@icloud.com", Price = 28 },
-                new Material { MaterialName = "Satin", MaterialQuantity = 1000, MaterialSupplier = "SatinSwag@icloud.com", Price = 12 },
-                new Material { MaterialName = "Polyester", MaterialQuantity = 2900, MaterialSupplier = "PolyesterChina@icloud.com", Price = 11 }
+                new Material { MaterialName = "Leather", MaterialQuantity = 1000, MaterialSupplier = "Leather@gmail.com", Price = 45, MaterialHsCode = "4202 91 80 10" },
+                new Material { MaterialName = "Straw", MaterialQuantity = 800, MaterialSupplier = "StrawSwag@icloud.com", Price = 14 , MaterialHsCode = "6501 00 10 00" },
+                new Material { MaterialName = "Cloth", MaterialQuantity = 2200, MaterialSupplier = "ClothCircus@hotmail.com", Price = 13, MaterialHsCode = "6501 00 10 00" },
+                new Material { MaterialName = "Snakeskin", MaterialQuantity = 400, MaterialSupplier = "SnakeKiller@icloud.com", Price = 84, MaterialHsCode = "4202 91 80 10" },
+                new Material { MaterialName = "Felt", MaterialQuantity = 600, MaterialSupplier = "FeltFear@icloud.com", Price = 14, MaterialHsCode = "4202 91 80 10" },
+                new Material { MaterialName = "Panama", MaterialQuantity = 900, MaterialSupplier = "PanamaSwag@icloud.com", Price = 16, MaterialHsCode = "6501 00 10 00" },
+                new Material { MaterialName = "Cotton", MaterialQuantity = 200, MaterialSupplier = "CottonCorner@icloud.com", Price = 16, MaterialHsCode = "6501 00 10 00" },
+                new Material { MaterialName = "Linen", MaterialQuantity = 300, MaterialSupplier = "GrischLaidback@icloud.com", Price = 28, MaterialHsCode = "6501 00 10 00" },
+                new Material { MaterialName = "Satin", MaterialQuantity = 1000, MaterialSupplier = "SatinSwag@icloud.com", Price = 12, MaterialHsCode = "6501 00 10 00" },
+                new Material { MaterialName = "Polyester", MaterialQuantity = 2900, MaterialSupplier = "PolyesterChina@icloud.com", Price = 11, MaterialHsCode = "6501 00 10 00" }
 
             );
         }
@@ -80,7 +80,7 @@ namespace Hattfabriken.Models
                     Email = "kund@example.com",
                     Name = "Kund Namnsson",
                     Status = "To-Do",
-                    Date = new DateTime(2023, 10, 1),
+                    EstimatedDate = new DateTime(2023, 10, 1),
                     Maker = "Otto",
                     Delivery = true
                 },
@@ -99,7 +99,7 @@ namespace Hattfabriken.Models
                     Email = "annan.kund@example.com",
                     Name = "Annan Kundsson",
                     Status = "Judith-Ongoing",
-                    Date = new DateTime(2023, 11, 15),
+                    EstimatedDate = new DateTime(2023, 11, 15),
                     Maker = "Judith",
                     Delivery = false
                 },
@@ -118,7 +118,7 @@ namespace Hattfabriken.Models
                     Email = "sommar@example.com",
                     Name = "Sommar Svensson",
                     Status = "To-Do",
-                    Date = new DateTime(2024, 6, 1),
+                    EstimatedDate = new DateTime(2024, 6, 1),
                     Maker = "Greta",
                     Delivery = true
                 },
@@ -137,7 +137,7 @@ namespace Hattfabriken.Models
                     Email = "vinter@example.com",
                     Name = "Vinter Vintersson",
                     Status = "To-Do",
-                    Date = new DateTime(2024, 1, 10),
+                    EstimatedDate = new DateTime(2024, 1, 10),
                     Maker = "Hugo",
                     Delivery = false
                 },
@@ -156,7 +156,7 @@ namespace Hattfabriken.Models
                     Email = "gala@example.com",
                     Name = "Gala Galesson",
                     Status = "Completed",
-                    Date = new DateTime(2024, 3, 20),
+                    EstimatedDate = new DateTime(2024, 3, 20),
                     Maker = "Freja",
                     Delivery = true
                 },
@@ -175,7 +175,7 @@ namespace Hattfabriken.Models
                     Email = "snabb@example.com",
                     Name = "Snabb Snabbsson",
                     Status = "To-Do",
-                    Date = new DateTime(2024, 5, 5),
+                    EstimatedDate = new DateTime(2024, 5, 5),
                     Maker = "Otto",
                     Delivery = true
                 },
@@ -194,7 +194,7 @@ namespace Hattfabriken.Models
                     Email = "retro@example.com",
                     Name = "Retro Retrosson",
                     Status = "Completed",
-                    Date = new DateTime(2024, 8, 15),
+                    EstimatedDate = new DateTime(2024, 8, 15),
                     Maker = "Judith",
                     Delivery = false
                 },
@@ -213,7 +213,7 @@ namespace Hattfabriken.Models
                     Email = "solig@example.com",
                     Name = "Solig Solsson",
                     Status = "Completed",
-                    Date = new DateTime(2024, 7, 1),
+                    EstimatedDate = new DateTime(2024, 7, 1),
                     Maker = "Greta",
                     Delivery = true
                 },
@@ -232,7 +232,7 @@ namespace Hattfabriken.Models
                     Email = "fiskare@example.com",
                     Name = "Fiskare Fiskarsson",
                     Status = "Completed",
-                    Date = new DateTime(2024, 9, 22),
+                    EstimatedDate = new DateTime(2024, 9, 22),
                     Maker = "Hugo",
                     Delivery = false
                 }

@@ -46,8 +46,8 @@ namespace Hattfabriken.Models
 
         public DateTime Date { get; set; }
 
-        public String DeliveryOrPickup { get; set; }
+        public string DeliveryOrPickup { get; set; }
 
-        public Boolean Urgent { get; set; }
+        public bool Urgent { get; set; }
     }
 }

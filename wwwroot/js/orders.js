@@ -1,5 +1,4 @@
-﻿// Antag att orders-arrayen är deklarerad och initialiserad korrekt tidigare i koden.
-
+﻿
 function updateOrderStatus(orderId, newStatus) {
     // Använda AJAX för att skicka en förfrågan till servern för att uppdatera orderns status
     $.ajax({

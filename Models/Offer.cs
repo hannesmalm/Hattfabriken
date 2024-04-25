@@ -10,13 +10,12 @@ namespace Hattfabriken.Models
         [Key]
         public int OffertId { get; set; }
 
+        [ForeignKey("Hat")]
         public required string HatType { get; set; }
 
         public required string Name { get; set; }
 
-
         public required string Email { get; set; }
-
 
         public string? PhoneNumber { get; set; }
 
@@ -45,11 +44,14 @@ namespace Hattfabriken.Models
 
         public int Measurement {  get; set; }
 
+        public int OuterMeasurement { get; set; }
+
         public int Height { get; set; }
 
         public string? HatmakerComment { get; set; }
 
-        public List<string>? SpecialEffects { get; set; }
+        [ForeignKey("SpecialEffects")]
+        public string? SpecialEffect { get; set; }
 
         public string Status { get; set; } = "Offer sent";
 

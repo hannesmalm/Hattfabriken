@@ -24,6 +24,12 @@
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
 
+    <div class="form-group">
+        <label for="materialhscode">HS-code:</label>
+        <input type="number" id="materialhscode" name="MaterialHsCode" class="form-control" value="@Model.MaterialHsCode" />
+        <span asp-validation-for="MaterialHsCode" class="text-danger"></span>
+    </div>
+
     <button type="button" class="btn btn-primary" id="saveChangesBtn">Save Changes</button>
 </form>
 
