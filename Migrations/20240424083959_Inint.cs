@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Hattfabriken.Migrations
 {
     /// <inheritdoc />
-    public partial class initialMigration : Migration
+    public partial class Inint : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -375,8 +375,8 @@ namespace Hattfabriken.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "5685be58-91a7-4a2c-88a4-48c5fde7449d", 0, "1e5ddee4-d237-47c8-84a4-f6bcd00446f6", "judith@hattfabriken.com", true, false, null, "JUDITH@HATTFABRIKEN.COM", "JUDITH@HATTFABRIKEN.COM", "AQAAAAIAAYagAAAAEGXuiAeohp1RTe75daE04YxXxX1SAuzko23V+1j4VNZvTOENfNw+rBLqTwxC10GLnw==", null, false, "06f40ced-5ea3-4ef6-a173-1debd262c923", false, "judith@hattfabriken.com" },
-                    { "bb2de007-c123-4095-a6f9-d934ed7251b5", 0, "262aeaea-104a-423c-a766-6824645c2b9c", "otto@hattfabriken.com", true, false, null, "OTTO@HATTFABRIKEN.COM", "OTTO@HATTFABRIKEN.COM", "AQAAAAIAAYagAAAAEMPVnQ4MB/ivDuZfc+j/dXvM1zbs1TJA4uFBhgqBlfTnqn0i/t0ffJPNeAU4TplKNQ==", null, false, "c602adb3-981d-4efb-9f8f-3ece0748ec31", false, "otto@hattfabriken.com" }
+                    { "4db3da01-9bc0-45b3-ae29-5faa75b52ffa", 0, "127db13e-aabb-4d3d-9961-6957374fd808", "judith@hattfabriken.com", true, false, null, "JUDITH@HATTFABRIKEN.COM", "JUDITH@HATTFABRIKEN.COM", "AQAAAAIAAYagAAAAEOyF6G1C2uPnEP4nnhRwSSy4b+vyaux4Md7cOUkmqLfY3qgT7nJEnGMR3Gzhzk2FCw==", null, false, "6e3af26f-584b-4284-9d5d-b2c596d51afc", false, "judith@hattfabriken.com" },
+                    { "aa238a61-80be-48b1-8eca-c4eade45aa7f", 0, "0ca7cc78-5e3d-4262-a76e-2001ed7e6db1", "otto@hattfabriken.com", true, false, null, "OTTO@HATTFABRIKEN.COM", "OTTO@HATTFABRIKEN.COM", "AQAAAAIAAYagAAAAENL3WLRPfNz1NfPnESbtyXmnbdvo6/+v4rzYP486cQrN7MUs+IUvbPUEz7yrTY+1Lg==", null, false, "3d16f1c9-2f59-4ce8-8ebf-a68fb65e0422", false, "otto@hattfabriken.com" }
                 });
 
             migrationBuilder.InsertData(

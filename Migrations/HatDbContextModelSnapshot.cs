@@ -733,33 +733,33 @@ namespace Hattfabriken.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bb2de007-c123-4095-a6f9-d934ed7251b5",
+                            Id = "aa238a61-80be-48b1-8eca-c4eade45aa7f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "262aeaea-104a-423c-a766-6824645c2b9c",
+                            ConcurrencyStamp = "0ca7cc78-5e3d-4262-a76e-2001ed7e6db1",
                             Email = "otto@hattfabriken.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "OTTO@HATTFABRIKEN.COM",
                             NormalizedUserName = "OTTO@HATTFABRIKEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMPVnQ4MB/ivDuZfc+j/dXvM1zbs1TJA4uFBhgqBlfTnqn0i/t0ffJPNeAU4TplKNQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENL3WLRPfNz1NfPnESbtyXmnbdvo6/+v4rzYP486cQrN7MUs+IUvbPUEz7yrTY+1Lg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c602adb3-981d-4efb-9f8f-3ece0748ec31",
+                            SecurityStamp = "3d16f1c9-2f59-4ce8-8ebf-a68fb65e0422",
                             TwoFactorEnabled = false,
                             UserName = "otto@hattfabriken.com"
                         },
                         new
                         {
-                            Id = "5685be58-91a7-4a2c-88a4-48c5fde7449d",
+                            Id = "4db3da01-9bc0-45b3-ae29-5faa75b52ffa",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1e5ddee4-d237-47c8-84a4-f6bcd00446f6",
+                            ConcurrencyStamp = "127db13e-aabb-4d3d-9961-6957374fd808",
                             Email = "judith@hattfabriken.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "JUDITH@HATTFABRIKEN.COM",
                             NormalizedUserName = "JUDITH@HATTFABRIKEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGXuiAeohp1RTe75daE04YxXxX1SAuzko23V+1j4VNZvTOENfNw+rBLqTwxC10GLnw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOyF6G1C2uPnEP4nnhRwSSy4b+vyaux4Md7cOUkmqLfY3qgT7nJEnGMR3Gzhzk2FCw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "06f40ced-5ea3-4ef6-a173-1debd262c923",
+                            SecurityStamp = "6e3af26f-584b-4284-9d5d-b2c596d51afc",
                             TwoFactorEnabled = false,
                             UserName = "judith@hattfabriken.com"
                         });
