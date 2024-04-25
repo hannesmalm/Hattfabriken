@@ -10,4 +10,5 @@ namespace Hattfabriken.Models
 
         public decimal Price { get; set; }
     }
+
 }
