@@ -194,29 +194,6 @@ namespace Hattfabriken.Models
                         {
                             column.Spacing(10);
 
-
-                            //// Customer Details ****Behövs inte????****
-                            //column.Item()
-                            //    .BorderBottom(1)
-                            //    .Padding(5)
-                            //    .Row(row =>
-                            //    {
-                            //        row.RelativeItem().Column(c =>
-                            //        {
-                            //            c.Item().Text("Customer:").Bold();
-                            //            c.Item().Text($"{order.Name}");
-                            //            c.Item().Text($"{order.Adress}, {order.PostalCode}");
-                            //            c.Item().Text($"{order.Country}");
-                            //        });
-
-                            //        row.RelativeItem().Column(c =>
-                            //        {
-                            //            c.Item().Text("Contact:").Bold();
-                            //            c.Item().Text($"Phone: {order.PhoneNumber}");
-                            //            c.Item().Text($"Email: {order.Email}");
-                            //        });
-                            //    });
-
                             // Hat Details
                             column.Item()
                                 .Padding(5)
@@ -224,10 +201,12 @@ namespace Hattfabriken.Models
                                 .Column(c =>
                                 {
                                     c.Item().Text("Hat Details:").Bold();
-                                    if (order.HatId != null)
-                                        c.Item().Text($"Hat ID: {order.HatId}");
+                                    if (order.HatType != null)
+                                        c.Item().Text($"Hat Type: {order.HatType}");
                                     if (!string.IsNullOrEmpty(order.Material))
                                         c.Item().Text($"Material: {order.Material}");
+                                    if (order.SpecialEffects != null)
+                                        c.Item().Text($"Special Effect: {order.SpecialEffects}");
                                     if (order.Measurement != null)
                                         c.Item().Text($"Measurement: {order.Measurement} cm");
                                     if (order.Height != null)
@@ -236,26 +215,13 @@ namespace Hattfabriken.Models
                                         c.Item().Text($"Commentary: {order.Commentary}");
                                 });
 
-                            // Special Effects
-                            if (order.SpecialEffects?.Count > 0)
-                            {
-                                column.Item()
-                                    .Padding(5)
-                                    .Column(c =>
-                                    {
-                                        c.Item().Text("Special Effects:").Bold();
-                                        foreach (var effect in order.SpecialEffects)
-                                            c.Item().Text(effect);
-                                    });
-                            }
-
                             // Order and Delivery Details
                             column.Item()
                                 .Padding(5)
                                 .Column(c =>
                                 {
                                     c.Item().Text("Order Details:").Bold();
-                                    c.Item().Text($"To be completed by: {order.DueDate.ToShortDateString()}");
+                                    c.Item().Text($"To be completed by: {order.EstimatedDate.ToShortDateString()}");
                                     c.Item().Text($"Urgent Delivery: {(order.Urgent ? "Yes" : "No")}");
                                 });
                         });

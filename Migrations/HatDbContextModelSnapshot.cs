@@ -328,15 +328,15 @@ namespace Hattfabriken.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
                     b.Property<bool>("Delivery")
                         .HasColumnType("bit");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EstimatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<byte[]>("HatImage")
                         .HasColumnType("varbinary(max)");
@@ -384,6 +384,9 @@ namespace Hattfabriken.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Urgent")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
@@ -395,9 +398,9 @@ namespace Hattfabriken.Migrations
                             Address = "Köpmansgatan 10",
                             Commentary = "Beställningen brådskar.",
                             Country = "Sverige",
-                            Date = new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Delivery = true,
                             Email = "kund@example.com",
+                            EstimatedDate = new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Height = 10,
                             Maker = "Otto",
                             Material = "Leather",
@@ -407,7 +410,8 @@ namespace Hattfabriken.Migrations
                             PhoneNumber = "0701234567",
                             PostalCode = 12345,
                             SpecialEffects = "Waterproof",
-                            Status = "To-Do"
+                            Status = "To-Do",
+                            Urgent = false
                         },
                         new
                         {
@@ -415,9 +419,9 @@ namespace Hattfabriken.Migrations
                             Address = "Handelsgatan 20",
                             Commentary = "Extra storlek behövs.",
                             Country = "Sverige",
-                            Date = new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Delivery = false,
                             Email = "annan.kund@example.com",
+                            EstimatedDate = new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Height = 8,
                             Maker = "Judith",
                             Material = "Straw",
@@ -427,7 +431,8 @@ namespace Hattfabriken.Migrations
                             PhoneNumber = "0707654321",
                             PostalCode = 23456,
                             SpecialEffects = "Sunproof",
-                            Status = "Judith-Ongoing"
+                            Status = "Judith-Ongoing",
+                            Urgent = false
                         },
                         new
                         {
@@ -435,9 +440,9 @@ namespace Hattfabriken.Migrations
                             Address = "Blommans väg 3",
                             Commentary = "Behöver för sommarsäsongen.",
                             Country = "Sverige",
-                            Date = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Delivery = true,
                             Email = "sommar@example.com",
+                            EstimatedDate = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Height = 9,
                             Maker = "Greta",
                             Material = "Cotton",
@@ -447,7 +452,8 @@ namespace Hattfabriken.Migrations
                             PhoneNumber = "0712345678",
                             PostalCode = 34567,
                             SpecialEffects = "Pärlor",
-                            Status = "To-Do"
+                            Status = "To-Do",
+                            Urgent = false
                         },
                         new
                         {
@@ -455,9 +461,9 @@ namespace Hattfabriken.Migrations
                             Address = "Vintergatan 45",
                             Commentary = "Vinterdesign önskas.",
                             Country = "Sverige",
-                            Date = new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Delivery = false,
                             Email = "vinter@example.com",
+                            EstimatedDate = new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Height = 12,
                             Maker = "Hugo",
                             Material = "Wool",
@@ -467,7 +473,8 @@ namespace Hattfabriken.Migrations
                             PhoneNumber = "0723456789",
                             PostalCode = 45678,
                             SpecialEffects = "Insulated",
-                            Status = "To-Do"
+                            Status = "To-Do",
+                            Urgent = false
                         },
                         new
                         {
@@ -475,9 +482,9 @@ namespace Hattfabriken.Migrations
                             Address = "Glamourgatan 12",
                             Commentary = "För speciell gala.",
                             Country = "Sverige",
-                            Date = new DateTime(2024, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Delivery = true,
                             Email = "gala@example.com",
+                            EstimatedDate = new DateTime(2024, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Height = 7,
                             Maker = "Freja",
                             Material = "Silk",
@@ -487,7 +494,8 @@ namespace Hattfabriken.Migrations
                             PhoneNumber = "0734567890",
                             PostalCode = 56789,
                             SpecialEffects = "Shiny",
-                            Status = "Completed"
+                            Status = "Completed",
+                            Urgent = false
                         },
                         new
                         {
@@ -495,9 +503,9 @@ namespace Hattfabriken.Migrations
                             Address = "Snabbvägen 30",
                             Commentary = "Snabb leverans krävs.",
                             Country = "Sverige",
-                            Date = new DateTime(2024, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Delivery = true,
                             Email = "snabb@example.com",
+                            EstimatedDate = new DateTime(2024, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Height = 10,
                             Maker = "Otto",
                             Material = "Felt",
@@ -507,7 +515,8 @@ namespace Hattfabriken.Migrations
                             PhoneNumber = "0745678901",
                             PostalCode = 67890,
                             SpecialEffects = "Stiff",
-                            Status = "To-Do"
+                            Status = "To-Do",
+                            Urgent = false
                         },
                         new
                         {
@@ -515,9 +524,9 @@ namespace Hattfabriken.Migrations
                             Address = "Retrogatan 56",
                             Commentary = "Retrostil önskas.",
                             Country = "Sverige",
-                            Date = new DateTime(2024, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Delivery = false,
                             Email = "retro@example.com",
+                            EstimatedDate = new DateTime(2024, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Height = 11,
                             Maker = "Judith",
                             Material = "Leather",
@@ -527,7 +536,8 @@ namespace Hattfabriken.Migrations
                             PhoneNumber = "0756789012",
                             PostalCode = 78901,
                             SpecialEffects = "Vintage",
-                            Status = "Completed"
+                            Status = "Completed",
+                            Urgent = false
                         },
                         new
                         {
@@ -535,9 +545,9 @@ namespace Hattfabriken.Migrations
                             Address = "Solgatan 78",
                             Commentary = "Lätt och luftig för sommarbruk.",
                             Country = "Sverige",
-                            Date = new DateTime(2024, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Delivery = true,
                             Email = "solig@example.com",
+                            EstimatedDate = new DateTime(2024, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Height = 9,
                             Maker = "Greta",
                             Material = "Straw",
@@ -547,7 +557,8 @@ namespace Hattfabriken.Migrations
                             PhoneNumber = "0767890123",
                             PostalCode = 89012,
                             SpecialEffects = "Breathable",
-                            Status = "Completed"
+                            Status = "Completed",
+                            Urgent = false
                         },
                         new
                         {
@@ -555,9 +566,9 @@ namespace Hattfabriken.Migrations
                             Address = "Fiskevägen 89",
                             Commentary = "Vattenavvisande för fiske.",
                             Country = "Sverige",
-                            Date = new DateTime(2024, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Delivery = false,
                             Email = "fiskare@example.com",
+                            EstimatedDate = new DateTime(2024, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Height = 8,
                             Maker = "Hugo",
                             Material = "Polyester",
@@ -567,7 +578,8 @@ namespace Hattfabriken.Migrations
                             PhoneNumber = "0778901234",
                             PostalCode = 90123,
                             SpecialEffects = "Waterproof",
-                            Status = "Completed"
+                            Status = "Completed",
+                            Urgent = false
                         });
                 });
 
@@ -750,33 +762,33 @@ namespace Hattfabriken.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "75849edb-6e0f-4698-ab76-0afc0c8a5e48",
+                            Id = "845c9a45-6c72-4706-8458-6bdf597840e8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "481a19f8-7b77-4d7e-8855-bb2c59fab018",
+                            ConcurrencyStamp = "abf5ee49-a7ad-4dc5-884f-b1cc122e5b98",
                             Email = "otto@hattfabriken.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "OTTO@HATTFABRIKEN.COM",
                             NormalizedUserName = "OTTO@HATTFABRIKEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEG9xFtdH3eOqQRTRuyqZvRLPX5qx0TlS8iG452nODYmtFmeUVAkNIbEVJ3VatsVmHw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEITS6qLV9vG70ee5KAfCHL/KKdR2M2t9wEcWKzkprY51sVo96JQXLZr+kaRSVAZgDA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2ba2f1c2-4809-4480-84a8-11113c2a5453",
+                            SecurityStamp = "4d133721-b530-44b5-adea-b03a34e27406",
                             TwoFactorEnabled = false,
                             UserName = "otto@hattfabriken.com"
                         },
                         new
                         {
-                            Id = "484eb681-340e-4f0b-bf95-ffdeef75bf68",
+                            Id = "06258c71-bd52-4896-990a-809318bad4d8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8e61c002-4c53-43b9-979a-6c3f6efcddc1",
+                            ConcurrencyStamp = "8ad352c5-33e9-42a0-ac0d-db14f4436daf",
                             Email = "judith@hattfabriken.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "JUDITH@HATTFABRIKEN.COM",
                             NormalizedUserName = "JUDITH@HATTFABRIKEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFttx3K4r3gwKesL/mM8EnRepxnwW/pS9aPuPMwGNSsJHzvFOBuJEqkDYzDLn5I7lA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEO3sxr15EMiyWVNtvVj1v3+0GnMqIeh367myxGk7ThsT1bpo8EJYIpbWx3wVv1L6Bw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9c60469d-9ebb-4b91-9c33-d289a44592f0",
+                            SecurityStamp = "52e69dd8-f2ad-40aa-97ea-9bcbf07db7c4",
                             TwoFactorEnabled = false,
                             UserName = "judith@hattfabriken.com"
                         });
