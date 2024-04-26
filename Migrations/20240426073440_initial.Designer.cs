@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Hattfabriken.Migrations
 {
     [DbContext(typeof(HatDbContext))]
-    [Migration("20240425124655_hej")]
-    partial class hej
+    [Migration("20240426073440_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,6 +99,73 @@ namespace Hattfabriken.Migrations
                     b.HasIndex("MaterialName");
 
                     b.ToTable("Hats");
+
+                    b.HasData(
+                        new
+                        {
+                            HatId = 1,
+                            Description = "A timeless choice for any formal occasion.",
+                            HatName = "Classic Fedora",
+                            HatType = "Fedora",
+                            MaterialCost = 2000.0,
+                            MaterialName = "Leather",
+                            OuterMeasurement = 58,
+                            Quantity = 120,
+                            SpecialEffectCost = 0.0,
+                            SpecialEffects = "None"
+                        },
+                        new
+                        {
+                            HatId = 2,
+                            Description = "Perfect for a sunny day out in the park or at the beach.",
+                            HatName = "Summer Straw Hat",
+                            HatType = "Panama",
+                            MaterialCost = 1500.0,
+                            MaterialName = "Straw",
+                            OuterMeasurement = 56,
+                            Quantity = 85,
+                            SpecialEffectCost = 50.0,
+                            SpecialEffects = "Ribbon"
+                        },
+                        new
+                        {
+                            HatId = 3,
+                            Description = "Ideal for weddings and formal evening events.",
+                            HatName = "Elegant Top Hat",
+                            HatType = "Top Hat",
+                            MaterialCost = 3000.0,
+                            MaterialName = "Felt",
+                            OuterMeasurement = 60,
+                            Quantity = 40,
+                            SpecialEffectCost = 100.0,
+                            SpecialEffects = "Silk Band"
+                        },
+                        new
+                        {
+                            HatId = 4,
+                            Description = "A casual wear staple, perfect for outdoor activities.",
+                            HatName = "Casual Baseball Cap",
+                            HatType = "Baseball Cap",
+                            MaterialCost = 800.0,
+                            MaterialName = "Cotton",
+                            OuterMeasurement = 57,
+                            Quantity = 200,
+                            SpecialEffectCost = 30.0,
+                            SpecialEffects = "Embroidery"
+                        },
+                        new
+                        {
+                            HatId = 5,
+                            Description = "A touch of the 1920s style to grace any sophisticated look.",
+                            HatName = "Vintage Cloche",
+                            HatType = "Cloche",
+                            MaterialCost = 2500.0,
+                            MaterialName = "Felt",
+                            OuterMeasurement = 55,
+                            Quantity = 60,
+                            SpecialEffectCost = 45.0,
+                            SpecialEffects = "Cloth Flower"
+                        });
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.Image", b =>
@@ -149,7 +216,7 @@ namespace Hattfabriken.Migrations
                             MaterialHsCode = "4202 91 80 10",
                             MaterialQuantity = 1000,
                             MaterialSupplier = "Leather@gmail.com",
-                            Price = 45
+                            Price = 4500
                         },
                         new
                         {
@@ -157,7 +224,7 @@ namespace Hattfabriken.Migrations
                             MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 800,
                             MaterialSupplier = "StrawSwag@icloud.com",
-                            Price = 14
+                            Price = 1400
                         },
                         new
                         {
@@ -165,7 +232,7 @@ namespace Hattfabriken.Migrations
                             MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 2200,
                             MaterialSupplier = "ClothCircus@hotmail.com",
-                            Price = 13
+                            Price = 1300
                         },
                         new
                         {
@@ -173,7 +240,7 @@ namespace Hattfabriken.Migrations
                             MaterialHsCode = "4202 91 80 10",
                             MaterialQuantity = 400,
                             MaterialSupplier = "SnakeKiller@icloud.com",
-                            Price = 84
+                            Price = 8400
                         },
                         new
                         {
@@ -181,7 +248,7 @@ namespace Hattfabriken.Migrations
                             MaterialHsCode = "4202 91 80 10",
                             MaterialQuantity = 600,
                             MaterialSupplier = "FeltFear@icloud.com",
-                            Price = 14
+                            Price = 1400
                         },
                         new
                         {
@@ -189,7 +256,7 @@ namespace Hattfabriken.Migrations
                             MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 900,
                             MaterialSupplier = "PanamaSwag@icloud.com",
-                            Price = 16
+                            Price = 1600
                         },
                         new
                         {
@@ -197,7 +264,7 @@ namespace Hattfabriken.Migrations
                             MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 200,
                             MaterialSupplier = "CottonCorner@icloud.com",
-                            Price = 16
+                            Price = 1600
                         },
                         new
                         {
@@ -205,7 +272,7 @@ namespace Hattfabriken.Migrations
                             MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 300,
                             MaterialSupplier = "GrischLaidback@icloud.com",
-                            Price = 28
+                            Price = 2800
                         },
                         new
                         {
@@ -213,7 +280,7 @@ namespace Hattfabriken.Migrations
                             MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 1000,
                             MaterialSupplier = "SatinSwag@icloud.com",
-                            Price = 12
+                            Price = 1200
                         },
                         new
                         {
@@ -221,7 +288,7 @@ namespace Hattfabriken.Migrations
                             MaterialHsCode = "6501 00 10 00",
                             MaterialQuantity = 2900,
                             MaterialSupplier = "PolyesterChina@icloud.com",
-                            Price = 11
+                            Price = 1100
                         });
                 });
 
@@ -244,9 +311,8 @@ namespace Hattfabriken.Migrations
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeliveryOrPickup")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Delivery")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -254,6 +320,9 @@ namespace Hattfabriken.Migrations
 
                     b.Property<DateTime>("EstimatedDeliveryDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<byte[]>("HatImage")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("HatType")
                         .IsRequired()
@@ -351,7 +420,6 @@ namespace Hattfabriken.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Maker")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Material")
@@ -398,191 +466,232 @@ namespace Hattfabriken.Migrations
                         new
                         {
                             Id = 1,
-                            Address = "Köpmansgatan 10",
-                            Commentary = "Beställningen brådskar.",
-                            Country = "Sverige",
+                            Address = "123 Elm Street",
+                            Commentary = "Black color, classic style",
+                            Country = "Sweden",
                             Delivery = true,
-                            Email = "kund@example.com",
-                            EstimatedDate = new DateTime(2023, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Height = 10,
-                            Maker = "Otto",
+                            Email = "customer1@example.com",
+                            EstimatedDate = new DateTime(2024, 5, 6, 0, 0, 0, 0, DateTimeKind.Local),
+                            HatType = "Fedora",
+                            Height = 15,
                             Material = "Leather",
-                            MaterialCost = 0.0,
+                            MaterialCost = 5000.0,
                             Measurement = 58,
-                            Name = "Kund Namnsson",
-                            PhoneNumber = "0701234567",
-                            PostalCode = 12345,
-                            SpecialEffects = "Waterproof",
+                            Name = "John Doe",
+                            PhoneNumber = "123-456-7890",
+                            PostalCode = 10001,
+                            ShippingCost = 200.0,
+                            SpecialEffectCost = 50.0,
+                            SpecialEffects = "Feathers",
                             Status = "To-Do",
                             Urgent = false
                         },
                         new
                         {
                             Id = 2,
-                            Address = "Handelsgatan 20",
-                            Commentary = "Extra storlek behövs.",
-                            Country = "Sverige",
-                            Delivery = false,
-                            Email = "annan.kund@example.com",
-                            EstimatedDate = new DateTime(2023, 11, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Height = 8,
-                            Maker = "Judith",
+                            Address = "456 Oak Street",
+                            Commentary = "Lightweight for summer",
+                            Country = "Sweden",
+                            Delivery = true,
+                            Email = "customer2@example.com",
+                            EstimatedDate = new DateTime(2024, 5, 16, 0, 0, 0, 0, DateTimeKind.Local),
+                            HatType = "Trilby",
+                            Height = 12,
                             Material = "Straw",
-                            MaterialCost = 0.0,
-                            Measurement = 60,
-                            Name = "Annan Kundsson",
-                            PhoneNumber = "0707654321",
-                            PostalCode = 23456,
-                            SpecialEffects = "Sunproof",
-                            Status = "Judith-Ongoing",
-                            Urgent = false
+                            MaterialCost = 3000.0,
+                            Measurement = 57,
+                            Name = "Jane Smith",
+                            PhoneNumber = "987-654-3210",
+                            PostalCode = 10002,
+                            ShippingCost = 150.0,
+                            SpecialEffectCost = 40.0,
+                            SpecialEffects = "Lace",
+                            Status = "To-Do",
+                            Urgent = true
                         },
                         new
                         {
                             Id = 3,
-                            Address = "Blommans väg 3",
-                            Commentary = "Behöver för sommarsäsongen.",
-                            Country = "Sverige",
+                            Address = "789 Birch Street",
+                            Commentary = "For sports and casual wear",
+                            Country = "Sweden",
                             Delivery = true,
-                            Email = "sommar@example.com",
-                            EstimatedDate = new DateTime(2024, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Height = 9,
-                            Maker = "Greta",
+                            Email = "customer3@example.com",
+                            EstimatedDate = new DateTime(2024, 5, 11, 0, 0, 0, 0, DateTimeKind.Local),
+                            HatType = "Baseball Cap",
+                            Height = 10,
                             Material = "Cotton",
-                            MaterialCost = 0.0,
-                            Measurement = 57,
-                            Name = "Sommar Svensson",
-                            PhoneNumber = "0712345678",
-                            PostalCode = 34567,
-                            SpecialEffects = "Pärlor",
+                            MaterialCost = 1500.0,
+                            Measurement = 56,
+                            Name = "Alice Blue",
+                            PhoneNumber = "321-456-9870",
+                            PostalCode = 10003,
+                            ShippingCost = 100.0,
+                            SpecialEffectCost = 20.0,
+                            SpecialEffects = "Polished Paper",
                             Status = "To-Do",
                             Urgent = false
                         },
                         new
                         {
                             Id = 4,
-                            Address = "Vintergatan 45",
-                            Commentary = "Vinterdesign önskas.",
-                            Country = "Sverige",
+                            Address = "246 Pine Street",
+                            Commentary = "Elegant and stylish",
+                            Country = "Sweden",
                             Delivery = false,
-                            Email = "vinter@example.com",
-                            EstimatedDate = new DateTime(2024, 1, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Height = 12,
-                            Maker = "Hugo",
-                            Material = "Wool",
-                            MaterialCost = 0.0,
+                            Email = "customer4@example.com",
+                            EstimatedDate = new DateTime(2024, 5, 21, 0, 0, 0, 0, DateTimeKind.Local),
+                            HatType = "Beret",
+                            Height = 10,
+                            Material = "Felt",
+                            MaterialCost = 4500.0,
                             Measurement = 59,
-                            Name = "Vinter Vintersson",
-                            PhoneNumber = "0723456789",
-                            PostalCode = 45678,
-                            SpecialEffects = "Insulated",
+                            Name = "Betty White",
+                            PhoneNumber = "654-321-4567",
+                            PostalCode = 10004,
+                            ShippingCost = 95.0,
+                            SpecialEffectCost = 70.0,
+                            SpecialEffects = "Pearls",
                             Status = "To-Do",
-                            Urgent = false
+                            Urgent = true
                         },
                         new
                         {
                             Id = 5,
-                            Address = "Glamourgatan 12",
-                            Commentary = "För speciell gala.",
-                            Country = "Sverige",
+                            Address = "135 Maple Street",
+                            Commentary = "Vintage look",
+                            Country = "Sweden",
                             Delivery = true,
-                            Email = "gala@example.com",
-                            EstimatedDate = new DateTime(2024, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Height = 7,
-                            Maker = "Freja",
-                            Material = "Silk",
-                            MaterialCost = 0.0,
-                            Measurement = 56,
-                            Name = "Gala Galesson",
-                            PhoneNumber = "0734567890",
-                            PostalCode = 56789,
-                            SpecialEffects = "Shiny",
-                            Status = "Completed",
+                            Email = "customer5@example.com",
+                            EstimatedDate = new DateTime(2024, 5, 26, 0, 0, 0, 0, DateTimeKind.Local),
+                            HatType = "Cloche",
+                            Height = 12,
+                            Material = "Wool",
+                            MaterialCost = 4000.0,
+                            Measurement = 55,
+                            Name = "Carol King",
+                            PhoneNumber = "852-753-9514",
+                            PostalCode = 10005,
+                            ShippingCost = 85.0,
+                            SpecialEffectCost = 35.0,
+                            SpecialEffects = "Cloth Flowers",
+                            Status = "To-Do",
                             Urgent = false
                         },
                         new
                         {
                             Id = 6,
-                            Address = "Snabbvägen 30",
-                            Commentary = "Snabb leverans krävs.",
-                            Country = "Sverige",
+                            Address = "369 Willow Street",
+                            Commentary = "Perfect for the beach",
+                            Country = "Sweden",
+                            Delivery = false,
+                            Email = "customer6@example.com",
+                            EstimatedDate = new DateTime(2024, 5, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            HatType = "Panama",
+                            Height = 12,
+                            Material = "Panama",
+                            MaterialCost = 3200.0,
+                            Measurement = 60,
+                            Name = "Dave Rich",
+                            PhoneNumber = "456-789-0123",
+                            PostalCode = 10006,
+                            ShippingCost = 110.0,
+                            SpecialEffectCost = 40.0,
+                            SpecialEffects = "Lace",
+                            Status = "To-Do",
+                            Urgent = true
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Address = "987 Cedar Street",
+                            Commentary = "Casual and comfy",
+                            Country = "Sweden",
                             Delivery = true,
-                            Email = "snabb@example.com",
-                            EstimatedDate = new DateTime(2024, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "customer7@example.com",
+                            EstimatedDate = new DateTime(2024, 5, 14, 0, 0, 0, 0, DateTimeKind.Local),
+                            HatType = "Bucket Hat",
                             Height = 10,
-                            Maker = "Otto",
-                            Material = "Felt",
-                            MaterialCost = 0.0,
-                            Measurement = 55,
-                            Name = "Snabb Snabbsson",
-                            PhoneNumber = "0745678901",
-                            PostalCode = 67890,
-                            SpecialEffects = "Stiff",
+                            Material = "Linen",
+                            MaterialCost = 2700.0,
+                            Measurement = 58,
+                            Name = "Eva Storm",
+                            PhoneNumber = "789-012-3456",
+                            PostalCode = 10007,
+                            ShippingCost = 80.0,
+                            SpecialEffectCost = 90.0,
+                            SpecialEffects = "Fake Fur",
                             Status = "To-Do",
                             Urgent = false
                         },
                         new
                         {
-                            Id = 7,
-                            Address = "Retrogatan 56",
-                            Commentary = "Retrostil önskas.",
-                            Country = "Sverige",
-                            Delivery = false,
-                            Email = "retro@example.com",
-                            EstimatedDate = new DateTime(2024, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Height = 11,
-                            Maker = "Judith",
-                            Material = "Leather",
-                            MaterialCost = 0.0,
-                            Measurement = 61,
-                            Name = "Retro Retrosson",
-                            PhoneNumber = "0756789012",
-                            PostalCode = 78901,
-                            SpecialEffects = "Vintage",
-                            Status = "Completed",
-                            Urgent = false
-                        },
-                        new
-                        {
                             Id = 8,
-                            Address = "Solgatan 78",
-                            Commentary = "Lätt och luftig för sommarbruk.",
-                            Country = "Sverige",
-                            Delivery = true,
-                            Email = "solig@example.com",
-                            EstimatedDate = new DateTime(2024, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Height = 9,
-                            Maker = "Greta",
-                            Material = "Straw",
-                            MaterialCost = 0.0,
-                            Measurement = 58,
-                            Name = "Solig Solsson",
-                            PhoneNumber = "0767890123",
-                            PostalCode = 89012,
-                            SpecialEffects = "Breathable",
-                            Status = "Completed",
-                            Urgent = false
+                            Address = "654 Spruce Street",
+                            Commentary = "Retro style",
+                            Country = "Sweden",
+                            Delivery = false,
+                            Email = "customer8@example.com",
+                            EstimatedDate = new DateTime(2024, 5, 18, 0, 0, 0, 0, DateTimeKind.Local),
+                            HatType = "Newsboy Cap",
+                            Height = 13,
+                            Material = "Polyester",
+                            MaterialCost = 2800.0,
+                            Measurement = 57,
+                            Name = "Fred Quest",
+                            PhoneNumber = "951-753-8524",
+                            PostalCode = 10008,
+                            ShippingCost = 90.0,
+                            SpecialEffectCost = 20.0,
+                            SpecialEffects = "Polished Paper",
+                            Status = "To-Do",
+                            Urgent = true
                         },
                         new
                         {
                             Id = 9,
-                            Address = "Fiskevägen 89",
-                            Commentary = "Vattenavvisande för fiske.",
-                            Country = "Sverige",
-                            Delivery = false,
-                            Email = "fiskare@example.com",
-                            EstimatedDate = new DateTime(2024, 9, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Height = 8,
-                            Maker = "Hugo",
-                            Material = "Polyester",
-                            MaterialCost = 0.0,
-                            Measurement = 62,
-                            Name = "Fiskare Fiskarsson",
-                            PhoneNumber = "0778901234",
-                            PostalCode = 90123,
-                            SpecialEffects = "Waterproof",
-                            Status = "Completed",
+                            Address = "321 Birch Street",
+                            Commentary = "Elegant evening wear",
+                            Country = "Sweden",
+                            Delivery = true,
+                            Email = "customer9@example.com",
+                            EstimatedDate = new DateTime(2024, 5, 8, 0, 0, 0, 0, DateTimeKind.Local),
+                            HatType = "Top Hat",
+                            Height = 20,
+                            Material = "Satin",
+                            MaterialCost = 4900.0,
+                            Measurement = 59,
+                            Name = "Gina Gold",
+                            PhoneNumber = "123-987-6543",
+                            PostalCode = 10009,
+                            ShippingCost = 125.0,
+                            SpecialEffectCost = 70.0,
+                            SpecialEffects = "Pearls",
+                            Status = "To-Do",
                             Urgent = false
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Address = "852 Oak Lane",
+                            Commentary = "Classic derby style",
+                            Country = "Sweden",
+                            Delivery = false,
+                            Email = "customer10@example.com",
+                            EstimatedDate = new DateTime(2024, 5, 24, 0, 0, 0, 0, DateTimeKind.Local),
+                            HatType = "Derby",
+                            Height = 14,
+                            Material = "Cloth",
+                            MaterialCost = 3500.0,
+                            Measurement = 56,
+                            Name = "Harry Hatt",
+                            PhoneNumber = "321-654-9876",
+                            PostalCode = 10010,
+                            ShippingCost = 100.0,
+                            SpecialEffectCost = 15.0,
+                            SpecialEffects = "Lurex Thread",
+                            Status = "To-Do",
+                            Urgent = true
                         });
                 });
 
@@ -633,9 +742,8 @@ namespace Hattfabriken.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DeliveryOrPickup")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("Delivery")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -696,6 +804,43 @@ namespace Hattfabriken.Migrations
                     b.HasKey("SpecialEffectName");
 
                     b.ToTable("SpecialEffects");
+
+                    b.HasData(
+                        new
+                        {
+                            SpecialEffectName = "Feathers",
+                            Price = 50.00m
+                        },
+                        new
+                        {
+                            SpecialEffectName = "Cloth Flowers",
+                            Price = 35.00m
+                        },
+                        new
+                        {
+                            SpecialEffectName = "Pearls",
+                            Price = 70.00m
+                        },
+                        new
+                        {
+                            SpecialEffectName = "Lace",
+                            Price = 40.00m
+                        },
+                        new
+                        {
+                            SpecialEffectName = "Polished Paper",
+                            Price = 20.00m
+                        },
+                        new
+                        {
+                            SpecialEffectName = "Lurex Thread",
+                            Price = 15.00m
+                        },
+                        new
+                        {
+                            SpecialEffectName = "Fake Fur",
+                            Price = 90.00m
+                        });
                 });
 
             modelBuilder.Entity("Hattfabriken.Models.User", b =>
@@ -765,33 +910,33 @@ namespace Hattfabriken.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "460f0cba-c4b4-45c4-9278-e0f89f459c4c",
+                            Id = "6f66dd5c-e4fe-4323-93a1-d9c8506da2a6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a661a64d-990b-42d1-87c5-0dcb44aa5486",
+                            ConcurrencyStamp = "4925e6eb-c66f-4e54-8912-f842cec70cec",
                             Email = "otto@hattfabriken.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "OTTO@HATTFABRIKEN.COM",
                             NormalizedUserName = "OTTO@HATTFABRIKEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOf05ps90SvneccdKopgzE3iXlFBhPVGBJKlRWbgVxiQ58umpt8Ml7nrkfwog2z/yA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOKpvkjxnHGnq7CfIKayI/w/2Hnk+uTnXt3AP+zI4JUgrN474gwzXBBzzMWOOczqkg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e9d5bc0a-a906-41b0-80bf-3611b12a966d",
+                            SecurityStamp = "b2fc2fe9-315d-45aa-bde4-24829507303a",
                             TwoFactorEnabled = false,
                             UserName = "otto@hattfabriken.com"
                         },
                         new
                         {
-                            Id = "492ec57f-9f87-482a-9919-ea02f94e3a1c",
+                            Id = "0cea29c7-18ca-463c-84ce-5bd164b92c68",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "77da78d9-8537-448d-8eca-0219231d54a3",
+                            ConcurrencyStamp = "56098d55-d845-406a-82f0-169389a7345c",
                             Email = "judith@hattfabriken.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "JUDITH@HATTFABRIKEN.COM",
                             NormalizedUserName = "JUDITH@HATTFABRIKEN.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELAD3QL8+GrqrLSpqe/MwhIc8HF517sLuKOGGTem1QiZlaTQF1igWyHqBp4fqPBcPw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDCRB0kz9Taw60aZ/yuTyMJXpZiQi12iK0b9qcIwzAHqNn6pdsCjbV4ntCD5/aWEJg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6e3e86ff-a195-4049-9b4f-d7fdb69de256",
+                            SecurityStamp = "1718c84c-4618-4160-a003-980e7122126d",
                             TwoFactorEnabled = false,
                             UserName = "judith@hattfabriken.com"
                         });

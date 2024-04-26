@@ -354,7 +354,7 @@ namespace Hattfabriken.Models
                     OuterMeasurement = 58,
                     Quantity = 120,
                     MaterialCost = 2000.00,
-                    SpecialEffectCost = 0.00
+                    SpecialEffectCost = 0.00,
                 },
                 new Hat
                 {
